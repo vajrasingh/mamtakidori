@@ -1,0 +1,156 @@
+import React, { useState } from 'react';
+import { useApp } from '../context/AppContext';
+import { Volume2, Heart, AlertCircle, ArrowRight, CheckCircle2 } from 'lucide-react';
+
+export const Screen08PregnancyWeek = () => {
+  const { navigateTo, speakText, t, language } = useApp();
+  const [selectedRange, setSelectedRange] = useState('9-12');
+
+  const weekRanges = [
+    { id: '1-4', label: '1-4', desc: language === 'hi' ? 'गर्भधारण का प्रारंभ' : 'Conception' },
+    { id: '5-8', label: '5-8', desc: language === 'hi' ? 'हार्टबीट की शुरुआत' : 'First Heartbeat' },
+    { id: '9-12', label: '9-12', desc: language === 'hi' ? 'नींबू जितना आकार' : 'Lemon Size' },
+    { id: '13-16', label: '13-16', desc: language === 'hi' ? 'दूसरी तिमाही' : '2nd Trimester' },
+    { id: '17-20', label: '17-20', desc: language === 'hi' ? 'पहली हलचल' : 'First Kicks' }
+  ];
+
+  const handleListenGuide = () => {
+    const text = language === 'hi'
+      ? "सप्ताह 9 से 12 में आपका बच्चा अब छोटे नींबू जितना है। उसकी दिल की धड़कन तेज और मजबूत हो चुकी है। इस समय ज्यादा पानी पिएं, आयरन की गोली खाने के बाद लें और भारी वजन उठाने से बचें।"
+      : "In weeks 9 to 12, your baby is the size of a small lemon. The heartbeat is strong. Drink plenty of water, take your iron tablet after food, and avoid heavy lifting.";
+    speakText(text);
+  };
+
+  return (
+    <div className="screen-fade-in" style={{ padding: '16px 18px 24px', display: 'flex', flexDirection: 'column' }}>
+      {/* Title */}
+      <div style={{ marginBottom: '14px' }}>
+        <h2 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--deep-navy)', marginBottom: '4px' }}>
+          {t.screen08.title}
+        </h2>
+        <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
+          {t.screen08.subtitle}
+        </p>
+      </div>
+
+      {/* Horizontal Week Range Selector Pills */}
+      <div style={{
+        display: 'flex',
+        gap: '8px',
+        overflowX: 'auto',
+        paddingBottom: '12px',
+        marginBottom: '14px',
+        scrollbarWidth: 'none'
+      }}>
+        {weekRanges.map(range => {
+          const isSelected = selectedRange === range.id;
+          return (
+            <button
+              key={range.id}
+              onClick={() => setSelectedRange(range.id)}
+              style={{
+                padding: '8px 16px',
+                borderRadius: 'var(--radius-full)',
+                background: isSelected ? 'var(--primary-blue)' : 'var(--surface-white)',
+                color: isSelected ? 'white' : 'var(--deep-navy)',
+                border: isSelected ? 'none' : '1.5px solid var(--powder-blue)',
+                fontSize: '14px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                transition: 'all 0.2s',
+                boxShadow: isSelected ? '0 4px 12px rgba(65, 111, 152, 0.3)' : 'none'
+              }}
+            >
+              <span>सप्ताह {range.label}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Main Weekly Visual Card */}
+      <div className="m-card m-card-blue" style={{ padding: '20px', marginBottom: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '24px' }}>🍋</span>
+            <div style={{ fontSize: '16px', fontWeight: 800, color: 'var(--deep-navy)' }}>
+              {t.screen08.babySize}
+            </div>
+          </div>
+
+          <button onClick={handleListenGuide} className="btn-listen" style={{ padding: '6px 12px', fontSize: '13px' }}>
+            <Volume2 size={15} />
+            <span>{t.app.listen}</span>
+          </button>
+        </div>
+
+        {/* Baby & Mother Illustration */}
+        <div style={{
+          width: '100%',
+          height: '180px',
+          borderRadius: 'var(--radius-md)',
+          overflow: 'hidden',
+          marginBottom: '16px',
+          boxShadow: 'var(--shadow-sm)',
+          border: '2px solid white'
+        }}>
+          <img 
+            src="/assets/doctor_prenatal_clinic.jpg" 
+            alt="Fetal Growth" 
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        </div>
+
+        {/* What Happens Bullet Points */}
+        <div style={{ marginBottom: '14px' }}>
+          <h4 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--deep-navy)', marginBottom: '8px' }}>
+            {t.screen08.whatHappensTitle}
+          </h4>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', padding: 0 }}>
+            <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '14px', color: 'var(--text-primary)', lineHeight: 1.4 }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary-blue)', marginTop: '7px', flexShrink: 0 }} />
+              <span>{t.screen08.point1}</span>
+            </li>
+            <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '14px', color: 'var(--text-primary)', lineHeight: 1.4 }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary-blue)', marginTop: '7px', flexShrink: 0 }} />
+              <span>{t.screen08.point2}</span>
+            </li>
+            <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '14px', color: 'var(--text-primary)', lineHeight: 1.4 }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary-blue)', marginTop: '7px', flexShrink: 0 }} />
+              <span>{t.screen08.point3}</span>
+            </li>
+          </ul>
+        </div>
+
+        {/* Care Guidance Box */}
+        <div style={{
+          background: 'rgba(255, 255, 255, 0.85)',
+          borderRadius: 'var(--radius-sm)',
+          padding: '12px 14px',
+          borderLeft: '4px solid var(--color-warning)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+            <AlertCircle size={16} color="var(--color-warning)" />
+            <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--color-warning)' }}>
+              {language === 'hi' ? 'विशेष ध्यान रखें:' : 'Care Precautions:'}
+            </span>
+          </div>
+          <div style={{ fontSize: '13px', color: 'var(--text-primary)', lineHeight: 1.4 }}>
+            {t.screen08.careTip1} {t.screen08.careTip2}
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation Buttons */}
+      <div style={{ display: 'flex', gap: '10px', marginTop: 'auto' }}>
+        <button 
+          onClick={() => navigateTo(9)} 
+          className="btn-primary"
+        >
+          <span>{language === 'hi' ? 'जांच व चेकअप देखें' : 'View Check-ups & Tests'}</span>
+          <ArrowRight size={20} />
+        </button>
+      </div>
+    </div>
+  );
+};
