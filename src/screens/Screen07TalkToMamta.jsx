@@ -252,78 +252,91 @@ export const Screen07TalkToMamta = () => {
         </div>
       )}
 
-      {/* Suggested Questions (Chips) */}
-      <div style={{ marginTop: 'auto' }}>
-        <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--deep-navy)', marginBottom: '10px' }}>
-          {t.screen07.suggestedHeading}
+      {/* Minimal Suggested Illustrated Action Chips */}
+      <div style={{ marginTop: 'auto', paddingTop: '10px' }}>
+        <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
+          {language === 'hi' ? 'सुझाए गए प्रश्न:' : 'Suggested Questions:'}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
           <button
             onClick={() => handleSelectChip('checkup')}
-            className="category-card"
-            style={{ padding: '12px 14px', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', textAlign: 'left' }}
+            style={{
+              padding: '10px 12px',
+              borderRadius: '16px',
+              background: 'white',
+              border: '1.5px solid var(--powder-blue)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              cursor: 'pointer',
+              textAlign: 'left'
+            }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <Calendar size={18} color="var(--primary-blue)" />
-              <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' }}>
-                {t.screen07.chip2}
-              </span>
-            </div>
-            <ChevronRight size={16} color="var(--text-muted)" />
+            <Calendar size={18} color="var(--primary-blue)" style={{ flexShrink: 0 }} />
+            <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--deep-navy)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              अगला चेकअप कब?
+            </span>
           </button>
 
           <button
             onClick={() => handleSelectChip('weakness')}
-            className="category-card"
-            style={{ padding: '12px 14px', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', textAlign: 'left' }}
+            style={{
+              padding: '10px 12px',
+              borderRadius: '16px',
+              background: 'white',
+              border: '1.5px solid var(--powder-blue)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              cursor: 'pointer',
+              textAlign: 'left'
+            }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <Heart size={18} color="var(--warm-rose-dark)" />
-              <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' }}>
-                {t.screen07.chip1}
-              </span>
-            </div>
-            <ChevronRight size={16} color="var(--text-muted)" />
+            <Heart size={18} color="var(--warm-rose)" style={{ flexShrink: 0 }} />
+            <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--deep-navy)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              कमजोरी और थकान
+            </span>
           </button>
 
           <button
             onClick={() => handleSelectChip('remedy')}
-            className="category-card"
-            style={{ padding: '12px 14px', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', textAlign: 'left' }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <HelpCircle size={18} color="var(--color-warning)" />
-              <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' }}>
-                {t.screen07.chip3}
-              </span>
-            </div>
-            <ChevronRight size={16} color="var(--text-muted)" />
-          </button>
-
-          {/* Direct Link to Screen 19: Family Remedy AI & ASHA Flow */}
-          <button
-            onClick={() => navigateTo(19)}
-            className="category-card"
-            style={{ 
-              padding: '12px 14px', 
-              flexDirection: 'row', 
-              alignItems: 'center', 
-              justifyContent: 'space-between', 
-              textAlign: 'left',
-              background: 'var(--powder-blue-light)',
-              border: '1.5px solid var(--primary-blue)'
+            style={{
+              padding: '10px 12px',
+              borderRadius: '16px',
+              background: 'white',
+              border: '1.5px solid var(--powder-blue)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              cursor: 'pointer',
+              textAlign: 'left'
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <span style={{ fontSize: '18px' }}>🌿</span>
-              <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--deep-navy)' }}>
-                {language === 'hi' 
-                  ? 'सास-बहू घरेलू नुस्खा एआई सत्यापन (आशा दीदी द्वारा जांच)' 
-                  : 'Family Home Remedy AI Flow (Verify with ASHA)'}
-              </span>
-            </div>
-            <ChevronRight size={16} color="var(--primary-blue)" />
+            <Sparkles size={18} color="var(--color-warning)" style={{ flexShrink: 0 }} />
+            <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--deep-navy)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              केसर दूध का नियम
+            </span>
+          </button>
+
+          <button
+            onClick={() => navigateTo(19)}
+            style={{
+              padding: '10px 12px',
+              borderRadius: '16px',
+              background: 'var(--powder-blue-light)',
+              border: '1.5px solid var(--primary-blue)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              cursor: 'pointer',
+              textAlign: 'left'
+            }}
+          >
+            <span style={{ fontSize: '16px' }}>🌿</span>
+            <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--primary-blue)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              घरेलू नुस्खा जांचें
+            </span>
           </button>
         </div>
       </div>
