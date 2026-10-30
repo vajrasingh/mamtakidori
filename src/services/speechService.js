@@ -1,4 +1,5 @@
 // Mamta Ki Dori — Voice Interaction Service (Web Speech API + Resilient Multi-Dialect Fallbacks)
+import { ambientMusic } from './ambientMusicService';
 
 let activeUtterance = null;
 let speechSimTimeout = null;
@@ -43,16 +44,19 @@ export const speechService = {
         if (targetVoice) utterance.voice = targetVoice;
 
         utterance.onstart = () => {
+          ambientMusic.duck();
           if (onStart) onStart();
         };
 
         utterance.onend = () => {
+          ambientMusic.unduck();
           activeUtterance = null;
           if (onEnd) onEnd();
         };
 
         utterance.onerror = (e) => {
           console.warn('SpeechSynthesis error, falling back:', e);
+          ambientMusic.unduck();
           activeUtterance = null;
           if (onEnd) onEnd();
           if (onError) onError(e);
@@ -67,15 +71,18 @@ export const speechService = {
     }
 
     // Fallback: simulated speech duration for devices without local TTS
+    ambientMusic.duck();
     if (onStart) onStart();
     const duration = Math.max(3000, Math.min(9000, text.length * 60));
     speechSimTimeout = setTimeout(() => {
+      ambientMusic.unduck();
       if (onEnd) onEnd();
     }, duration);
   },
 
   // Stop speaking immediately
   stopSpeaking: () => {
+    ambientMusic.unduck();
     if (speechSimTimeout) {
       clearTimeout(speechSimTimeout);
       speechSimTimeout = null;

@@ -27,6 +27,7 @@ export const QuickScreenJumper = () => {
     { num: 17, titleHi: "स्क्रीन 17: स्वास्थ्य रिकॉर्ड्स व शेयरिंग (Records & Privacy)", titleEn: "Screen 17: Records & Privacy" },
     { num: 18, titleHi: "स्क्रीन 18: आशा कार्यकर्ता मोड (ASHA Worker Mode)", titleEn: "Screen 18: ASHA Worker Mode" },
     { num: 19, titleHi: "स्क्रीन 19: सास-बहू घरेलू नुस्खा एआई सत्यापन (Family Remedy AI & ASHA)", titleEn: "Screen 19: Family Remedy AI & ASHA Verification Flow" },
+    { num: 20, titleHi: "स्क्रीन 20: सरल ओटीपी लॉगिन (Simple Mobile OTP Login)", titleEn: "Screen 20: Simple Mobile OTP Login" },
   ];
 
   return (
@@ -63,7 +64,7 @@ export const QuickScreenJumper = () => {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
           <div>
             <h3 style={{ fontSize: '19px', fontWeight: 700, color: 'var(--deep-navy)' }}>
-              {language === 'hi' ? 'सभी 18 स्क्रीन देखें' : 'All 18 Prototype Screens'}
+              {language === 'hi' ? 'सभी 20 स्क्रीन देखें' : 'All 20 Prototype Screens'}
             </h3>
             <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
               {language === 'hi' ? 'किसी भी स्क्रीन पर तुरंत जाने के लिए टैप करें' : 'Tap any screen to jump directly'}

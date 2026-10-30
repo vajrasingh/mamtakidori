@@ -5,8 +5,8 @@ import { Home, CalendarCheck, MessageSquareHeart, Users } from 'lucide-react';
 export const BottomNav = () => {
   const { currentScreen, navigateTo, t, role } = useApp();
 
-  // Hide bottom nav on splash, language, onboarding, and registration
-  if ([1, 2, 3, 4, 5].includes(currentScreen)) {
+  // Hide bottom nav on splash, language, onboarding, registration, and login OTP
+  if ([1, 2, 3, 4, 5, 20].includes(currentScreen)) {
     return null;
   }
 

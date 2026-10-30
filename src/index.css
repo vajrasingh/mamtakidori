@@ -208,6 +208,15 @@ body.lang-en {
   padding-bottom: 96px; /* Space for Bottom Navigation */
 }
 
+/* Screens without bottom navigation bar (Splash, Language, Onboarding, Consent, Register, Login OTP) */
+.screen-scroll-container.has-no-bottom-nav {
+  padding-bottom: 0px !important;
+}
+
+.mobile-device-chassis.is-splash-screen {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FDF4F6 35%, #F7E4EA 70%, #E8F1FA 100%) !important;
+}
+
 .screen-scroll-container::-webkit-scrollbar {
   width: 4px;
 }
@@ -687,6 +696,10 @@ body.lang-en {
 
 /* Screen Transitions */
 .screen-fade-in {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   animation: fadeIn 0.3s ease-out forwards;
 }
 

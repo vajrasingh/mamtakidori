@@ -25,7 +25,9 @@ import { Screen16GetHelp } from './screens/Screen16GetHelp';
 import { Screen17RecordsPrivacy } from './screens/Screen17RecordsPrivacy';
 import { Screen18AshaMode } from './screens/Screen18AshaMode';
 import { Screen19RemedyFlow } from './screens/Screen19RemedyFlow';
+import { Screen20LoginOTP } from './screens/Screen20LoginOTP';
 import { RegionalLanguageModal } from './components/RegionalLanguageModal';
+import { AmbientMusicControl } from './components/AmbientMusicControl';
 
 import { 
   Smartphone, 
@@ -81,6 +83,7 @@ export function AppContent() {
       case 17: return <Screen17RecordsPrivacy />;
       case 18: return <Screen18AshaMode />;
       case 19: return <Screen19RemedyFlow />;
+      case 20: return <Screen20LoginOTP />;
       default: return <Screen06Home />;
     }
   };
@@ -89,7 +92,8 @@ export function AppContent() {
     "01 Splash", "02 Language", "03 Onboarding", "04 Consent", "05 Register",
     "06 Home", "07 Talk to Mamta", "08 Week-by-Week", "09 Check-ups", "10 Voice Record",
     "11 Photo Upload", "12 Symptoms", "13 Reminders", "14 Family Support", "15 Timeline",
-    "16 Get Help", "17 Records & Privacy", "18 ASHA Mode", "19 Family Remedy AI"
+    "16 Get Help", "17 Records & Privacy", "18 ASHA Mode", "19 Family Remedy AI",
+    "20 Login OTP"
   ];
 
   return (
@@ -149,14 +153,14 @@ export function AppContent() {
           </select>
 
           <button 
-            onClick={() => currentScreen < 18 && navigateTo(currentScreen + 1)}
-            disabled={currentScreen >= 18}
+            onClick={() => currentScreen < 20 && navigateTo(currentScreen + 1)}
+            disabled={currentScreen >= 20}
             style={{
               background: 'transparent',
               border: 'none',
               padding: '4px 6px',
-              cursor: currentScreen >= 18 ? 'not-allowed' : 'pointer',
-              opacity: currentScreen >= 18 ? 0.4 : 1,
+              cursor: currentScreen >= 20 ? 'not-allowed' : 'pointer',
+              opacity: currentScreen >= 20 ? 0.4 : 1,
               color: 'var(--deep-navy)'
             }}
             title="Next Screen"
@@ -225,6 +229,9 @@ export function AppContent() {
             <span>{language === 'hi' ? 'हिन्दी' : 'English'}</span>
           </button>
 
+          {/* Calming Ambient Music Control */}
+          <AmbientMusicControl language={language} />
+
           {/* All Screens Drawer */}
           <button
             onClick={() => setIsJumperOpen(true)}
@@ -232,7 +239,7 @@ export function AppContent() {
             style={{ cursor: 'pointer', padding: '6px 10px' }}
           >
             <Layers size={14} />
-            <span>All 18 Screens</span>
+            <span>All 20 Screens</span>
           </button>
 
           {/* Device Frame Viewport Toggle */}
@@ -260,7 +267,7 @@ export function AppContent() {
       </aside>
 
       {/* Smartphone Device Chassis */}
-      <main className={`mobile-device-chassis ${isFullscreen ? 'is-fullscreen' : ''}`}>
+      <main className={`mobile-device-chassis ${isFullscreen ? 'is-fullscreen' : ''} ${currentScreen === 1 ? 'is-splash-screen' : ''}`}>
         {/* Smartphone Hardware Status Bar */}
         <div className="phone-status-bar">
           <span>09:41</span>
@@ -274,11 +281,11 @@ export function AppContent() {
           </div>
         </div>
 
-        {/* Persistent Top Header (only on screens 4 to 18) */}
-        {currentScreen > 3 && <TopHeader />}
+        {/* Persistent Top Header (screens 4 to 19, excluding 20 which has dedicated back navigation) */}
+        {currentScreen > 3 && currentScreen !== 20 && <TopHeader />}
 
         {/* Scrollable Main Screen Canvas */}
-        <div className="screen-scroll-container">
+        <div className={`screen-scroll-container ${[1, 2, 3, 4, 5, 20].includes(currentScreen) ? 'has-no-bottom-nav' : ''}`}>
           {renderCurrentScreen()}
         </div>
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { Volume2, ArrowRight, ChevronRight } from 'lucide-react';
+import { Volume2, ArrowRight, ChevronRight, Smartphone } from 'lucide-react';
+import { AmbientMusicControl } from '../components/AmbientMusicControl';
 
 export const Screen03Onboarding = () => {
   const { navigateTo, speakText, t, language } = useApp();
@@ -49,8 +50,10 @@ export const Screen03Onboarding = () => {
 
   return (
     <div className="screen-fade-in" style={{ padding: '20px 20px 28px', display: 'flex', flexDirection: 'column', minHeight: '100%', justifyContent: 'space-between' }}>
-      {/* Top Skip Bar */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+      {/* Top Bar with Calming Music & Skip */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <AmbientMusicControl language={language} />
+
         <button
           onClick={handleSkip}
           style={{
@@ -134,10 +137,30 @@ export const Screen03Onboarding = () => {
           ))}
         </div>
 
-        <button onClick={handleNext} className="btn-primary">
+        <button onClick={handleNext} className="btn-primary" style={{ marginBottom: '10px' }}>
           <span>{activeSlide === slides.length - 1 ? t.screen03.btnStart : t.app.continue}</span>
           <ArrowRight size={20} />
         </button>
+
+        <div style={{ textAlign: 'center' }}>
+          <button
+            onClick={() => navigateTo(20)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--primary-blue)',
+              fontSize: '13.5px',
+              fontWeight: 800,
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}
+          >
+            <Smartphone size={15} />
+            <span>{language === 'hi' ? 'पहले से खाता है? ओटीपी से लॉगिन करें' : 'Already have an account? Login with OTP'}</span>
+          </button>
+        </div>
       </div>
     </div>
   );

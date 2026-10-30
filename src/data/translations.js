@@ -319,6 +319,21 @@ export const translations = {
       ashaVerifiedBadge: "आशा कार्यकर्ता द्वारा सत्यापित (Clinically Verified)",
       ashaVoiceBtn: "सुनीता दीदी का ऑडियो संदेश सुनें",
       scheduleVisitBtn: "गृह भेंट की पुष्टि करें (कल दोपहर 02:00 PM)"
+    },
+    screen20: {
+      title: "ओटीपी से लॉगिन करें",
+      subtitle: "अपना 10-अंकों का मोबाइल नंबर दर्ज करें",
+      phoneLabel: "मोबाइल नंबर",
+      phonePlaceholder: "98765 43210",
+      sendOtpBtn: "ओटीपी प्राप्त करें",
+      otpSentNotice: "ओटीपी आपके नंबर पर भेज दिया गया है",
+      otpLabel: "4-अंकों का गुप्त ओटीपी दर्ज करें",
+      resendOtp: "दोबारा ओटीपी भेजें",
+      resendWait: "सेकंड में दोबारा भेजें",
+      verifyBtn: "सत्यापित करें और लॉगिन करें",
+      demoPhonePill: "डेमो नंबर भरें: 98765 43210",
+      autoFillOtp: "ओटीपी भरें (5281)",
+      newUserLink: "नया पंजीकरण कराएं (Register)"
     }
   },
   en: {
@@ -639,6 +654,21 @@ export const translations = {
       ashaVerifiedBadge: "Clinically Verified by ASHA Worker",
       ashaVoiceBtn: "Listen to Sunita Didi's Voice Note",
       scheduleVisitBtn: "Confirm Home Visit (Tomorrow 02:00 PM)"
+    },
+    screen20: {
+      title: "Login with Mobile OTP",
+      subtitle: "Enter your 10-digit mobile number to access your care",
+      phoneLabel: "Mobile Number",
+      phonePlaceholder: "98765 43210",
+      sendOtpBtn: "Get OTP",
+      otpSentNotice: "4-digit verification code sent via SMS",
+      otpLabel: "Enter 4-Digit OTP Code",
+      resendOtp: "Resend Code",
+      resendWait: "Resend in",
+      verifyBtn: "Verify & Login",
+      demoPhonePill: "Use Demo: 98765 43210",
+      autoFillOtp: "Auto-fill (5281)",
+      newUserLink: "New Mother? Register here"
     }
   },
   bho: {
