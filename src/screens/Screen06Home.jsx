@@ -13,7 +13,8 @@ import {
   Users, 
   Activity, 
   AlertTriangle,
-  ArrowRight
+  ArrowRight,
+  HeartHandshake
 } from 'lucide-react';
 
 export const Screen06Home = () => {
@@ -230,6 +231,58 @@ export const Screen06Home = () => {
             flexShrink: 0
           }}>
             <Mic size={28} />
+          </div>
+        </div>
+      </div>
+
+      {/* 3b. Family Remedy AI & ASHA Co-Inquiry Card (Screen 19 Entry) */}
+      <div 
+        onClick={() => navigateTo(19)}
+        className="m-card"
+        style={{
+          padding: '16px 18px',
+          cursor: 'pointer',
+          background: 'linear-gradient(135deg, #ffffff 0%, var(--powder-blue-light) 100%)',
+          border: '1.5px solid var(--primary-blue)',
+          boxShadow: '0 6px 16px rgba(65, 111, 152, 0.14)',
+          position: 'relative',
+          overflow: 'hidden'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+              <span className="m-badge m-badge-blue" style={{ fontSize: '11px', padding: '2px 8px' }}>
+                🤝 {language === 'hi' ? 'सास-बहू सह-पूछताछ' : 'Family Co-Inquiry'}
+              </span>
+              <span style={{ fontSize: '11px', color: 'var(--color-success)', fontWeight: 700 }}>
+                ✅ {language === 'hi' ? 'आशा सत्यापित' : 'ASHA Verified'}
+              </span>
+            </div>
+
+            <h3 style={{ fontSize: '17px', fontWeight: 800, color: 'var(--deep-navy)', marginBottom: '3px' }}>
+              {language === 'hi' ? 'घरेलू नुस्खा एआई सत्यापन' : 'Family Home Remedy AI Flow'}
+            </h3>
+
+            <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.35, margin: 0 }}>
+              {language === 'hi' 
+                ? 'रानी और माताजी मिलकर ममता एआई और आशा दीदी से पूछें कि कौन सा नुस्खा सुरक्षित है।' 
+                : 'Rani & Mataji ask Mamta AI whether a home remedy is safe, verified by ASHA worker.'}
+            </p>
+          </div>
+
+          <div style={{
+            width: '48px',
+            height: '48px',
+            borderRadius: '50%',
+            background: 'var(--powder-blue)',
+            color: 'var(--primary-blue)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0
+          }}>
+            <HeartHandshake size={24} />
           </div>
         </div>
       </div>

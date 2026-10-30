@@ -195,6 +195,58 @@ export const Screen14FamilySupport = () => {
         })}
       </div>
 
+      {/* Screen 19 Entry: Family Remedy AI & ASHA Verification Flow */}
+      <div 
+        onClick={() => navigateTo(19)}
+        className="m-card"
+        style={{
+          padding: '16px 18px',
+          cursor: 'pointer',
+          background: 'linear-gradient(135deg, #ffffff 0%, var(--powder-blue-light) 100%)',
+          border: '2px solid var(--primary-blue)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: '0 6px 18px rgba(65, 111, 152, 0.16)',
+          marginBottom: '16px'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+              <span className="m-badge m-badge-blue" style={{ fontSize: '11px', padding: '2px 8px' }}>
+                🌿 {language === 'hi' ? 'घरेलू नुस्खा एआई सत्यापन' : 'Family Remedy AI Flow'}
+              </span>
+              <span style={{ fontSize: '11px', color: 'var(--color-success)', fontWeight: 700 }}>
+                ✅ {language === 'hi' ? 'आशा सत्यापित' : 'ASHA Verified'}
+              </span>
+            </div>
+
+            <h3 style={{ fontSize: '17px', fontWeight: 800, color: 'var(--deep-navy)', marginBottom: '4px' }}>
+              {language === 'hi' ? 'सास-बहू घरेलू नुस्खा एआई से पूछें' : 'Verify Traditional Remedy with Mamta AI'}
+            </h3>
+
+            <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.4, margin: 0 }}>
+              {language === 'hi' 
+                ? 'अजवाइन का पानी, कच्चा पपीता या काढ़ा सुरक्षित है या नहीं? कैमरा या आवाज़ से पूछें और सुनीता दीदी से जांच कराएं।' 
+                : 'Is ajwain water, raw papaya, or kadha safe? Scan or speak to verify with Mamta AI and ASHA worker.'}
+            </p>
+          </div>
+
+          <div style={{
+            width: '46px',
+            height: '46px',
+            borderRadius: '50%',
+            background: 'var(--primary-blue)',
+            color: 'white',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0
+          }}>
+            <ChevronRight size={22} />
+          </div>
+        </div>
+      </div>
+
       {/* Privacy Guarantee Note */}
       <div style={{
         background: 'rgba(65, 111, 152, 0.05)',

@@ -24,6 +24,8 @@ import { Screen15CareTimeline } from './screens/Screen15CareTimeline';
 import { Screen16GetHelp } from './screens/Screen16GetHelp';
 import { Screen17RecordsPrivacy } from './screens/Screen17RecordsPrivacy';
 import { Screen18AshaMode } from './screens/Screen18AshaMode';
+import { Screen19RemedyFlow } from './screens/Screen19RemedyFlow';
+import { RegionalLanguageModal } from './components/RegionalLanguageModal';
 
 import { 
   Smartphone, 
@@ -78,6 +80,7 @@ export function AppContent() {
       case 16: return <Screen16GetHelp />;
       case 17: return <Screen17RecordsPrivacy />;
       case 18: return <Screen18AshaMode />;
+      case 19: return <Screen19RemedyFlow />;
       default: return <Screen06Home />;
     }
   };
@@ -86,7 +89,7 @@ export function AppContent() {
     "01 Splash", "02 Language", "03 Onboarding", "04 Consent", "05 Register",
     "06 Home", "07 Talk to Mamta", "08 Week-by-Week", "09 Check-ups", "10 Voice Record",
     "11 Photo Upload", "12 Symptoms", "13 Reminders", "14 Family Support", "15 Timeline",
-    "16 Get Help", "17 Records & Privacy", "18 ASHA Mode"
+    "16 Get Help", "17 Records & Privacy", "18 ASHA Mode", "19 Family Remedy AI"
   ];
 
   return (
@@ -285,8 +288,11 @@ export function AppContent() {
         {/* Bottom Persistent 4-Destination Navigation */}
         <BottomNav />
 
-        {/* Drawer for Jumping between 18 Screens */}
+        {/* Drawer for Jumping between All Screens */}
         <QuickScreenJumper />
+
+        {/* Regional Dialects Selection Modal */}
+        <RegionalLanguageModal />
       </main>
     </div>
   );

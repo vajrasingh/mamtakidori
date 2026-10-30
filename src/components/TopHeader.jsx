@@ -134,22 +134,33 @@ export const TopHeader = () => {
           <span>{getRoleLabel()}</span>
         </button>
 
-        {/* Language Switcher */}
+        {/* Regional Language Switcher */}
         <button
           onClick={toggleLanguage}
           className="m-badge"
           style={{
             cursor: 'pointer',
             background: 'var(--surface-white)',
-            border: '1px solid rgba(65, 111, 152, 0.2)',
+            border: '1px solid rgba(65, 111, 152, 0.25)',
             padding: '4px 8px',
-            fontSize: '12px',
-            fontWeight: 700,
-            color: 'var(--primary-blue)'
+            fontSize: '11.5px',
+            fontWeight: 800,
+            color: 'var(--primary-blue)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '3px'
           }}
+          title="क्षेत्रीय भाषा व बोली चुनें (Select Regional Dialect)"
         >
-          <Globe size={13} style={{ marginRight: '3px' }} />
-          {language === 'hi' ? 'Eng' : 'हिन्दी'}
+          <Globe size={13} />
+          <span>
+            {language === 'bho' ? 'भोजपुरी' : 
+             language === 'mai' ? 'मैथिली' : 
+             language === 'raj' ? 'राजस्थानी' : 
+             language === 'bn' ? 'বাংলা' : 
+             language === 'mr' ? 'मराठी' : 
+             language === 'en' ? 'Eng' : 'हिन्दी'}
+          </span>
         </button>
 
         {/* Urgent Help (SOS) */}

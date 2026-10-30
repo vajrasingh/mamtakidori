@@ -2,11 +2,22 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { translations } from '../data/translations';
 import { speechService } from '../services/speechService';
 
+export const AVAILABLE_LANGUAGES = [
+  { code: 'hi', name: 'हिन्दी', region: 'उत्तर भारत', script: 'Hindi', preview: 'नमस्ते! मैं ममता हूँ।' },
+  { code: 'bho', name: 'भोजपुरी', region: 'बिहार व पूर्वी उप्र', script: 'Bhojpuri', preview: 'प्रणाम! हम ममता हईं।' },
+  { code: 'mai', name: 'मैथिली', region: 'मिथिलांचल / बिहार', script: 'Maithili', preview: 'प्रणाम! हम ममता छी।' },
+  { code: 'raj', name: 'राजस्थानी', region: 'राजस्थान / मारवाड़', script: 'Rajasthani', preview: 'खम्मा घणी! म्हें ममता हूँ।' },
+  { code: 'bn', name: 'বাংলা', region: 'পশ্চিমবঙ্গ / ত্রিপুরা', script: 'Bengali', preview: 'নমস্কার! আমি মমতা।' },
+  { code: 'mr', name: 'मराठी', region: 'महाराष्ट्र', script: 'Marathi', preview: 'नमस्कार! मी ममता आहे.' },
+  { code: 'en', name: 'English', region: 'National / Standard', script: 'English', preview: 'Hello! I am Mamta.' }
+];
+
 const AppContext = createContext(null);
 
 export const AppProvider = ({ children }) => {
-  const [language, setLanguage] = useState('hi'); // 'hi' or 'en'
-  const [currentScreen, setCurrentScreen] = useState(1); // 1 to 18
+  const [language, setLanguage] = useState('hi'); // 'hi', 'bho', 'mai', 'raj', 'bn', 'mr', 'en'
+  const [isLangModalOpen, setIsLangModalOpen] = useState(false);
+  const [currentScreen, setCurrentScreen] = useState(1); // 1 to 19
   const [screenHistory, setScreenHistory] = useState([1]);
   const [role, setRole] = useState('mother'); // 'mother', 'mil', 'asha'
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -33,7 +44,7 @@ export const AppProvider = ({ children }) => {
   // Consent & Privacy Permissions
   const [consent, setConsent] = useState({
     essential: true,
-    familySharing: false,
+    familySharing: true,
     ashaSharing: true,
     discreetNotifications: true,
     sharedPinEnabled: false
@@ -68,15 +79,37 @@ export const AppProvider = ({ children }) => {
     }
   ]);
 
-  // Current translation strings
-  const t = translations[language];
+  // Resilient translation resolver (falls back to Hindi if specific regional key missing)
+  const currentTranslation = translations[language] || translations.hi;
+  const fallbackTranslation = translations.hi;
 
-  // Language toggle
+  const t = new Proxy(currentTranslation, {
+    get(target, prop) {
+      if (prop in target) return target[prop];
+      return fallbackTranslation[prop] || {};
+    }
+  });
+
+  // Language changer with voice preview
+  const changeLanguage = (langCode) => {
+    speechService.stopSpeaking();
+    setLanguage(langCode);
+    document.body.className = `lang-${langCode}`;
+    setIsLangModalOpen(false);
+
+    const langObj = AVAILABLE_LANGUAGES.find(l => l.code === langCode);
+    if (langObj && langObj.preview) {
+      setTimeout(() => {
+        speechService.speak(langObj.preview, langCode, {
+          onStart: () => setIsSpeaking(true),
+          onEnd: () => setIsSpeaking(false)
+        });
+      }, 300);
+    }
+  };
+
   const toggleLanguage = () => {
-    const nextLang = language === 'hi' ? 'en' : 'hi';
-    setLanguage(nextLang);
-    if (isSpeaking) speechService.stopSpeaking();
-    document.body.className = nextLang === 'en' ? 'lang-en' : 'lang-hi';
+    setIsLangModalOpen(true);
   };
 
   // Screen Navigation with history tracking
@@ -146,7 +179,11 @@ export const AppProvider = ({ children }) => {
       value={{
         language,
         setLanguage,
+        changeLanguage,
         toggleLanguage,
+        isLangModalOpen,
+        setIsLangModalOpen,
+        availableLanguages: AVAILABLE_LANGUAGES,
         t,
         currentScreen,
         setCurrentScreen,

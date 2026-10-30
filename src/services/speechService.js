@@ -1,30 +1,45 @@
-// Mamta Ki Dori — Voice Interaction Service (Web Speech API + Resilient Fallbacks)
+// Mamta Ki Dori — Voice Interaction Service (Web Speech API + Resilient Multi-Dialect Fallbacks)
 
 let activeUtterance = null;
 let speechSimTimeout = null;
 let recognitionInstance = null;
+
+const LANG_MAP = {
+  hi: 'hi-IN',
+  bho: 'hi-IN', // Bhojpuri maps phonetically to Hindi TTS with dialect vocabulary
+  mai: 'hi-IN', // Maithili maps phonetically to Hindi TTS
+  raj: 'hi-IN', // Rajasthani maps to Hindi TTS
+  bn: 'bn-IN',  // Bengali
+  mr: 'mr-IN',  // Marathi
+  en: 'en-IN'   // Indian English
+};
 
 export const speechService = {
   // Check browser support
   hasTTS: () => typeof window !== 'undefined' && 'speechSynthesis' in window,
   hasSTT: () => typeof window !== 'undefined' && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window),
 
-  // Speak aloud in Hindi or English
-  speak: (text, lang = 'hi-IN', { onStart, onEnd } = {}) => {
+  // Speak aloud in chosen language or dialect
+  speak: (text, langCode = 'hi', { onStart, onEnd, onError } = {}) => {
     speechService.stopSpeaking();
+
+    const targetLang = LANG_MAP[langCode] || 'hi-IN';
 
     if (speechService.hasTTS()) {
       try {
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = lang === 'en' ? 'en-IN' : 'hi-IN';
-        utterance.rate = 0.92; // Slightly measured rate for rural understanding
-        utterance.pitch = 1.05; // Friendly warm tone
+        utterance.lang = targetLang;
+        utterance.rate = 0.90; // Gentle, measured rate for rural clarity
+        utterance.pitch = 1.05; // Warm, friendly maternal tone
 
         // Pick best matching voice if available
         const voices = window.speechSynthesis.getVoices();
-        const targetVoice = voices.find(v => 
-          (lang === 'en' ? v.lang.startsWith('en') : (v.lang.includes('hi') || v.lang.includes('Hindi')))
-        );
+        const targetVoice = voices.find(v => {
+          if (langCode === 'en') return v.lang.startsWith('en');
+          if (langCode === 'bn') return v.lang.includes('bn') || v.lang.includes('Bengali');
+          if (langCode === 'mr') return v.lang.includes('mr') || v.lang.includes('Marathi');
+          return v.lang.includes('hi') || v.lang.includes('Hindi');
+        });
         if (targetVoice) utterance.voice = targetVoice;
 
         utterance.onstart = () => {
@@ -40,6 +55,7 @@ export const speechService = {
           console.warn('SpeechSynthesis error, falling back:', e);
           activeUtterance = null;
           if (onEnd) onEnd();
+          if (onError) onError(e);
         };
 
         activeUtterance = utterance;
@@ -50,9 +66,9 @@ export const speechService = {
       }
     }
 
-    // Fallback: simulated speech duration
+    // Fallback: simulated speech duration for devices without local TTS
     if (onStart) onStart();
-    const duration = Math.max(2500, Math.min(8000, text.length * 70));
+    const duration = Math.max(3000, Math.min(9000, text.length * 60));
     speechSimTimeout = setTimeout(() => {
       if (onEnd) onEnd();
     }, duration);
@@ -75,15 +91,16 @@ export const speechService = {
   },
 
   // Start Voice Recognition (Speech-to-Text)
-  startListening: ({ lang = 'hi-IN', onStart, onResult, onError, onEnd }) => {
+  startListening: ({ langCode = 'hi', onStart, onResult, onError, onEnd }) => {
     speechService.stopListening();
 
+    const targetLang = LANG_MAP[langCode] || 'hi-IN';
     const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
 
     if (SpeechRec) {
       try {
         const recognition = new SpeechRec();
-        recognition.lang = lang === 'en' ? 'en-IN' : 'hi-IN';
+        recognition.lang = targetLang;
         recognition.continuous = false;
         recognition.interimResults = true;
 
@@ -118,25 +135,49 @@ export const speechService = {
 
     // Graceful Simulation if STT is not supported or blocked
     if (onStart) onStart();
-    const simulatedQueries = lang === 'en' ? [
-      "When is my next hospital check-up?",
-      "I am feeling very tired and weak.",
-      "Is saffron milk safe during pregnancy?",
-      "How can I contact my ASHA worker?"
-    ] : [
-      "मेरा अगला चेकअप कब है?",
-      "मुझे बहुत कमजोरी और थकान लग रही है।",
-      "क्या केसर वाला दूध पीना सुरक्षित है?",
-      "सुनीता दीदी (आशा कार्यकर्ता) से कैसे बात करें?"
-    ];
+    const simulatedQueries = {
+      hi: [
+        "क्या बहू को गैस में अजवाइन का पानी दे सकते हैं?",
+        "क्या पहली तिमाही में कच्चा पपीता खाना सुरक्षित है?",
+        "केसर और हल्दी वाला दूध कितनी मात्रा में देना चाहिए?",
+        "सुनीता दीदी से घरेलू नुस्खे की जांच कैसे करवाएं?"
+      ],
+      bho: [
+        "का पतोहू के पेट के गैस में अजवाइन-सौंफ के पानी दिहल जा सकेला?",
+        "का गर्भ में कच्चा पपीता खाइल ठीक बा?",
+        "सुनीता दीदी से नुस्खा के जांच करा दीं।"
+      ],
+      mai: [
+        "की पतोहू के गैस में अजवाइन-सौंफक काढ़ा द सकैत छी?",
+        "की गर्भावस्था में कच्चा पपीता सुरक्षित अछि?"
+      ],
+      raj: [
+        "कांई बींदणी नै पेट गैस में अजवायन रौ पाणी पाय सका?",
+        "कांई कच्चो पपीतो खावणो ठीक छे?"
+      ],
+      bn: [
+        "গর্ভাবস্থায় কি কাঁচা পেঁপে খাওয়া নিরাপদ?",
+        "বউমাকে কি জোয়ান ও মৌরির জল দেওয়া যাবে?"
+      ],
+      mr: [
+        "गरोदरपणात कच्ची पपई खाणे सुरक्षित आहे का?",
+        "सुनेला ओवा आणि बडीशेपचे पाणी देता येईल का?"
+      ],
+      en: [
+        "Is ajwain and fennel seed water safe for morning sickness and gas?",
+        "Can we give raw papaya curry during early pregnancy?",
+        "Can ASHA worker Sunita Didi verify this traditional remedy?"
+      ]
+    };
 
-    const randomPick = simulatedQueries[Math.floor(Math.random() * simulatedQueries.length)];
+    const pool = simulatedQueries[langCode] || simulatedQueries.hi;
+    const randomPick = pool[Math.floor(Math.random() * pool.length)];
     
-    // Simulate speaking after 2.5 seconds
+    // Simulate speaking after 2.2 seconds
     speechSimTimeout = setTimeout(() => {
       if (onResult) onResult(randomPick, true);
       if (onEnd) onEnd();
-    }, 2500);
+    }, 2200);
   },
 
   // Stop Listening

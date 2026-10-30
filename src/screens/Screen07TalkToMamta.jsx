@@ -300,6 +300,31 @@ export const Screen07TalkToMamta = () => {
             </div>
             <ChevronRight size={16} color="var(--text-muted)" />
           </button>
+
+          {/* Direct Link to Screen 19: Family Remedy AI & ASHA Flow */}
+          <button
+            onClick={() => navigateTo(19)}
+            className="category-card"
+            style={{ 
+              padding: '12px 14px', 
+              flexDirection: 'row', 
+              alignItems: 'center', 
+              justifyContent: 'space-between', 
+              textAlign: 'left',
+              background: 'var(--powder-blue-light)',
+              border: '1.5px solid var(--primary-blue)'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{ fontSize: '18px' }}>🌿</span>
+              <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--deep-navy)' }}>
+                {language === 'hi' 
+                  ? 'सास-बहू घरेलू नुस्खा एआई सत्यापन (आशा दीदी द्वारा जांच)' 
+                  : 'Family Home Remedy AI Flow (Verify with ASHA)'}
+              </span>
+            </div>
+            <ChevronRight size={16} color="var(--primary-blue)" />
+          </button>
         </div>
       </div>
     </div>

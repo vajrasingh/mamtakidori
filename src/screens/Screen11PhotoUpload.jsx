@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
-import { Camera, Image as ImageIcon, CheckCircle2, AlertTriangle, ShieldCheck, ArrowRight, X } from 'lucide-react';
+import { Camera, Image as ImageIcon, CheckCircle2, AlertTriangle, ShieldCheck, ArrowRight, X, Scan, Upload } from 'lucide-react';
 
 export const Screen11PhotoUpload = () => {
   const { navigateTo, speakText, t, language } = useApp();
   const [selectedType, setSelectedType] = useState('prescription');
   const [previewImage, setPreviewImage] = useState(null);
   const [isSaved, setIsSaved] = useState(false);
+  const [isCameraActive, setIsCameraActive] = useState(false);
+
+  const videoRef = useRef(null);
+  const streamRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   const recordTypes = [
     { id: 'prescription', label: t.screen11.type1, icon: '💊' },
@@ -14,14 +19,70 @@ export const Screen11PhotoUpload = () => {
     { id: 'mcp', label: t.screen11.type3, icon: '📋' }
   ];
 
-  const handleSimulateUpload = (source) => {
-    // Simulated realistic photo capture
-    setPreviewImage('/assets/doctor_prenatal_clinic.jpg');
+  const startCamera = async () => {
+    setIsCameraActive(true);
+    setPreviewImage(null);
+
+    try {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'environment' }
+        });
+        streamRef.current = stream;
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      }
+    } catch (e) {
+      console.warn('Live camera access failed:', e);
+    }
+  };
+
+  const stopCamera = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+    }
+    setIsCameraActive(false);
+  };
+
+  const snapPhoto = () => {
+    if (videoRef.current && videoRef.current.videoWidth > 0) {
+      const canvas = document.createElement('canvas');
+      canvas.width = videoRef.current.videoWidth;
+      canvas.height = videoRef.current.videoHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+      const dataUrl = canvas.toDataURL('image/jpeg');
+      setPreviewImage(dataUrl);
+    } else {
+      setPreviewImage('/assets/doctor_prenatal_clinic.jpg');
+    }
+    stopCamera();
+
     speakText(language === 'hi' 
-      ? "दवा पर्ची का फोटो लोड हो गया है। कृपया रिकॉर्ड का प्रकार चुनकर सेव करें।" 
-      : "Document photo loaded. Please confirm the record type and save."
+      ? "दस्तावेज़ की फोटो ले ली गई है। कृपया श्रेणी की पुष्टि करके सेव करें।" 
+      : "Document image captured. Please confirm category and save."
     );
   };
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setPreviewImage(event.target.result);
+        stopCamera();
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      stopCamera();
+    };
+  }, []);
 
   const handleSave = () => {
     setIsSaved(true);
@@ -46,8 +107,92 @@ export const Screen11PhotoUpload = () => {
         </p>
       </div>
 
+      <input 
+        type="file" 
+        accept="image/*" 
+        capture="environment" 
+        ref={fileInputRef} 
+        style={{ display: 'none' }} 
+        onChange={handleFileUpload} 
+      />
+
+      {/* Live Camera Viewfinder if active */}
+      {isCameraActive && (
+        <div style={{
+          position: 'relative',
+          borderRadius: 'var(--radius-lg)',
+          overflow: 'hidden',
+          background: '#000',
+          aspectRatio: '4/3',
+          marginBottom: '20px',
+          border: '2px solid var(--primary-blue)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <video ref={videoRef} autoPlay playsInline muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          
+          {/* Scanner Reticle */}
+          <div style={{
+            position: 'absolute',
+            inset: '16px',
+            border: '2px solid rgba(255, 255, 255, 0.4)',
+            borderRadius: '12px',
+            pointerEvents: 'none'
+          }} />
+
+          {/* Shutter capture button */}
+          <div style={{
+            position: 'absolute',
+            bottom: '12px',
+            left: 0,
+            right: 0,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '16px'
+          }}>
+            <button
+              onClick={snapPhoto}
+              style={{
+                width: '56px',
+                height: '56px',
+                borderRadius: '50%',
+                background: 'white',
+                border: '4px solid var(--primary-blue)',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+              title="फोटो खींचें"
+            >
+              <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--warm-rose)' }} />
+            </button>
+
+            <button
+              onClick={stopCamera}
+              style={{
+                background: 'rgba(0, 0, 0, 0.6)',
+                border: 'none',
+                borderRadius: '50%',
+                width: '36px',
+                height: '36px',
+                color: 'white',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <X size={18} />
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Upload Drop Zone / Camera Box */}
-      {!previewImage ? (
+      {!previewImage && !isCameraActive && (
         <div style={{
           border: '2px dashed var(--primary-blue)',
           borderRadius: 'var(--radius-lg)',
@@ -79,7 +224,7 @@ export const Screen11PhotoUpload = () => {
 
           <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
             <button
-              onClick={() => handleSimulateUpload('camera')}
+              onClick={startCamera}
               className="btn-primary"
               style={{ flex: 1, minHeight: '48px', fontSize: '15px', padding: '8px 12px' }}
             >
@@ -88,7 +233,7 @@ export const Screen11PhotoUpload = () => {
             </button>
 
             <button
-              onClick={() => handleSimulateUpload('gallery')}
+              onClick={() => fileInputRef.current && fileInputRef.current.click()}
               className="btn-secondary"
               style={{ flex: 1, minHeight: '48px', fontSize: '15px', padding: '8px 12px' }}
             >
@@ -97,8 +242,10 @@ export const Screen11PhotoUpload = () => {
             </button>
           </div>
         </div>
-      ) : (
-        /* Image Preview Area */
+      )}
+
+      {/* Image Preview Area */}
+      {previewImage && (
         <div style={{
           borderRadius: 'var(--radius-lg)',
           overflow: 'hidden',
@@ -131,95 +278,90 @@ export const Screen11PhotoUpload = () => {
 
           <img 
             src={previewImage} 
-            alt="Uploaded Preview" 
-            style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+            alt="Uploaded Health Record" 
+            style={{ width: '100%', maxHeight: '220px', objectFit: 'cover' }}
           />
 
-          <div style={{ padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ padding: '12px 16px', background: 'white', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <CheckCircle2 size={18} color="var(--color-success)" />
-            <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--deep-navy)' }}>
-              {language === 'hi' ? 'दस्तावेज़ सफलतापूर्वक लोड हुआ' : 'Document successfully loaded'}
+            <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--deep-navy)' }}>
+              {language === 'hi' ? 'दस्तावेज़ सफलतापूर्वक कैप्चर किया गया' : 'Document captured successfully'}
             </span>
           </div>
         </div>
       )}
 
-      {/* Record Category Checklist */}
-      <div style={{ marginBottom: '18px' }}>
-        <label style={{ display: 'block', fontSize: '15px', fontWeight: 700, color: 'var(--deep-navy)', marginBottom: '10px' }}>
-          {t.screen11.selectType}
+      {/* Select Record Type */}
+      <div style={{ marginBottom: '20px' }}>
+        <label style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', marginBottom: '8px', display: 'block' }}>
+          {t.screen11.categoryLabel}
         </label>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {recordTypes.map(item => {
-            const isSelected = selectedType === item.id;
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
+          {recordTypes.map(rt => {
+            const isSelected = selectedType === rt.id;
             return (
-              <div
-                key={item.id}
-                onClick={() => setSelectedType(item.id)}
+              <button
+                key={rt.id}
+                onClick={() => setSelectedType(rt.id)}
                 style={{
-                  padding: '12px 14px',
-                  borderRadius: 'var(--radius-md)',
                   background: isSelected ? 'var(--powder-blue-light)' : 'var(--surface-white)',
-                  border: isSelected ? '2px solid var(--primary-blue)' : '1px solid rgba(65, 111, 152, 0.1)',
+                  border: isSelected ? '2px solid var(--primary-blue)' : '1px solid var(--border-light)',
+                  borderRadius: 'var(--radius-md)',
+                  padding: '12px 6px',
                   display: 'flex',
+                  flexDirection: 'column',
                   alignItems: 'center',
-                  justifyContent: 'space-between',
-                  cursor: 'pointer'
+                  gap: '6px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s'
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ fontSize: '20px' }}>{item.icon}</span>
-                  <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-primary)' }}>
-                    {item.label}
-                  </span>
-                </div>
-
-                <div style={{
-                  width: '20px',
-                  height: '20px',
-                  borderRadius: '50%',
-                  background: isSelected ? 'var(--primary-blue)' : 'white',
-                  border: isSelected ? 'none' : '2px solid #BAC7D5',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'white'
-                }}>
-                  {isSelected && <CheckCircle2 size={16} />}
-                </div>
-              </div>
+                <span style={{ fontSize: '24px' }}>{rt.icon}</span>
+                <span style={{ fontSize: '12px', fontWeight: 700, color: isSelected ? 'var(--primary-blue)' : 'var(--deep-navy)', textAlign: 'center' }}>
+                  {rt.label}
+                </span>
+              </button>
             );
           })}
         </div>
       </div>
 
-      {/* Critical Safety Notice Banner */}
+      {/* Privacy Guarantee Pill */}
       <div style={{
-        background: 'var(--color-warning-bg)',
-        borderLeft: '4px solid var(--color-warning)',
-        borderRadius: 'var(--radius-sm)',
-        padding: '12px 14px',
-        marginBottom: '20px'
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        padding: '10px 14px',
+        borderRadius: 'var(--radius-md)',
+        background: 'rgba(72, 187, 120, 0.1)',
+        marginBottom: '24px'
       }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-          <AlertTriangle size={18} color="var(--color-warning)" style={{ flexShrink: 0, marginTop: '2px' }} />
-          <p style={{ fontSize: '12.5px', color: 'var(--deep-navy)', lineHeight: 1.45, fontWeight: 500 }}>
-            {t.screen11.safetyWarning}
-          </p>
-        </div>
+        <ShieldCheck size={20} color="var(--color-success)" style={{ flexShrink: 0 }} />
+        <span style={{ fontSize: '12px', color: 'var(--deep-navy)', lineHeight: 1.35 }}>
+          {t.screen11.privacyNotice}
+        </span>
       </div>
 
       {/* Save Button */}
       <div style={{ marginTop: 'auto' }}>
-        <button 
-          onClick={handleSave} 
-          className="btn-primary"
+        <button
+          onClick={handleSave}
           disabled={!previewImage}
-          style={{ opacity: previewImage ? 1 : 0.6 }}
+          className="btn-primary"
+          style={{ width: '100%', minHeight: '52px', opacity: previewImage ? 1 : 0.6 }}
         >
-          {isSaved ? <CheckCircle2 size={20} /> : <ShieldCheck size={20} />}
-          <span>{isSaved ? (language === 'hi' ? 'सेव हो गया!' : 'Saved to Records!') : (language === 'hi' ? 'रिकॉर्ड्स में सुरक्षित करें' : 'Save to My Records')}</span>
+          {isSaved ? (
+            <>
+              <CheckCircle2 size={20} />
+              <span>{language === 'hi' ? 'सुरक्षित हो गया!' : 'Safely Stored!'}</span>
+            </>
+          ) : (
+            <>
+              <span>{t.screen11.btnSave}</span>
+              <ArrowRight size={20} />
+            </>
+          )}
         </button>
       </div>
     </div>
