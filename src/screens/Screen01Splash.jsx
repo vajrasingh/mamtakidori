@@ -1,25 +1,21 @@
 import React, { useEffect } from 'react';
 import { useApp } from '../context/AppContext';
-import { Sparkles, ArrowRight, Smartphone } from 'lucide-react';
-import { AmbientMusicControl } from '../components/AmbientMusicControl';
-import { ambientMusic } from '../services/ambientMusicService';
+import { Sparkles } from 'lucide-react';
 
 export const Screen01Splash = () => {
   const { navigateTo, t, language } = useApp();
 
-  // Gentle auto transition after 8 seconds if untouched, giving ample time to choose login or start
+  // Smooth auto-transition after 3 seconds directly to Language Screen
   useEffect(() => {
     const timer = setTimeout(() => {
       navigateTo(2);
-    }, 8000);
+    }, 3200);
     return () => clearTimeout(timer);
   }, []);
 
-  // Auto-start ambient music on first tap anywhere
+  // Tap anywhere to immediately proceed to Language Screen
   const handleScreenClick = () => {
-    if (!ambientMusic.isPlaying()) {
-      ambientMusic.start();
-    }
+    navigateTo(2);
   };
 
   return (
@@ -66,11 +62,11 @@ export const Screen01Splash = () => {
         pointerEvents: 'none'
       }} />
 
-      {/* Top Branding Pill & Calming Music Toggle */}
+      {/* Top Branding Pill */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         width: '100%',
         maxWidth: '340px',
         marginTop: '6px',
@@ -91,8 +87,6 @@ export const Screen01Splash = () => {
             {language === 'hi' ? 'ग्रामीण मातृत्व साथी' : 'Rural Maternal Companion'}
           </span>
         </div>
-
-        <AmbientMusicControl language={language} />
       </div>
 
       {/* Centerpiece: Official Brand Logo & Protective Ribbon */}
@@ -151,51 +145,32 @@ export const Screen01Splash = () => {
         </p>
       </div>
 
-      {/* Bottom Start Action & Simple OTP Login */}
-      <div style={{ width: '100%', maxWidth: '320px', zIndex: 10, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        {/* Primary Start / Onboarding Button */}
-        <button 
-          onClick={() => navigateTo(2)}
-          className="btn-primary"
-          style={{
-            background: 'var(--gradient-primary)',
-            fontSize: '18px',
-            letterSpacing: '0.2px',
-            width: '100%',
-            boxShadow: '0 8px 20px rgba(65, 111, 152, 0.22)'
-          }}
-        >
-          <span>{language === 'hi' ? 'शुरू करें / Start' : 'Get Started'}</span>
-          <ArrowRight size={20} />
-        </button>
+      {/* Minimal Bottom Prompt (No Buttons) */}
+      <div style={{ zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          background: 'rgba(255, 255, 255, 0.9)',
+          padding: '8px 18px',
+          borderRadius: '24px',
+          border: '1.5px solid rgba(217, 145, 165, 0.35)',
+          boxShadow: '0 4px 14px rgba(65, 111, 152, 0.08)'
+        }}>
+          <span style={{
+            width: '8px',
+            height: '8px',
+            borderRadius: '50%',
+            background: 'var(--warm-rose)',
+            display: 'inline-block'
+          }} />
+          <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--deep-navy)' }}>
+            {language === 'hi' ? 'शुरू करने के लिए स्क्रीन छुएं' : 'Tap anywhere to start'}
+          </span>
+        </div>
 
-        {/* Simple OTP Login Direct Option */}
-        <button
-          onClick={() => navigateTo(20)}
-          style={{
-            width: '100%',
-            minHeight: '48px',
-            background: 'rgba(255, 255, 255, 0.95)',
-            border: '2px solid var(--primary-blue)',
-            borderRadius: '24px',
-            color: 'var(--primary-blue)',
-            fontSize: '15px',
-            fontWeight: 800,
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '8px',
-            boxShadow: '0 4px 14px rgba(65, 111, 152, 0.1)',
-            transition: 'all 0.2s'
-          }}
-        >
-          <Smartphone size={18} color="var(--primary-blue)" />
-          <span>{language === 'hi' ? 'ओटीपी से लॉगिन करें' : 'Login with Mobile OTP'}</span>
-        </button>
-
-        <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: '2px 0 0' }}>
-          {language === 'hi' ? 'आवाज़ से संचालित, सुरक्षित और मुफ़्त' : 'Voice-first, safe & free'}
+        <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: '2px 0 0' }}>
+          {language === 'hi' ? 'आवाज़ से संचालित • सुरक्षित • मुफ़्त' : 'Voice-first • Safe • Free'}
         </p>
       </div>
     </div>

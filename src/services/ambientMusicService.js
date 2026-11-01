@@ -60,26 +60,11 @@ class AmbientMusicService {
     return true;
   }
 
-  // Start playing soothing ambiance
+  // Start playing soothing ambiance (Disabled per user request)
   start() {
-    if (this.isPlayingState) return;
-    if (!this.init()) return;
-
-    this.isPlayingState = true;
+    this.stop();
+    this.isPlayingState = false;
     this.notify();
-
-    const now = this.ctx.currentTime;
-
-    // Smooth master fade in
-    this.masterGain.gain.cancelScheduledValues(now);
-    this.masterGain.gain.setValueAtTime(this.masterGain.gain.value || 0.0001, now);
-    this.masterGain.gain.exponentialRampToValueAtTime(this.targetVolume, now + 1.8);
-
-    // 1. Create Warm Lullaby Drone
-    this.startWarmDrone();
-
-    // 2. Start Gentle Pentatonic Chimes Loop
-    this.startGentleMelody();
   }
 
   startWarmDrone() {

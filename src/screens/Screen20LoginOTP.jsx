@@ -12,7 +12,6 @@ import {
   Globe,
   MessageSquare
 } from 'lucide-react';
-import { AmbientMusicControl } from '../components/AmbientMusicControl';
 
 export const Screen20LoginOTP = () => {
   const { navigateTo, language, toggleLanguage, availableLanguages, setUserProfile, t } = useApp();
@@ -131,7 +130,7 @@ export const Screen20LoginOTP = () => {
       {/* Top Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
         <button
-          onClick={() => step === 'otp' ? setStep('phone') : navigateTo(1)}
+          onClick={() => step === 'otp' ? setStep('phone') : navigateTo(2)}
           style={{
             background: 'var(--powder-blue)',
             border: 'none',
@@ -148,8 +147,6 @@ export const Screen20LoginOTP = () => {
         >
           <ArrowLeft size={18} />
         </button>
-
-        <AmbientMusicControl language={language} />
 
         {/* Dialect Toggle */}
         <button

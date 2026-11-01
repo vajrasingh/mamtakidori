@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { Volume2, CheckCircle2, ArrowRight, Globe } from 'lucide-react';
 import { speechService } from '../services/speechService';
-import { AmbientMusicControl } from '../components/AmbientMusicControl';
 
 export const Screen02Language = () => {
   const { language, setLanguage, navigateTo, availableLanguages, t } = useApp();
@@ -21,15 +20,11 @@ export const Screen02Language = () => {
 
   const handleContinue = () => {
     setLanguage(selectedLang);
-    navigateTo(3); // Go to Onboarding
+    navigateTo(20); // Go to Login Screen with Mobile OTP!
   };
 
   return (
-    <div className="screen-fade-in" style={{ padding: '16px 18px 28px', display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
-      {/* Top Bar with Ambient Calming Music */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '6px' }}>
-        <AmbientMusicControl language={selectedLang} />
-      </div>
+    <div className="screen-fade-in" style={{ padding: '20px 18px 28px', display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
       {/* Header */}
       <div style={{ textAlign: 'center', margin: '4px 0 16px' }}>
         <div style={{

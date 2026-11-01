@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { Volume2, ArrowRight, ChevronRight, Smartphone } from 'lucide-react';
-import { AmbientMusicControl } from '../components/AmbientMusicControl';
 
 export const Screen03Onboarding = () => {
   const { navigateTo, speakText, t, language } = useApp();
@@ -50,9 +49,8 @@ export const Screen03Onboarding = () => {
 
   return (
     <div className="screen-fade-in" style={{ padding: '20px 20px 28px', display: 'flex', flexDirection: 'column', minHeight: '100%', justifyContent: 'space-between' }}>
-      {/* Top Bar with Calming Music & Skip */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <AmbientMusicControl language={language} />
+      {/* Top Bar with Skip */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
 
         <button
           onClick={handleSkip}
