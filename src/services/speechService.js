@@ -17,6 +17,7 @@ let voicesInitialized = false;
 // Web Speech API language tag mapping
 const SPEECH_SYNTH_LANG_MAP = {
   hi: 'hi-IN',
+  braj: 'hi-IN',
   bho: 'hi-IN',
   mai: 'hi-IN',
   raj: 'hi-IN',

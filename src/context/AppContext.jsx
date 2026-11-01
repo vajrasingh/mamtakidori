@@ -5,12 +5,13 @@ import { SCREEN_NARRATIONS } from '../data/screenNarrations';
 
 export const AVAILABLE_LANGUAGES = [
   { code: 'hi', name: 'हिन्दी', region: 'उत्तर भारत', script: 'Hindi', preview: 'नमस्ते! मैं ममता हूँ।' },
+  { code: 'en', name: 'English', region: 'National / Standard', script: 'English', preview: 'Hello! I am Mamta.' },
+  { code: 'braj', name: 'ब्रजभाषा', region: 'ब्रज क्षेत्र / पश्चिमी उप्र (मथुरा-आगरा)', script: 'Braj Bhasha', preview: 'राधे-राधे! हम ममता हैं।' },
   { code: 'bho', name: 'भोजपुरी', region: 'बिहार व पूर्वी उप्र', script: 'Bhojpuri', preview: 'प्रणाम! हम ममता हईं।' },
   { code: 'mai', name: 'मैथिली', region: 'मिथिलांचल / बिहार', script: 'Maithili', preview: 'प्रणाम! हम ममता छी।' },
   { code: 'raj', name: 'राजस्थानी', region: 'राजस्थान / मारवाड़', script: 'Rajasthani', preview: 'खम्मा घणी! म्हें ममता हूँ।' },
   { code: 'bn', name: 'বাংলা', region: 'পশ্চিমবঙ্গ / ত্রিপুরা', script: 'Bengali', preview: 'নমস্কার! আমি মমতা।' },
-  { code: 'mr', name: 'मराठी', region: 'महाराष्ट्र', script: 'Marathi', preview: 'नमस्कार! मी ममता आहे.' },
-  { code: 'en', name: 'English', region: 'National / Standard', script: 'English', preview: 'Hello! I am Mamta.' }
+  { code: 'mr', name: 'मराठी', region: 'महाराष्ट्र', script: 'Marathi', preview: 'नमस्कार! मी ममता आहे.' }
 ];
 
 const AppContext = createContext(null);
