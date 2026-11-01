@@ -70,8 +70,8 @@ export const Screen06Home = () => {
           {/* Minimal Progress Bar */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', fontWeight: 700, color: 'var(--primary-blue)', marginBottom: '3px' }}>
-              <span>12 हफ्ता</span>
-              <span>40 हफ्ता</span>
+              <span>{language === 'en' ? 'Wk 12' : '12 हफ्ता'}</span>
+              <span>{language === 'en' ? 'Wk 40' : '40 हफ्ता'}</span>
             </div>
             <div style={{ width: '100%', height: '6px', background: 'rgba(65, 111, 152, 0.12)', borderRadius: '4px', overflow: 'hidden' }}>
               <div style={{ width: '30%', height: '100%', background: 'linear-gradient(90deg, var(--warm-rose), var(--primary-blue))', borderRadius: '4px' }} />
@@ -102,7 +102,7 @@ export const Screen06Home = () => {
               height: '100%', 
               objectFit: 'contain',
               filter: 'drop-shadow(0 6px 14px rgba(23, 54, 83, 0.14))'
-            }}
+            }} 
           />
         </div>
       </div>
@@ -141,7 +141,7 @@ export const Screen06Home = () => {
               {language === 'hi' ? 'अगला अस्पताल चेकअप' : 'Next ANC Checkup'}
             </div>
             <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)' }}>
-              5 नवंबर • PHC रामपुर
+              {language === 'en' ? '5 November • Rampur PHC' : '5 नवंबर • PHC रामपुर'}
             </div>
           </div>
         </div>
@@ -161,7 +161,7 @@ export const Screen06Home = () => {
               color: remindSaved ? 'var(--color-success)' : 'var(--primary-blue)',
               cursor: 'pointer'
             }}
-            title="याद दिलाएं"
+            title={language === 'en' ? 'Remind me' : 'याद दिलाएं'}
           >
             {remindSaved ? <CheckCircle2 size={16} /> : <Bell size={16} />}
           </button>

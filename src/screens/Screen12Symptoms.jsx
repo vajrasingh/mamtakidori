@@ -24,7 +24,8 @@ export const Screen12Symptoms = () => {
       severity: t.screen12.symp2Severity,
       icon: '🤢',
       isRedFlag: false,
-      adviceHi: "प्रारंभिक महीनों में जी मिचलाना सामान्य है। सुबह उठकर नींबू पानी या सूखा टोस्ट लें और खाली पेट न रहें।"
+      adviceHi: "प्रारंभिक महीनों में जी मिचलाना सामान्य है। सुबह उठकर नींबू पानी या सूखा टोस्ट लें और खाली पेट न रहें।",
+      adviceEn: "Morning nausea is common in early pregnancy. Sip lemon water, eat dry toast, and avoid an empty stomach."
     },
     {
       id: 'weakness',
@@ -32,7 +33,8 @@ export const Screen12Symptoms = () => {
       severity: t.screen12.symp1Severity,
       icon: '🥱',
       isRedFlag: false,
-      adviceHi: "कमजोरी खून की कमी का संकेत हो सकती है। आयरन की लाल गोली नियमित रूप से लें और गुड़, चना व हरी सब्जियां खाएं।"
+      adviceHi: "कमजोरी खून की कमी का संकेत हो सकती है। आयरन की लाल गोली नियमित रूप से लें और गुड़, चना व हरी सब्जियां खाएं।",
+      adviceEn: "Weakness can indicate low iron. Take your red iron tablet daily and eat green leafy vegetables and lentils."
     },
     {
       id: 'headache',
@@ -40,7 +42,8 @@ export const Screen12Symptoms = () => {
       severity: t.screen12.symp4Severity,
       icon: '🤕',
       isRedFlag: false,
-      adviceHi: "तेज सिरदर्द हाई ब्लड प्रेशर का संकेत हो सकता है। स्वास्थ्य केंद्र जाकर अपना बीपी जरूर चेक करवाएं।"
+      adviceHi: "तेज सिरदर्द हाई ब्लड प्रेशर का संकेत हो सकता है। स्वास्थ्य केंद्र जाकर अपना बीपी जरूर चेक करवाएं।",
+      adviceEn: "Persistent headache can be a sign of high blood pressure. Visit the health centre to check your BP."
     },
     {
       id: 'stomach_pain',
@@ -48,7 +51,8 @@ export const Screen12Symptoms = () => {
       severity: t.screen12.symp3Severity,
       icon: '😣',
       isRedFlag: true,
-      adviceHi: "पेट में तेज दर्द होने पर तुरंत डॉक्टर या आशा दीदी से संपर्क करें।"
+      adviceHi: "पेट में तेज दर्द होने पर तुरंत डॉक्टर या आशा दीदी से संपर्क करें।",
+      adviceEn: "Severe stomach pain requires urgent medical attention. Contact your doctor or ASHA worker immediately."
     },
     {
       id: 'bleeding',
@@ -56,7 +60,8 @@ export const Screen12Symptoms = () => {
       severity: t.screen12.symp5Severity,
       icon: '🩸',
       isRedFlag: true,
-      adviceHi: "रक्तस्राव या खून आना आपातकालीन स्थिति है! तुरंत 108 एम्बुलेंस को कॉल करें या निकटतम अस्पताल जाएं।"
+      adviceHi: "रक्तस्राव या खून आना आपातकालीन स्थिति है! तुरंत 108 एम्बुलेंस को कॉल करें या निकटतम अस्पताल जाएं।",
+      adviceEn: "Bleeding is an emergency! Call 108 ambulance immediately or go to the nearest hospital."
     }
   ];
 
@@ -83,7 +88,7 @@ export const Screen12Symptoms = () => {
         : "Warning! This is a red flag symptom. Please call 108 Ambulance or contact your ASHA worker immediately."
       );
     } else {
-      speakText(language === 'hi' ? item.adviceHi : item.title);
+      speakText(language === 'hi' ? item.adviceHi : (item.adviceEn || item.title));
     }
   };
 

@@ -44,12 +44,12 @@ export const TopHeader = () => {
         )}
 
         <div 
-          onClick={() => navigateTo(7)}
           style={{ 
             display: 'flex', 
             alignItems: 'center', 
             gap: '8px', 
-            cursor: 'pointer' 
+            cursor: 'default',
+            userSelect: 'none'
           }}
         >
           <div style={{ position: 'relative' }}>
@@ -84,7 +84,7 @@ export const TopHeader = () => {
               {t.app.name}
             </div>
             <div style={{ fontSize: '11px', color: 'var(--text-secondary)', fontWeight: 500 }}>
-              {language === 'hi' ? 'सखी ममता' : 'Mamta AI'}
+              {language === 'en' ? 'Mamta AI Companion' : language === 'hi' ? 'सखी ममता' : 'Mamta AI'}
             </div>
           </div>
         </div>
@@ -99,7 +99,7 @@ export const TopHeader = () => {
           title={t.app.urgentHelp}
         >
           <PhoneCall size={13} />
-          <span>108 आपातकालीन</span>
+          <span>{language === 'en' ? '108 Emergency' : '108 आपातकालीन'}</span>
         </button>
       </div>
     </header>

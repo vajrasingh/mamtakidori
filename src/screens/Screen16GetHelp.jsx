@@ -56,7 +56,7 @@ export const Screen16GetHelp = () => {
             </h3>
           </div>
           <span className="m-badge m-badge-error" style={{ fontSize: '12px' }}>
-            24x7 निःशुल्क
+            {language === 'en' ? '24x7 Toll-Free' : '24x7 निःशुल्क'}
           </span>
         </div>
 

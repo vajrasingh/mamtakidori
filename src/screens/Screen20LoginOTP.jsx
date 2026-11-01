@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 export const Screen20LoginOTP = () => {
-  const { navigateTo, language, setRole, role, setUserProfile, t } = useApp();
+  const { navigateTo, language, setRole, role, setUserProfile, speakText, stopAudio, t } = useApp();
 
   // Role selection state: 'mother' | 'asha'
   const [selectedRole, setSelectedRole] = useState('mother');
@@ -57,16 +57,15 @@ export const Screen20LoginOTP = () => {
     if (activeNumber.length < 10) return;
     setIsSending(true);
 
-    speechService.stopSpeaking();
+    stopAudio();
     const roleSpoken = targetRole === 'asha'
       ? (language === 'en' ? "ASHA worker login" : "आशा कार्यकर्ता लॉगिन")
       : (language === 'en' ? "Mother login" : "गर्भवती माँ लॉगिन");
 
-    speechService.speak(
+    speakText(
       language === 'en' 
         ? `${roleSpoken}. Sending 4-digit OTP verification code.` 
-        : `${roleSpoken}। आपके नंबर पर 4 अंकों का गुप्त ओटीपी भेजा जा रहा है।`,
-      language
+        : `${roleSpoken}। आपके नंबर पर 4 अंकों का गुप्त ओटीपी भेजा जा रहा है।`
     );
 
     setTimeout(() => {
@@ -77,11 +76,10 @@ export const Screen20LoginOTP = () => {
 
       // Auto announce OTP
       setTimeout(() => {
-        speechService.speak(
+        speakText(
           language === 'en'
             ? "Your verification code is 5 2 8 1."
-            : "आपका ओटीपी कोड है 5 2 8 1",
-          language
+            : "आपका ओटीपी कोड है 5 2 8 1"
         );
       }, 700);
     }, 850);
@@ -121,7 +119,7 @@ export const Screen20LoginOTP = () => {
   // Verify and Login
   const handleVerify = () => {
     setIsVerifying(true);
-    speechService.stopSpeaking();
+    stopAudio();
 
     setTimeout(() => {
       setIsVerifying(false);
@@ -139,11 +137,10 @@ export const Screen20LoginOTP = () => {
           todayVisits: 3
         });
 
-        speechService.speak(
+        speakText(
           language === 'en'
             ? "Welcome Sunita Didi! Opening ASHA Worker portal."
-            : "नमस्ते सुनीता दीदी! आशा कार्यकर्ता पोर्टल में आपका स्वागत है।",
-          language
+            : "नमस्ते सुनीता दीदी! आशा कार्यकर्ता पोर्टल में आपका स्वागत है।"
         );
 
         setTimeout(() => {
@@ -162,11 +159,10 @@ export const Screen20LoginOTP = () => {
           doctorPhone: '+91 94123 56789'
         });
 
-        speechService.speak(
+        speakText(
           language === 'en'
             ? "Welcome back Rani! Logging into your maternal dashboard."
-            : "नमस्ते रानी जी! आपका लॉगिन सफल रहा।",
-          language
+            : "नमस्ते रानी जी! आपका लॉगिन सफल रहा।"
         );
 
         setTimeout(() => {
@@ -196,13 +192,13 @@ export const Screen20LoginOTP = () => {
             color: 'var(--deep-navy)',
             boxShadow: '0 4px 12px rgba(65, 111, 152, 0.1)'
           }}
-          title="पीछे जाएं"
+          title={language === 'en' ? "Go Back" : "पीछे जाएं"}
         >
           <ArrowLeft size={19} />
         </button>
 
         <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--primary-blue)', background: 'var(--powder-blue-light)', padding: '5px 12px', borderRadius: '16px' }}>
-          🛡️ सुरक्षित मोबाइल लॉगिन
+          {language === 'en' ? '🛡️ Secure Mobile Login' : '🛡️ सुरक्षित मोबाइल लॉगिन'}
         </span>
       </div>
 
@@ -234,10 +230,10 @@ export const Screen20LoginOTP = () => {
           </div>
           <div style={{ flex: 1, fontSize: '12px' }}>
             <div style={{ fontWeight: 800, color: 'var(--soft-blush)', marginBottom: '1px' }}>
-              📩 संदेश: ममता की डोरी
+              {language === 'en' ? '📩 SMS: Mamta Ki Dori' : '📩 संदेश: ममता की डोरी'}
             </div>
             <div>
-              आपका 4-अंकों का गुप्त ओटीपी कोड है: <strong style={{ fontSize: '15px', letterSpacing: '1.5px', color: '#FFF' }}>5281</strong>
+              {language === 'en' ? 'Your 4-digit OTP code is: ' : 'आपका 4-अंकों का गुप्त ओटीपी कोड है: '}<strong style={{ fontSize: '15px', letterSpacing: '1.5px', color: '#FFF' }}>5281</strong>
             </div>
           </div>
         </div>
@@ -294,11 +290,10 @@ export const Screen20LoginOTP = () => {
 
         {/* Listen Voice Instructions */}
         <button
-          onClick={() => speechService.speak(
+          onClick={() => speakText(
             step === 'phone' 
-              ? "नई माँ या आशा कार्यकर्ता बटन चुनकर लॉगिन करें।"
-              : "संदेश में आए 4 अंकों के कोड को भरें और लॉगिन करें।",
-            language
+              ? (language === 'en' ? "Login as New Mother or Login as ASHA Worker to proceed." : "नई माँ या आशा कार्यकर्ता बटन चुनकर लॉगिन करें।")
+              : (language === 'en' ? "Enter the 4-digit verification code from your SMS to login." : "संदेश में आए 4 अंकों के कोड को भरें और लॉगिन करें।")
           )}
           style={{
             background: 'var(--powder-blue-light)',
@@ -315,7 +310,7 @@ export const Screen20LoginOTP = () => {
           }}
         >
           <Volume2 size={14} />
-          <span>निर्देश सुनें</span>
+          <span>{language === 'en' ? 'Listen Instructions' : 'निर्देश सुनें'}</span>
         </button>
       </div>
 
@@ -479,14 +474,14 @@ export const Screen20LoginOTP = () => {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
             <label style={{ fontSize: '13px', fontWeight: 800, color: 'var(--deep-navy)' }}>
-              {selectedRole === 'asha' ? 'आशा कार्यकर्ता ओटीपी कोड' : t.screen20.otpLabel}
+              {selectedRole === 'asha' ? (language === 'en' ? 'ASHA Worker OTP Code' : 'आशा कार्यकर्ता ओटीपी कोड') : t.screen20.otpLabel}
             </label>
 
             <button
               onClick={() => setStep('phone')}
               style={{ background: 'none', border: 'none', color: 'var(--primary-blue)', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}
             >
-              (बदलें)
+              ({language === 'en' ? 'Change' : 'बदलें'})
             </button>
           </div>
 
@@ -576,16 +571,16 @@ export const Screen20LoginOTP = () => {
             {loginSuccess ? (
               <>
                 <CheckCircle2 size={20} />
-                <span>सत्यापित! स्वागत है...</span>
+                <span>{language === 'en' ? 'Verified! Welcome...' : 'सत्यापित! स्वागत है...'}</span>
               </>
             ) : isVerifying ? (
               <>
                 <RefreshCw size={18} style={{ animation: 'spin 1s infinite' }} />
-                <span>जांच हो रही है...</span>
+                <span>{language === 'en' ? 'Verifying...' : 'जांच हो रही है...'}</span>
               </>
             ) : (
               <>
-                <span>{selectedRole === 'asha' ? 'आशा कार्यकर्ता लॉगिन करें' : t.screen20.verifyBtn}</span>
+                <span>{selectedRole === 'asha' ? (language === 'en' ? 'Login as ASHA Worker' : 'आशा कार्यकर्ता लॉगिन करें') : t.screen20.verifyBtn}</span>
                 <ArrowRight size={18} />
               </>
             )}

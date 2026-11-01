@@ -1,28 +1,18 @@
 // Mamta Ki Dori — Ultra-Resilient Voice Interaction Service
 // Features:
-// 1. Dual-Layer TTS: High-Fidelity Indian Speech Stream (Google Cloud TTS) + Browser Web Speech API fallback
-// 2. Web Audio API Maternal Chime for instant audible confirmation
-// 3. User-Interaction Audio Auto-Unlock for mobile Safari & desktop Chrome
-// 4. Chunked speech processing for long maternal instructions & advice
-// 5. Intelligent STT with graceful context-aware simulation fallback
+// 1. High-Fidelity SpeechSynthesis with native Indian voice selection (Lekha for macOS/iOS, Google हिन्दी for Chrome/Android, Kalpana for Windows)
+// 2. Full English support with clear Indian English & standard English accents
+// 3. Web Audio API Maternal Chime for instant audible confirmation on every button click and page transition
+// 4. Chrome speech engine unfreeze (auto-resume, anti-garbage-collection anchoring)
+// 5. Natural sentence chunking for smooth, uninterrupted maternal instructions
+// 6. Intelligent STT (Speech-to-Text) with language-aware context simulations
 
-let currentAudio = null;
-let currentUtterance = null;
 let audioContext = null;
 let recognitionInstance = null;
 let simTimeout = null;
 let isUnlocked = false;
-
-// Language code mapping
-const LANG_MAP = {
-  hi: 'hi',
-  bho: 'hi', // Bhojpuri maps phonetically to Hindi
-  mai: 'hi', // Maithili maps phonetically to Hindi
-  raj: 'hi', // Rajasthani maps phonetically to Hindi
-  bn: 'bn',  // Bengali
-  mr: 'mr',  // Marathi
-  en: 'en'   // English
-};
+let cachedVoices = [];
+let voicesInitialized = false;
 
 // Web Speech API language tag mapping
 const SPEECH_SYNTH_LANG_MAP = {
@@ -35,11 +25,109 @@ const SPEECH_SYNTH_LANG_MAP = {
   en: 'en-IN'
 };
 
-// Helper: split long text into natural sentence chunks
+// Initialize and pre-cache browser voices
+function updateCachedVoices() {
+  if (typeof window === 'undefined' || !window.speechSynthesis) return [];
+  const voices = window.speechSynthesis.getVoices();
+  if (voices && voices.length > 0) {
+    cachedVoices = voices;
+    voicesInitialized = true;
+  }
+  return cachedVoices;
+}
+
+if (typeof window !== 'undefined' && window.speechSynthesis) {
+  updateCachedVoices();
+  window.speechSynthesis.addEventListener('voiceschanged', updateCachedVoices, { passive: true });
+  window.speechSynthesis.onvoiceschanged = updateCachedVoices;
+}
+
+// Find the best suited voice for language
+function getBestVoice(langCode) {
+  const voices = cachedVoices.length > 0 ? cachedVoices : updateCachedVoices();
+  if (!voices || voices.length === 0) return null;
+
+  // 1. ENGLISH
+  if (langCode === 'en') {
+    // A: Indian English (natural for Indian maternal app)
+    const enIn = voices.find(v => {
+      const l = (v.lang || '').toLowerCase().replace('_', '-');
+      const n = (v.name || '').toLowerCase();
+      return l === 'en-in' || (l.startsWith('en') && n.includes('india'));
+    });
+    if (enIn) return enIn;
+
+    // B: Clear standard female/assistant voice
+    const clearEn = voices.find(v => {
+      const n = (v.name || '').toLowerCase();
+      return n.includes('samantha') || n.includes('google us') || n.includes('karen') || n.includes('zira');
+    });
+    if (clearEn) return clearEn;
+
+    // C: Any English voice
+    const anyEn = voices.find(v => (v.lang || '').toLowerCase().startsWith('en'));
+    if (anyEn) return anyEn;
+  }
+
+  // 2. HINDI & REGIONAL DIALECTS (Bhojpuri, Maithili, Rajasthani)
+  const isHindiFamily = ['hi', 'bho', 'mai', 'raj'].includes(langCode);
+  if (isHindiFamily) {
+    // A: Apple native Lekha (high quality macOS / iOS voice)
+    const lekha = voices.find(v => (v.name || '').toLowerCase().includes('lekha'));
+    if (lekha) return lekha;
+
+    // B: Google हिन्दी (Chrome / Android)
+    const googleHi = voices.find(v => {
+      const n = (v.name || '').toLowerCase();
+      const l = (v.lang || '').toLowerCase();
+      return (n.includes('हिन्दी') || n.includes('hindi')) && (l.startsWith('hi') || l.includes('in'));
+    });
+    if (googleHi) return googleHi;
+
+    // C: Microsoft Kalpana / Hemant (Windows)
+    const msHi = voices.find(v => {
+      const n = (v.name || '').toLowerCase();
+      return n.includes('kalpana') || n.includes('hemant');
+    });
+    if (msHi) return msHi;
+
+    // D: Any voice with hi-IN or starting with hi
+    const anyHi = voices.find(v => {
+      const l = (v.lang || '').toLowerCase().replace('_', '-');
+      return l.startsWith('hi-in') || l.startsWith('hi');
+    });
+    if (anyHi) return anyHi;
+  }
+
+  // 3. BENGALI
+  if (langCode === 'bn') {
+    const bn = voices.find(v => (v.lang || '').toLowerCase().startsWith('bn'));
+    if (bn) return bn;
+  }
+
+  // 4. MARATHI
+  if (langCode === 'mr') {
+    const mr = voices.find(v => (v.lang || '').toLowerCase().startsWith('mr'));
+    if (mr) return mr;
+  }
+
+  // 5. Fallback to any Indian voice
+  const indianVoice = voices.find(v => {
+    const l = (v.lang || '').toLowerCase();
+    const n = (v.name || '').toLowerCase();
+    return l.includes('in') || n.includes('india');
+  });
+  if (indianVoice) return indianVoice;
+
+  // 6. Default system voice
+  return voices.find(v => v.default) || voices[0] || null;
+}
+
+// Split text into natural sentence chunks
 function splitIntoChunks(text, maxLen = 140) {
   if (!text) return [];
-  // Split on sentence terminators: Hindi purna viram (।), period, question mark, exclamation, or comma
-  const rawParts = text.match(/[^।?!,.\n]+[।?!,.\n]?/g) || [text];
+  // Split on Hindi purna viram (।), period, question mark, exclamation, or newline
+  const rawParts = text.match(/[^।?!.\n]+[।?!.\n]?/g) || [text];
   const chunks = [];
   let buffer = '';
 
@@ -62,20 +150,20 @@ export const speechService = {
   hasTTS: () => typeof window !== 'undefined' && 'speechSynthesis' in window,
   hasSTT: () => typeof window !== 'undefined' && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window),
 
-  // Unlock AudioContext and SpeechSynthesis on first user interaction
+  // Unlock AudioContext and SpeechSynthesis on user interaction
   unlockAudio: () => {
-    if (isUnlocked || typeof window === 'undefined') return;
+    if (typeof window === 'undefined') return;
     try {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
       if (AudioCtx && !audioContext) {
         audioContext = new AudioCtx();
-        if (audioContext.state === 'suspended') {
-          audioContext.resume();
-        }
+      }
+      if (audioContext && audioContext.state === 'suspended') {
+        audioContext.resume().catch(() => {});
       }
       if (speechService.hasTTS() && window.speechSynthesis) {
-        window.speechSynthesis.getVoices();
         window.speechSynthesis.resume();
+        updateCachedVoices();
       }
       isUnlocked = true;
     } catch (e) {
@@ -92,7 +180,7 @@ export const speechService = {
         audioContext = new AudioCtx();
       }
       if (audioContext && audioContext.state === 'suspended') {
-        audioContext.resume();
+        audioContext.resume().catch(() => {});
       }
       if (!audioContext) return;
 
@@ -106,20 +194,20 @@ export const speechService = {
       osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.12);
 
       gain.gain.setValueAtTime(0.001, now);
-      gain.gain.linearRampToValueAtTime(0.12, now + 0.04);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.35);
+      gain.gain.linearRampToValueAtTime(0.18, now + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.36);
 
       osc.connect(gain);
       gain.connect(audioContext.destination);
 
       osc.start(now);
-      osc.stop(now + 0.36);
+      osc.stop(now + 0.38);
     } catch (e) {
       // Graceful fallback
     }
   },
 
-  // Primary Speak Function
+  // Primary Speak Function using Direct Browser SpeechSynthesis
   speak: (text, langCode = 'hi', { onStart, onEnd, onError } = {}) => {
     if (!text || typeof window === 'undefined') {
       if (onEnd) onEnd();
@@ -129,91 +217,104 @@ export const speechService = {
     speechService.stopSpeaking();
     speechService.unlockAudio();
 
-    // Play subtle maternal chime
+    // Instant audible confirmation: play maternal chime
     speechService.playChime();
 
-    const cleanLang = LANG_MAP[langCode] || 'hi';
-    const synthLang = SPEECH_SYNTH_LANG_MAP[langCode] || 'hi-IN';
+    if (!speechService.hasTTS() || !window.speechSynthesis) {
+      console.warn('SpeechSynthesis unavailable on device');
+      if (onEnd) onEnd();
+      return;
+    }
 
-    let hasStarted = false;
-    const triggerStart = () => {
-      if (!hasStarted) {
-        hasStarted = true;
-        if (onStart) onStart();
-      }
-    };
-
-    // LAYER 1: Cloud Natural Indian Speech Audio Stream
-    const chunks = splitIntoChunks(text, 140);
-    let chunkIndex = 0;
-    let fallbackAttempted = false;
-
-    const playNextChunk = () => {
-      if (chunkIndex >= chunks.length) {
-        currentAudio = null;
-        if (onEnd) onEnd();
-        return;
+    try {
+      // Unfreeze Chrome synthesis queue
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
       }
 
-      const chunkText = chunks[chunkIndex];
-      chunkIndex++;
+      const synthLang = SPEECH_SYNTH_LANG_MAP[langCode] || (langCode === 'en' ? 'en-IN' : 'hi-IN');
+      const chunks = splitIntoChunks(text, 140);
+      let currentChunkIdx = 0;
+      let hasStarted = false;
 
-      const streamUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(chunkText)}&tl=${cleanLang}&client=tw-ob`;
-      const audio = new Audio(streamUrl);
-      currentAudio = audio;
+      // Keep active utterances referenced globally so Chrome GC doesn't abort speech
+      window._mamtaActiveUtterances = window._mamtaActiveUtterances || [];
+      window._mamtaActiveUtterances = [];
 
-      audio.onplay = () => {
-        triggerStart();
-      };
+      const speakNextChunk = () => {
+        if (currentChunkIdx >= chunks.length) {
+          window._mamtaActiveUtterances = [];
+          if (onEnd) onEnd();
+          return;
+        }
 
-      audio.onended = () => {
-        playNextChunk();
-      };
+        const chunkText = chunks[currentChunkIdx];
+        currentChunkIdx++;
 
-      audio.onerror = (err) => {
-        console.warn('Cloud audio stream failed, falling back to Web Speech API:', err);
-        if (!fallbackAttempted) {
-          fallbackAttempted = true;
-          currentAudio = null;
-          speakViaWebSpeech(text, synthLang, { onStart: triggerStart, onEnd, onError });
+        const utterance = new SpeechSynthesisUtterance(chunkText);
+        utterance.lang = synthLang;
+        utterance.rate = langCode === 'en' ? 0.95 : 0.92;
+        utterance.pitch = 1.05;
+
+        // Resolve best matched voice
+        const matchedVoice = getBestVoice(langCode);
+        if (matchedVoice) {
+          utterance.voice = matchedVoice;
+        }
+
+        utterance.onstart = () => {
+          if (!hasStarted) {
+            hasStarted = true;
+            if (onStart) onStart();
+          }
+        };
+
+        utterance.onend = () => {
+          speakNextChunk();
+        };
+
+        utterance.onerror = (err) => {
+          console.warn('SpeechSynthesis chunk notice:', err);
+          speakNextChunk();
+        };
+
+        window._mamtaActiveUtterances.push(utterance);
+        window.speechSynthesis.speak(utterance);
+
+        // Chrome bug workaround: force resume if paused
+        if (window.speechSynthesis.paused) {
+          window.speechSynthesis.resume();
         }
       };
 
-      // Play with promise catch
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((err) => {
-          console.warn('Audio play prevented by browser, falling back to SpeechSynthesis:', err);
-          if (!fallbackAttempted) {
-            fallbackAttempted = true;
-            currentAudio = null;
-            speakViaWebSpeech(text, synthLang, { onStart: triggerStart, onEnd, onError });
-          }
-        });
+      // If voices are not yet loaded in Chrome/Safari, wait briefly then speak
+      if (cachedVoices.length === 0) {
+        setTimeout(() => {
+          updateCachedVoices();
+          speakNextChunk();
+        }, 60);
+      } else {
+        speakNextChunk();
       }
-    };
 
-    // Start Layer 1
-    playNextChunk();
+    } catch (err) {
+      console.warn('Speech execution exception:', err);
+      if (onEnd) onEnd();
+      if (onError) onError(err);
+    }
   },
 
   // Stop all active audio / TTS immediately
   stopSpeaking: () => {
-    if (currentAudio) {
-      try {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-      } catch (e) {}
-      currentAudio = null;
-    }
-
-    if (speechService.hasTTS() && window.speechSynthesis) {
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
       try {
         window.speechSynthesis.cancel();
+        if (window.speechSynthesis.paused) {
+          window.speechSynthesis.resume();
+        }
       } catch (e) {}
     }
-    currentUtterance = null;
-    window._mamtaActiveUtterance = null;
+    window._mamtaActiveUtterances = [];
 
     if (simTimeout) {
       clearTimeout(simTimeout);
@@ -232,7 +333,7 @@ export const speechService = {
     const onError = options.onError;
     const onEnd = options.onEnd;
 
-    const targetLang = SPEECH_SYNTH_LANG_MAP[langCode] || 'hi-IN';
+    const targetLang = SPEECH_SYNTH_LANG_MAP[langCode] || (langCode === 'en' ? 'en-IN' : 'hi-IN');
     const SpeechRec = typeof window !== 'undefined' ? (window.SpeechRecognition || window.webkitSpeechRecognition) : null;
 
     if (SpeechRec) {
@@ -291,107 +392,55 @@ export const speechService = {
   }
 };
 
-// LAYER 2: Robust Web Speech API Fallback
-function speakViaWebSpeech(text, targetLang, { onStart, onEnd, onError } = {}) {
-  if (!speechService.hasTTS() || typeof window === 'undefined') {
-    if (onEnd) onEnd();
-    return;
-  }
-
-  try {
-    window.speechSynthesis.resume();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = targetLang;
-    utterance.rate = 0.92;
-    utterance.pitch = 1.05;
-
-    // Search best available voice
-    const voices = window.speechSynthesis.getVoices();
-    const matchingVoice = voices.find(v => {
-      const code = targetLang.slice(0, 2);
-      return v.lang.startsWith(code) || v.lang.includes(targetLang);
-    }) || voices.find(v => v.lang.includes('en-IN') || v.lang.includes('India')) || voices[0];
-
-    if (matchingVoice) {
-      utterance.voice = matchingVoice;
-    }
-
-    utterance.onstart = () => {
-      if (onStart) onStart();
-    };
-
-    utterance.onend = () => {
-      currentUtterance = null;
-      window._mamtaActiveUtterance = null;
-      if (onEnd) onEnd();
-    };
-
-    utterance.onerror = (e) => {
-      console.warn('WebSpeech error:', e);
-      currentUtterance = null;
-      window._mamtaActiveUtterance = null;
-      if (onEnd) onEnd();
-      if (onError) onError(e);
-    };
-
-    currentUtterance = utterance;
-    window._mamtaActiveUtterance = utterance; // Prevent garbage collection bug in Chrome
-    window.speechSynthesis.speak(utterance);
-  } catch (err) {
-    console.warn('SpeechSynthesis execution failed:', err);
-    if (onEnd) onEnd();
-    if (onError) onError(err);
-  }
-}
-
-// Fallback voice query generator for devices without speech recognition
+// Fallback voice query generator for devices without microphone permissions
 function triggerSimulatedSTT(langCode, { onStart, onResult, onEnd } = {}) {
   if (onStart) onStart();
   const simulatedQueries = {
     hi: [
-      "क्या बहू को गैस में अजवाइन का पानी दे सकते हैं?",
-      "क्या पहली तिमाही में कच्चा पपीता खाना सुरक्षित है?",
-      "केसर और हल्दी वाला दूध कितनी मात्रा में देना चाहिए?",
-      "सुनीता दीदी से घरेलू नुस्खे की जांच कैसे करवाएं?"
+      "मेरा अगला अस्पताल चेकअप कब है?",
+      "मुझे बहुत कमजोरी और थकान महसूस हो रही है",
+      "क्या गर्भावस्था में केसर दूध सुरक्षित है?",
+      "सोनोग्राफी में क्या पता चलता है?"
     ],
     bho: [
+      "हमार अगिला अस्पताल चेकअप कब बा?",
       "का पतोहू के पेट के गैस में अजवाइन-सौंफ के पानी दिहल जा सकेला?",
-      "का गर्भ में कच्चा पपीता खाइल ठीक बा?",
-      "सुनीता दीदी से नुस्खा के जांच करा दीं।"
+      "का गर्भ में कच्चा पपीता खाइल ठीक बा?"
     ],
     mai: [
-      "की पतोहू के गैस में अजवाइन-सौंफक काढ़ा द सकैत छी?",
-      "की गर्भावस्था में कच्चा पपीता सुरक्षित अछि?"
+      "हमर अगिला चेकअप कहिया अछि?",
+      "की गर्भावस्था में केसर दूध सुरक्षित अछि?"
     ],
     raj: [
-      "कांई बींदणी नै पेट गैस में अजवायन रौ पाणी पाय सका?",
+      "म्हारो अगलो चेकअप कद है?",
       "कांई कच्चो पपीतो खावणो ठीक छे?"
     ],
     bn: [
-      "গর্ভাবস্থায় কি কাঁচা পেঁপে খাওয়া নিরাপদ?",
-      "বউমাকে কি জোয়ান ও মৌরির জল দেওয়া যাবে?"
+      "আমার পরবর্তী চেকআপ কবে?",
+      "গর্ভাবস্থায় কি জাফরান দুধ খাওয়া নিরাপদ?"
     ],
     mr: [
-      "गरोदरपणात कच्ची पपई खाणे सुरक्षित आहे का?",
-      "सुनेला ओवा आणि बडीशेपचे पाणी देता येईल का?"
+      "माझी पुढची तपासणी कधी आहे?",
+      "गरोदरपणात केशर दूध पिणे सुरक्षित आहे का?"
     ],
     en: [
-      "Is ajwain and fennel seed water safe for morning sickness and gas?",
-      "Can we give raw papaya curry during early pregnancy?",
-      "Can ASHA worker Sunita Didi verify this traditional remedy?"
+      "When is my next hospital check-up?",
+      "I am feeling very tired and weak",
+      "Is saffron milk safe during pregnancy?",
+      "What does an ultrasound scan check?"
     ]
   };
 
-  const pool = simulatedQueries[langCode] || simulatedQueries.hi;
+  const pool = simulatedQueries[langCode] || (langCode === 'en' ? simulatedQueries.en : simulatedQueries.hi);
   const randomPick = pool[Math.floor(Math.random() * pool.length)];
 
   simTimeout = setTimeout(() => {
     if (onResult) onResult(randomPick, true);
     if (onEnd) onEnd();
-  }, 1800);
+  }, 1600);
 }
 
-// Auto-register interaction listener for audio policy unlock
+// Auto-register interaction listeners for audio policy unlock
 if (typeof window !== 'undefined') {
   const handleInteraction = () => {
     speechService.unlockAudio();

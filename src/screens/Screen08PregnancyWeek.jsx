@@ -62,7 +62,7 @@ export const Screen08PregnancyWeek = () => {
                 boxShadow: isSelected ? '0 4px 12px rgba(65, 111, 152, 0.3)' : 'none'
               }}
             >
-              <span>सप्ताह {range.label}</span>
+              <span>{language === 'en' ? `Week ${range.label}` : `सप्ताह ${range.label}`}</span>
             </button>
           );
         })}
@@ -84,30 +84,52 @@ export const Screen08PregnancyWeek = () => {
           </button>
         </div>
 
-        {/* Baby & Mother Illustration (Uncropped & Enlarged) */}
+        {/* Baby & Mother Illustration (Fills card, ambient backdrop, uncropped subject) */}
         <div style={{
           width: '100%',
-          height: '230px',
+          height: '240px',
           borderRadius: '22px',
           overflow: 'hidden',
           marginBottom: '16px',
-          boxShadow: '0 8px 24px rgba(65, 111, 152, 0.1)',
+          boxShadow: '0 8px 24px rgba(65, 111, 152, 0.12)',
           border: 'none',
-          background: 'radial-gradient(circle at center, #FFF5F2 0%, #FFFFFF 100%)',
+          position: 'relative',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '8px'
+          background: '#F8FAFC'
         }}>
+          {/* Ambient Fill Backdrop Layer */}
+          <img 
+            src="/assets/doctor_prenatal_clinic.jpg" 
+            alt="" 
+            aria-hidden="true"
+            style={{ 
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%', 
+              height: '100%', 
+              objectFit: 'cover',
+              filter: 'blur(20px) saturate(1.2) brightness(1.05)',
+              transform: 'scale(1.15)',
+              opacity: 0.55,
+              pointerEvents: 'none'
+            }} 
+          />
+          {/* Uncropped Foreground Subject */}
           <img 
             src="/assets/doctor_prenatal_clinic.jpg" 
             alt="Fetal Growth" 
             style={{ 
-              width: '100%', 
-              height: '100%', 
+              position: 'relative',
+              zIndex: 2,
+              maxHeight: '94%', 
+              maxWidth: '92%', 
               objectFit: 'contain',
-              filter: 'drop-shadow(0 10px 20px rgba(23, 54, 83, 0.14))'
-            }}
+              borderRadius: '18px',
+              filter: 'drop-shadow(0 10px 24px rgba(23, 54, 83, 0.22))'
+            }} 
           />
         </div>
 

@@ -157,7 +157,7 @@ export const RegionalLanguageModal = () => {
                   title="बोलकर सुनें (Hear voice preview)"
                 >
                   <Volume2 size={14} />
-                  <span>सुनें</span>
+                  <span>{langItem.code === 'en' ? 'Listen' : 'सुनें'}</span>
                 </button>
               </div>
             );
@@ -166,7 +166,9 @@ export const RegionalLanguageModal = () => {
 
         {/* Footer tip */}
         <div style={{ marginTop: '16px', padding: '10px 14px', borderRadius: 'var(--radius-sm)', background: 'rgba(65, 111, 152, 0.08)', fontSize: '12px', color: 'var(--deep-navy)', textAlign: 'center' }}>
-          💡 <strong>आवाज़-आधारित सुविधा:</strong> ममता आपके चुने हुए क्षेत्रीय उच्चारण व सरल बोली में उत्तर देगी।
+          {language === 'en' 
+            ? '💡 Voice Guidance: Mamta will respond in your chosen dialect and language.' 
+            : '💡 आवाज़-आधारित सुविधा: ममता आपके चुने हुए क्षेत्रीय उच्चारण व सरल बोली में उत्तर देगी।'}
         </div>
       </div>
     </div>

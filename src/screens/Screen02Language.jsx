@@ -112,7 +112,7 @@ export const Screen02Language = () => {
                 }}
               >
                 <Volume2 size={14} />
-                <span>सुनें</span>
+                <span>{langItem.code === 'en' ? 'Listen' : 'सुनें'}</span>
               </button>
             </div>
           );
@@ -122,7 +122,7 @@ export const Screen02Language = () => {
       {/* Continue Action */}
       <div style={{ marginTop: '16px', paddingTop: '10px' }}>
         <button onClick={handleContinue} className="btn-primary" style={{ width: '100%', minHeight: '50px' }}>
-          <span>आगे बढ़ें / Continue</span>
+          <span>{selectedLang === 'en' ? 'Continue' : 'आगे बढ़ें / Continue'}</span>
           <ArrowRight size={20} />
         </button>
       </div>

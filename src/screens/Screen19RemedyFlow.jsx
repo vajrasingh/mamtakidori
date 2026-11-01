@@ -31,7 +31,8 @@ export const Screen19RemedyFlow = () => {
       illustration: "/assets/remedy_safe_tea.jpg",
       adviceHi: "1 चम्मच अजवाइन का गुनगुना पानी पेट भारीपन व गैस में आराम देता है।",
       adviceEn: "Lightly boiled lukewarm ajwain water gently relieves gas and bloating.",
-      ashaNoteHi: "सुनीता दीदी (आशा): 'अजवाइन पानी बिल्कुल सुरक्षित है। कल 2 बजे मैं आऊंगी।'"
+      ashaNoteHi: "सुनीता दीदी (आशा): 'अजवाइन पानी बिल्कुल सुरक्षित है। कल 2 बजे मैं आऊंगी।'" ,
+      ashaNoteEn: "Sunita Didi (ASHA): 'Ajwain water is completely safe in moderation. I will visit tomorrow at 2 PM.'"
     },
     {
       id: 'papaya',
@@ -44,7 +45,8 @@ export const Screen19RemedyFlow = () => {
       illustration: "/assets/remedy_papaya_caution.jpg",
       adviceHi: "कच्चा पपीता कभी न खाएं! इससे गर्भाशय संकुचन व गर्भपात का खतरा होता है।",
       adviceEn: "Never eat raw green papaya! It can trigger dangerous contractions.",
-      ashaNoteHi: "सुनीता दीदी (आशा): 'कच्चा पपीता कभी मत दीजिएगा! कब्ज में पका केला लें।'"
+      ashaNoteHi: "सुनीता दीदी (आशा): 'कच्चा पपीता कभी मत दीजिएगा! कब्ज में पका केला लें।'" ,
+      ashaNoteEn: "Sunita Didi (ASHA): 'Never consume raw papaya during pregnancy! Eat ripe bananas instead.'"
     },
     {
       id: 'kesar',
@@ -57,7 +59,8 @@ export const Screen19RemedyFlow = () => {
       illustration: "/assets/remedy_safe_tea.jpg",
       adviceHi: "रात में 1 धागा केसर का गुनगुना दूध अच्छी नींद और आराम देता है।",
       adviceEn: "1 strand of saffron in warm milk aids restful sleep and relaxation.",
-      ashaNoteHi: "सुनीता दीदी (आशा): 'केसर दूध अच्छा है। आयरन की गोली से 2 घंटे बाद लें।'"
+      ashaNoteHi: "सुनीता दीदी (आशा): 'केसर दूध अच्छा है। आयरन की गोली से 2 घंटे बाद लें।'" ,
+      ashaNoteEn: "Sunita Didi (ASHA): 'Saffron milk is good. Always drink it 2 hours after your iron tablet.'"
     },
     {
       id: 'castor',
@@ -70,7 +73,8 @@ export const Screen19RemedyFlow = () => {
       illustration: "/assets/remedy_papaya_caution.jpg",
       adviceHi: "अरंडी का तेल कभी न दें! यह गंभीर दस्त व बच्चे को संकट में डालता है।",
       adviceEn: "Never take castor oil! It causes severe dehydration and distress.",
-      ashaNoteHi: "सुनीता दीदी (आशा): 'अरंडी का तेल बहुत खतरनाक है। तुरंत अस्पताल दिखाएं।'"
+      ashaNoteHi: "सुनीता दीदी (आशा): 'अरंडी का तेल बहुत खतरनाक है। तुरंत अस्पताल दिखाएं।'" ,
+      ashaNoteEn: "Sunita Didi (ASHA): 'Castor oil is extremely hazardous! Seek immediate medical care.'"
     }
   ];
 
@@ -136,7 +140,8 @@ export const Screen19RemedyFlow = () => {
     setIsPlayingAudio(false);
     setIsPlayingAsha(true);
 
-    speakText(currentRemedy.ashaNoteHi);
+    const ashaSpeech = language === 'en' ? (currentRemedy.ashaNoteEn || currentRemedy.adviceEn) : currentRemedy.ashaNoteHi;
+    speakText(ashaSpeech);
   };
 
   // Camera Viewfinder
@@ -200,7 +205,8 @@ export const Screen19RemedyFlow = () => {
     setTimeout(() => {
       setIsDispatching(false);
       setIsAshaVerified(true);
-      speakText(currentRemedy.ashaNoteHi);
+      const ashaSpeech = language === 'en' ? (currentRemedy.ashaNoteEn || currentRemedy.adviceEn) : currentRemedy.ashaNoteHi;
+      speakText(ashaSpeech);
     }, 900);
   };
 
@@ -248,32 +254,48 @@ export const Screen19RemedyFlow = () => {
         boxShadow: '0 8px 30px rgba(65, 111, 152, 0.1)',
         border: 'none'
       }}>
-        {/* Generous Large Illustration Stage (Bigger, uncropped, attractive) */}
+        {/* Generous Large Illustration Stage (Fills card horizontally and vertically, uncropped subject) */}
         <div style={{
           width: '100%',
           height: '240px',
-          background: currentRemedy.id === 'ajwain' 
-            ? 'radial-gradient(circle at center, #F0FAF5 0%, #FFFFFF 100%)'
-            : currentRemedy.id === 'papaya'
-            ? 'radial-gradient(circle at center, #FFF4F0 0%, #FFFFFF 100%)'
-            : currentRemedy.id === 'kesar'
-            ? 'radial-gradient(circle at center, #FFFDF0 0%, #FFFFFF 100%)'
-            : 'radial-gradient(circle at center, #FFF5F4 0%, #FFFFFF 100%)',
+          position: 'relative',
+          overflow: 'hidden',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '8px',
-          position: 'relative'
+          background: '#F8FAFC'
         }}>
+          {/* Ambient Fill Backdrop Layer (100% width and height) */}
           <img 
             src={currentRemedy.illustration} 
-            alt={currentRemedy.nameHi} 
+            alt="" 
+            aria-hidden="true"
             style={{ 
+              position: 'absolute',
+              top: 0,
+              left: 0,
               width: '100%', 
               height: '100%', 
+              objectFit: 'cover',
+              filter: 'blur(22px) saturate(1.2) brightness(1.04)',
+              transform: 'scale(1.15)',
+              opacity: 0.6,
+              pointerEvents: 'none'
+            }} 
+          />
+
+          {/* Crisp Centered Uncropped Subject */}
+          <img 
+            src={currentRemedy.illustration} 
+            alt={language === 'en' ? currentRemedy.nameEn : currentRemedy.nameHi} 
+            style={{ 
+              position: 'relative',
+              zIndex: 2,
+              maxHeight: '94%', 
+              maxWidth: '92%', 
               objectFit: 'contain',
               borderRadius: '20px',
-              filter: 'drop-shadow(0 12px 24px rgba(23, 54, 83, 0.14))',
+              filter: 'drop-shadow(0 12px 28px rgba(23, 54, 83, 0.22))',
               transition: 'transform 0.3s ease'
             }} 
           />
@@ -283,6 +305,7 @@ export const Screen19RemedyFlow = () => {
             position: 'absolute',
             top: '14px',
             left: '14px',
+            zIndex: 5,
             background: currentRemedy.isSafe ? 'rgba(46, 133, 64, 0.95)' : 'rgba(214, 57, 57, 0.95)',
             color: 'white',
             padding: '6px 14px',
@@ -340,7 +363,7 @@ export const Screen19RemedyFlow = () => {
             }}
           >
             {isPlayingAudio ? <VolumeX size={17} /> : <Volume2 size={17} />}
-            <span>{isPlayingAudio ? 'आवाज़ रोकें' : '🔊 सास-बहू मिलकर सुनें (Listen)'}</span>
+            <span>{isPlayingAudio ? (language === 'en' ? 'Stop Speaking' : 'आवाज़ रोकें') : (language === 'en' ? '🔊 Listen Together (Mamta AI)' : '🔊 सास-बहू मिलकर सुनें')}</span>
           </button>
         </div>
       </div>
@@ -378,7 +401,7 @@ export const Screen19RemedyFlow = () => {
                 width: '100%',
                 textAlign: 'center'
               }}>
-                {r.nameHi.split(' ')[0]}
+                {language === 'en' ? r.nameEn : r.nameHi.split(' ')[0]}
               </span>
             </button>
           );
@@ -407,7 +430,7 @@ export const Screen19RemedyFlow = () => {
           }}
         >
           <Camera size={15} color={isCameraActive ? 'white' : 'var(--primary-blue)'} />
-          <span>{isCameraActive ? 'कैमरा बंद' : '📷 फोटो स्कैन'}</span>
+          <span>{isCameraActive ? (language === 'en' ? 'Close Camera' : 'कैमरा बंद') : (language === 'en' ? '📷 Scan Photo' : '📷 फोटो स्कैन')}</span>
         </button>
 
         <button
@@ -430,7 +453,7 @@ export const Screen19RemedyFlow = () => {
           }}
         >
           {isListeningMic ? <MicOff size={15} /> : <Mic size={15} color="var(--primary-blue)" />}
-          <span>{isListeningMic ? 'सुन रहे हैं...' : '🎙️ बोलकर पूछें'}</span>
+          <span>{isListeningMic ? (language === 'en' ? 'Listening...' : 'सुन रहे हैं...') : (language === 'en' ? '🎙️ Ask by Voice' : '🎙️ बोलकर पूछें')}</span>
         </button>
       </div>
 
@@ -489,10 +512,10 @@ export const Screen19RemedyFlow = () => {
 
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: '13px', fontWeight: 800, color: 'var(--deep-navy)' }}>
-                सुनीता दीदी (आशा)
+                {language === 'en' ? 'Sunita Didi (ASHA)' : 'सुनीता दीदी (आशा)'}
               </div>
               <div style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>
-                कार्यकर्ता से पुष्टि कराएं
+                {language === 'en' ? 'Verify with health worker' : 'कार्यकर्ता से पुष्टि कराएं'}
               </div>
             </div>
 
@@ -514,7 +537,7 @@ export const Screen19RemedyFlow = () => {
               }}
             >
               {isDispatching ? <RefreshCw size={13} style={{ animation: 'spin 1s infinite' }} /> : <Send size={13} />}
-              <span>{isDispatching ? 'भेज रहे हैं...' : 'सत्यापित करें'}</span>
+              <span>{isDispatching ? (language === 'en' ? 'Sending...' : 'भेज रहे हैं...') : (language === 'en' ? 'Verify' : 'सत्यापित करें')}</span>
             </button>
           </div>
         ) : (
@@ -534,7 +557,7 @@ export const Screen19RemedyFlow = () => {
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--deep-navy)' }}>
-                    सुनीता देवी
+                    {language === 'en' ? 'Sunita Devi' : 'सुनीता देवी'}
                   </span>
                   <span style={{
                     background: 'var(--color-success)',
@@ -544,11 +567,11 @@ export const Screen19RemedyFlow = () => {
                     padding: '1px 5px',
                     borderRadius: '6px'
                   }}>
-                    सत्यापित
+                    {language === 'en' ? 'Verified' : 'सत्यापित'}
                   </span>
                 </div>
                 <div style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>
-                  आशा कार्यकर्ता • रामपुर
+                  {language === 'en' ? 'ASHA Worker • Rampur PHC' : 'आशा कार्यकर्ता • रामपुर'}
                 </div>
               </div>
             </div>
@@ -562,7 +585,7 @@ export const Screen19RemedyFlow = () => {
               borderRadius: '10px',
               lineHeight: 1.4
             }}>
-              "{currentRemedy.ashaNoteHi}"
+              "{language === 'en' ? (currentRemedy.ashaNoteEn || currentRemedy.adviceEn) : currentRemedy.ashaNoteHi}"
             </p>
 
             <button
@@ -584,7 +607,7 @@ export const Screen19RemedyFlow = () => {
               }}
             >
               {isPlayingAsha ? <VolumeX size={14} /> : <Volume2 size={14} />}
-              <span>{isPlayingAsha ? 'रोकें' : 'सुनीता दीदी की आवाज़ सुनें'}</span>
+              <span>{isPlayingAsha ? (language === 'en' ? 'Stop Speaking' : 'रोकें') : (language === 'en' ? "🔊 Listen to Sunita Didi" : 'सुनीता दीदी की आवाज़ सुनें')}</span>
             </button>
           </div>
         )}

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useApp } from '../context/AppContext';
+import { speechService } from '../services/speechService';
 import { Sparkles } from 'lucide-react';
 
 export const Screen01Splash = () => {

@@ -91,7 +91,7 @@ export const Screen07TalkToMamta = () => {
       },
       onError: (err) => {
         console.warn('STT Error, falling back to simulated query:', err);
-        const fallbackText = language === 'hi' ? "मेरा अगला चेकअप कब है?" : "When is my next hospital check-up?";
+        const fallbackText = language === 'en' ? "When is my next hospital check-up?" : "मेरा अगला चेकअप कब है?";
         setUserQuery(fallbackText);
         processQuery(fallbackText);
       },
@@ -121,7 +121,7 @@ export const Screen07TalkToMamta = () => {
       setActiveResponse(matchedResponse);
       setAiState('responding');
 
-      const speech = language === 'hi' ? matchedResponse.spokenHi : matchedResponse.spokenEn;
+      const speech = language === 'en' ? matchedResponse.spokenEn : matchedResponse.spokenHi;
       speakText(speech);
     }, 1200);
   };
@@ -130,7 +130,7 @@ export const Screen07TalkToMamta = () => {
   const handleSelectChip = (topicKey) => {
     stopAudio();
     const item = knowledgeBase[topicKey];
-    const text = language === 'hi' ? item.queryHi : item.queryEn;
+    const text = language === 'en' ? item.queryEn : item.queryHi;
     setUserQuery(text);
     processQuery(text);
   };
@@ -210,13 +210,13 @@ export const Screen07TalkToMamta = () => {
           {activeResponse && (
             <div>
               <div style={{ fontSize: '15px', color: 'var(--text-primary)', lineHeight: 1.5, marginBottom: '14px' }}>
-                {language === 'hi' ? activeResponse.spokenHi : activeResponse.spokenEn}
+                {language === 'en' ? activeResponse.spokenEn : activeResponse.spokenHi}
               </div>
 
               {/* Action Buttons */}
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', borderTop: '1px solid rgba(65, 111, 152, 0.1)', paddingTop: '12px' }}>
                 <button
-                  onClick={() => speakText(language === 'hi' ? activeResponse.spokenHi : activeResponse.spokenEn)}
+                  onClick={() => speakText(language === 'en' ? activeResponse.spokenEn : activeResponse.spokenHi)}
                   className="btn-listen"
                   style={{ fontSize: '13px', padding: '6px 12px' }}
                 >
@@ -228,13 +228,13 @@ export const Screen07TalkToMamta = () => {
                   <button
                     onClick={() => {
                       setActionDone(true);
-                      speakText(language === 'hi' ? "5 नवंबर का चेकअप रिमाइंडर सेव हो गया है।" : "Checkup reminder saved for 5 November.");
+                      speakText(language === 'en' ? "Checkup reminder saved for 5 November." : "5 नवंबर का चेकअप रिमाइंडर सेव हो गया है।");
                     }}
                     className="btn-secondary"
                     style={{ width: 'auto', minHeight: '34px', padding: '6px 12px', fontSize: '13px' }}
                   >
                     {actionDone ? <CheckCircle2 size={14} color="var(--color-success)" /> : <Bell size={14} />}
-                    <span>{actionDone ? (language === 'hi' ? 'सेव हो गया' : 'Saved') : t.screen07.actionRemind}</span>
+                    <span>{actionDone ? (language === 'en' ? 'Saved' : 'सेव हो गया') : t.screen07.actionRemind}</span>
                   </button>
                 )}
 
@@ -255,7 +255,7 @@ export const Screen07TalkToMamta = () => {
       {/* Minimal Suggested Illustrated Action Chips */}
       <div style={{ marginTop: 'auto', paddingTop: '10px' }}>
         <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
-          {language === 'hi' ? 'सुझाए गए प्रश्न:' : 'Suggested Questions:'}
+          {language === 'en' ? 'Suggested Questions:' : 'सुझाए गए प्रश्न:'}
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
@@ -275,7 +275,7 @@ export const Screen07TalkToMamta = () => {
           >
             <Calendar size={18} color="var(--primary-blue)" style={{ flexShrink: 0 }} />
             <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--deep-navy)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              अगला चेकअप कब?
+              {language === 'en' ? 'Next Checkup When?' : 'अगला चेकअप कब?'}
             </span>
           </button>
 
@@ -295,7 +295,7 @@ export const Screen07TalkToMamta = () => {
           >
             <Heart size={18} color="var(--warm-rose)" style={{ flexShrink: 0 }} />
             <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--deep-navy)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              कमजोरी और थकान
+              {language === 'en' ? 'Weakness & Fatigue' : 'कमजोरी और थकान'}
             </span>
           </button>
 
@@ -315,7 +315,7 @@ export const Screen07TalkToMamta = () => {
           >
             <Sparkles size={18} color="var(--color-warning)" style={{ flexShrink: 0 }} />
             <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--deep-navy)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              केसर दूध का नियम
+              {language === 'en' ? 'Saffron Milk Advice' : 'केसर दूध का नियम'}
             </span>
           </button>
 
@@ -335,7 +335,7 @@ export const Screen07TalkToMamta = () => {
           >
             <span style={{ fontSize: '16px' }}>🌿</span>
             <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--primary-blue)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              घरेलू नुस्खा जांचें
+              {language === 'en' ? 'Verify Home Remedy' : 'घरेलू नुस्खा जांचें'}
             </span>
           </button>
         </div>
