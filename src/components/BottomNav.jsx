@@ -39,7 +39,7 @@ export const BottomNav = () => {
         <span>{language === 'en' ? 'Profile' : 'प्रोफ़ाइल'}</span>
       </button>
 
-      {/* 3. Health Record (Includes Merged My Care & ANC Checkups) */}
+      {/* 3. Health Record */}
       <button 
         className={`nav-tab-item ${isRecordsActive ? 'is-active' : ''}`}
         onClick={() => navigateTo(17)}
@@ -47,7 +47,7 @@ export const BottomNav = () => {
         <div className="nav-icon-container">
           <FileText size={22} strokeWidth={isRecordsActive ? 2.5 : 2} />
         </div>
-        <span>{language === 'en' ? 'Health Record' : 'हेल्थ रिकॉर्ड'}</span>
+        <span>{language === 'en' ? 'Records' : 'रिकॉर्ड्स'}</span>
       </button>
 
       {/* 4. Health Support & SOS (Screen 16) */}
@@ -61,7 +61,7 @@ export const BottomNav = () => {
         <div className="nav-icon-container">
           <HeartHandshake size={22} strokeWidth={isSupportActive ? 2.5 : 2} />
         </div>
-        <span>{language === 'en' ? 'Health Support' : 'स्वास्थ्य सहायता'}</span>
+        <span>{language === 'en' ? 'Support' : 'सहायता'}</span>
       </button>
     </nav>
   );

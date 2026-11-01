@@ -30,6 +30,7 @@ export const QuickScreenJumper = () => {
     { num: 20, titleHi: "स्क्रीन 20: सरल ओटीपी लॉगिन (Simple Mobile OTP Login)", titleEn: "Screen 20: Simple Mobile OTP Login" },
     { num: 21, titleHi: "स्क्रीन 21: माँ का प्रोफ़ाइल (Maternal Health Profile)", titleEn: "Screen 21: Maternal Health Profile" },
     { num: 22, titleHi: "स्क्रीन 22: AI पल्लर व स्वास्थ्य स्कैन (AI Pallor & Vitals Scan)", titleEn: "Screen 22: AI Pallor & Vitals Scan (rPPG & Anemia)" },
+    { num: 23, titleHi: "स्क्रीन 23: पौष्टिक आहार व मातृत्व थाली (Nutrition & Maternal Diet)", titleEn: "Screen 23: Nutrition & Maternal Diet Guide" }
   ];
 
   return (

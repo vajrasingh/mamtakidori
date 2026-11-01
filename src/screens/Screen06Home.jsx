@@ -364,9 +364,9 @@ export const Screen06Home = () => {
             </div>
           </div>
 
-          {/* Tile 3: Nutrition & Care (Screen 08) */}
+          {/* Tile 3: Nutrition & Care (Screen 23) */}
           <div 
-            onClick={() => navigateTo(8)}
+            onClick={() => navigateTo(23)}
             style={{
               background: 'white',
               borderRadius: '24px',

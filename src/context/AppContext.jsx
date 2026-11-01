@@ -17,9 +17,27 @@ export const AVAILABLE_LANGUAGES = [
 const AppContext = createContext(null);
 
 export const AppProvider = ({ children }) => {
-  const [language, setLanguage] = useState('hi'); // 'hi', 'bho', 'mai', 'raj', 'bn', 'mr', 'en'
+  const [language, setLanguage] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const l = params.get('lang');
+      if (l && AVAILABLE_LANGUAGES.some(lang => lang.code === l)) {
+        return l;
+      }
+    }
+    return 'hi';
+  });
   const [isLangModalOpen, setIsLangModalOpen] = useState(false);
-  const [currentScreen, setCurrentScreen] = useState(1); // 1 to 19
+  const [currentScreen, setCurrentScreen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const sParam = params.get('screen');
+      const hashParam = window.location.hash.replace('#screen=', '');
+      const s = parseInt(sParam || hashParam, 10);
+      if (s >= 1 && s <= 23) return s;
+    }
+    return 1;
+  });
   const [screenHistory, setScreenHistory] = useState([1]);
   const [role, setRole] = useState('mother'); // 'mother', 'mil', 'asha'
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -143,6 +161,16 @@ export const AppProvider = ({ children }) => {
     setIsListening(false);
     setScreenHistory(prev => [...prev, screenNum]);
     setCurrentScreen(screenNum);
+
+    if (typeof window !== 'undefined' && window.history && window.history.replaceState) {
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('screen', screenNum);
+        window.history.replaceState({}, '', url.toString());
+      } catch (e) {
+        // fallback
+      }
+    }
   };
 
   const goBack = () => {
@@ -197,10 +225,39 @@ export const AppProvider = ({ children }) => {
     };
   }, []);
 
+  // Expose window.__navigateTo for automation and handle popstate
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.__navigateTo = (num) => navigateTo(num);
+      window.__setLanguage = (langCode) => changeLanguage(langCode);
+
+      const handlePopState = () => {
+        const params = new URLSearchParams(window.location.search);
+        const s = parseInt(params.get('screen') || window.location.hash.replace('#screen=', ''), 10);
+        if (s >= 1 && s <= 23) {
+          setCurrentScreen(s);
+        }
+      };
+
+      window.addEventListener('popstate', handlePopState);
+      window.addEventListener('hashchange', handlePopState);
+      return () => {
+        window.removeEventListener('popstate', handlePopState);
+        window.removeEventListener('hashchange', handlePopState);
+      };
+    }
+  }, []);
+
   // Automatic Screen Content Narration: speaks the page content when moving to a new page
   useEffect(() => {
     // Avoid speaking on splash screen (screen 1)
     if (currentScreen === 1) return;
+
+    // Skip narration if nospeech parameter is present in URL
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('nospeech') === '1') return;
+    }
 
     const narration = SCREEN_NARRATIONS[currentScreen];
     if (narration) {

@@ -29,6 +29,7 @@ import { Screen19RemedyFlow } from './screens/Screen19RemedyFlow';
 import { Screen20LoginOTP } from './screens/Screen20LoginOTP';
 import { Screen21Profile } from './screens/Screen21Profile';
 import { Screen22HealthScan } from './screens/Screen22HealthScan';
+import { Screen23NutritionDiet } from './screens/Screen23NutritionDiet';
 import { RegionalLanguageModal } from './components/RegionalLanguageModal';
 
 export function AppContent() {
@@ -62,6 +63,7 @@ export function AppContent() {
       case 20: return <Screen20LoginOTP />;
       case 21: return <Screen21Profile />;
       case 22: return <Screen22HealthScan />;
+      case 23: return <Screen23NutritionDiet />;
       default: return <Screen06Home />;
     }
   };
