@@ -28,6 +28,7 @@ import { Screen18AshaMode } from './screens/Screen18AshaMode';
 import { Screen19RemedyFlow } from './screens/Screen19RemedyFlow';
 import { Screen20LoginOTP } from './screens/Screen20LoginOTP';
 import { Screen21Profile } from './screens/Screen21Profile';
+import { Screen22HealthScan } from './screens/Screen22HealthScan';
 import { RegionalLanguageModal } from './components/RegionalLanguageModal';
 
 export function AppContent() {
@@ -60,6 +61,7 @@ export function AppContent() {
       case 19: return <Screen19RemedyFlow />;
       case 20: return <Screen20LoginOTP />;
       case 21: return <Screen21Profile />;
+      case 22: return <Screen22HealthScan />;
       default: return <Screen06Home />;
     }
   };

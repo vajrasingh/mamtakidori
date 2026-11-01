@@ -81,20 +81,14 @@ export const Screen06Home = () => {
           </div>
         </div>
 
-        {/* Minimal Uncropped Hero Illustration Frame (Enlarged & Borderless) */}
+        {/* Minimal Uncropped Hero Illustration Frame (Single clean layer, no double border/bg) */}
         <div style={{
-          width: '116px',
-          height: '116px',
-          borderRadius: '26px',
-          overflow: 'hidden',
-          border: 'none',
-          boxShadow: '0 8px 24px rgba(65, 111, 152, 0.16)',
+          width: '112px',
+          height: '112px',
           flexShrink: 0,
-          background: 'radial-gradient(circle at center, #FFF4F0 0%, #FFFFFF 100%)',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
-          padding: '6px'
+          justifyContent: 'center'
         }}>
           <img 
             src="/assets/maternal_joy_hero.jpg" 
@@ -102,8 +96,7 @@ export const Screen06Home = () => {
             style={{ 
               width: '100%', 
               height: '100%', 
-              objectFit: 'contain',
-              filter: 'drop-shadow(0 6px 14px rgba(23, 54, 83, 0.14))'
+              objectFit: 'contain'
             }} 
           />
         </div>
@@ -172,9 +165,10 @@ export const Screen06Home = () => {
         </div>
       </div>
 
-      {/* 3. Catchy Check Your Health Parameters & Vitals Scan Card (Replaces Mamta AI Card) */}
+      {/* 3. Catchy Check Your Health Parameters & Vitals Scan Card (Routes to Screen 22) */}
       <div 
-        onClick={() => navigateTo(12)}
+        id="check-health-params-card"
+        onClick={() => navigateTo(22)}
         style={{
           background: 'linear-gradient(135deg, #173653 0%, #22517C 100%)',
           borderRadius: '24px',
@@ -277,7 +271,7 @@ export const Screen06Home = () => {
         </div>
       </div>
 
-      {/* 4. Four Beautiful Visual Action Tiles (Enlarged Illustrations in 2x2 Grid) */}
+      {/* 4. Four Beautiful Visual Action Tiles (Single Clean White Background, No Double Layer) */}
       <div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px', paddingLeft: '2px' }}>
           <span style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)' }}>
@@ -296,9 +290,9 @@ export const Screen06Home = () => {
             style={{
               background: 'white',
               borderRadius: '24px',
-              padding: '14px 12px 14px',
+              padding: '16px 14px',
               border: 'none',
-              boxShadow: '0 8px 24px rgba(65, 111, 152, 0.08)',
+              boxShadow: '0 6px 20px rgba(65, 111, 152, 0.08)',
               cursor: 'pointer',
               display: 'flex',
               flexDirection: 'column',
@@ -309,30 +303,23 @@ export const Screen06Home = () => {
           >
             <div style={{ 
               width: '100%', 
-              height: '108px', 
-              borderRadius: '18px', 
-              overflow: 'hidden', 
-              background: 'radial-gradient(circle at center, #FFF4F0 0%, #FFFFFF 100%)',
-              border: 'none',
-              boxShadow: '0 4px 14px rgba(217, 145, 165, 0.15)',
+              height: '104px', 
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '6px',
               marginBottom: '10px'
             }}>
               <img 
                 src="/assets/remedy_safe_tea.jpg" 
                 alt="Home Remedy" 
                 style={{ 
-                  width: '100%', 
-                  height: '100%', 
-                  objectFit: 'contain',
-                  filter: 'drop-shadow(0 6px 12px rgba(23, 54, 83, 0.12))'
+                  maxHeight: '100%', 
+                  maxWidth: '100%', 
+                  objectFit: 'contain'
                 }} 
               />
             </div>
-            <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
+            <div style={{ fontSize: '14.5px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
               🌿 {language === 'hi' ? 'घरेलू नुस्खे' : 'Remedy Check'}
             </div>
           </div>
@@ -343,9 +330,9 @@ export const Screen06Home = () => {
             style={{
               background: 'white',
               borderRadius: '24px',
-              padding: '14px 12px 14px',
+              padding: '16px 14px',
               border: 'none',
-              boxShadow: '0 8px 24px rgba(65, 111, 152, 0.08)',
+              boxShadow: '0 6px 20px rgba(65, 111, 152, 0.08)',
               cursor: 'pointer',
               display: 'flex',
               flexDirection: 'column',
@@ -356,30 +343,23 @@ export const Screen06Home = () => {
           >
             <div style={{ 
               width: '100%', 
-              height: '108px', 
-              borderRadius: '18px', 
-              overflow: 'hidden', 
-              background: 'radial-gradient(circle at center, #F0F7FD 0%, #FFFFFF 100%)',
-              border: 'none',
-              boxShadow: '0 4px 14px rgba(65, 111, 152, 0.15)',
+              height: '104px', 
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '6px',
               marginBottom: '10px'
             }}>
               <img 
                 src="/assets/doctor_prenatal_clinic.jpg" 
                 alt="Checkup" 
                 style={{ 
-                  width: '100%', 
-                  height: '100%', 
-                  objectFit: 'contain',
-                  filter: 'drop-shadow(0 6px 12px rgba(23, 54, 83, 0.12))'
+                  maxHeight: '100%', 
+                  maxWidth: '100%', 
+                  objectFit: 'contain'
                 }} 
               />
             </div>
-            <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
+            <div style={{ fontSize: '14.5px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
               🩺 {language === 'hi' ? 'जांच व टीका' : 'Checkups & ANC'}
             </div>
           </div>
@@ -390,9 +370,9 @@ export const Screen06Home = () => {
             style={{
               background: 'white',
               borderRadius: '24px',
-              padding: '14px 12px 14px',
+              padding: '16px 14px',
               border: 'none',
-              boxShadow: '0 8px 24px rgba(65, 111, 152, 0.08)',
+              boxShadow: '0 6px 20px rgba(65, 111, 152, 0.08)',
               cursor: 'pointer',
               display: 'flex',
               flexDirection: 'column',
@@ -403,30 +383,23 @@ export const Screen06Home = () => {
           >
             <div style={{ 
               width: '100%', 
-              height: '108px', 
-              borderRadius: '18px', 
-              overflow: 'hidden', 
-              background: 'radial-gradient(circle at center, #F0FAF3 0%, #FFFFFF 100%)',
-              border: 'none',
-              boxShadow: '0 4px 14px rgba(46, 133, 64, 0.15)',
+              height: '104px', 
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '6px',
               marginBottom: '10px'
             }}>
               <img 
                 src="/assets/nutrition_maternal_thali.jpg" 
                 alt="Nutrition" 
                 style={{ 
-                  width: '100%', 
-                  height: '100%', 
-                  objectFit: 'contain',
-                  filter: 'drop-shadow(0 6px 12px rgba(23, 54, 83, 0.12))'
+                  maxHeight: '100%', 
+                  maxWidth: '100%', 
+                  objectFit: 'contain'
                 }} 
               />
             </div>
-            <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
+            <div style={{ fontSize: '14.5px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
               🍲 {language === 'hi' ? 'पौष्टिक आहार' : 'Nutrition & Diet'}
             </div>
           </div>
@@ -437,9 +410,9 @@ export const Screen06Home = () => {
             style={{
               background: 'white',
               borderRadius: '24px',
-              padding: '14px 12px 14px',
+              padding: '16px 14px',
               border: 'none',
-              boxShadow: '0 8px 24px rgba(65, 111, 152, 0.08)',
+              boxShadow: '0 6px 20px rgba(65, 111, 152, 0.08)',
               cursor: 'pointer',
               display: 'flex',
               flexDirection: 'column',
@@ -450,30 +423,23 @@ export const Screen06Home = () => {
           >
             <div style={{ 
               width: '100%', 
-              height: '108px', 
-              borderRadius: '18px', 
-              overflow: 'hidden', 
-              background: 'radial-gradient(circle at center, #FFF4EE 0%, #FFFFFF 100%)',
-              border: 'none',
-              boxShadow: '0 4px 14px rgba(224, 112, 80, 0.15)',
+              height: '104px', 
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '6px',
               marginBottom: '10px'
             }}>
               <img 
                 src="/assets/asha_didi_vector.jpg" 
                 alt="ASHA Didi" 
                 style={{ 
-                  width: '100%', 
-                  height: '100%', 
-                  objectFit: 'contain',
-                  filter: 'drop-shadow(0 6px 12px rgba(23, 54, 83, 0.12))'
+                  maxHeight: '100%', 
+                  maxWidth: '100%', 
+                  objectFit: 'contain'
                 }} 
               />
             </div>
-            <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
+            <div style={{ fontSize: '14.5px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
               👩‍⚕️ {language === 'hi' ? 'आशा दीदी' : 'ASHA Didi'}
             </div>
           </div>

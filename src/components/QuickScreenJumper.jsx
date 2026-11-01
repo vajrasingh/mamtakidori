@@ -29,6 +29,7 @@ export const QuickScreenJumper = () => {
     { num: 19, titleHi: "स्क्रीन 19: सास-बहू घरेलू नुस्खा एआई सत्यापन (Family Remedy AI & ASHA)", titleEn: "Screen 19: Family Remedy AI & ASHA Verification Flow" },
     { num: 20, titleHi: "स्क्रीन 20: सरल ओटीपी लॉगिन (Simple Mobile OTP Login)", titleEn: "Screen 20: Simple Mobile OTP Login" },
     { num: 21, titleHi: "स्क्रीन 21: माँ का प्रोफ़ाइल (Maternal Health Profile)", titleEn: "Screen 21: Maternal Health Profile" },
+    { num: 22, titleHi: "स्क्रीन 22: AI पल्लर व स्वास्थ्य स्कैन (AI Pallor & Vitals Scan)", titleEn: "Screen 22: AI Pallor & Vitals Scan (rPPG & Anemia)" },
   ];
 
   return (
