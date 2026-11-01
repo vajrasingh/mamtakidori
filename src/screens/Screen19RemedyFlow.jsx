@@ -257,7 +257,7 @@ export const Screen19RemedyFlow = () => {
         {/* Generous Large Illustration Stage (Fills card horizontally and vertically, uncropped subject) */}
         <div style={{
           width: '100%',
-          height: '240px',
+          height: '280px',
           position: 'relative',
           overflow: 'hidden',
           display: 'flex',
@@ -291,8 +291,8 @@ export const Screen19RemedyFlow = () => {
             style={{ 
               position: 'relative',
               zIndex: 2,
-              maxHeight: '94%', 
-              maxWidth: '92%', 
+              maxHeight: '96%', 
+              maxWidth: '96%', 
               objectFit: 'contain',
               borderRadius: '20px',
               filter: 'drop-shadow(0 12px 28px rgba(23, 54, 83, 0.22))',
@@ -498,14 +498,15 @@ export const Screen19RemedyFlow = () => {
         boxShadow: '0 6px 20px rgba(65, 111, 152, 0.08)'
       }}>
         {!isAshaVerified ? (
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
             <div style={{
-              width: '42px',
-              height: '42px',
-              borderRadius: '12px',
+              width: '52px',
+              height: '52px',
+              borderRadius: '16px',
               overflow: 'hidden',
               background: '#EAF3FB',
-              flexShrink: 0
+              flexShrink: 0,
+              boxShadow: '0 4px 12px rgba(65, 111, 152, 0.12)'
             }}>
               <img src="/assets/asha_didi_vector.jpg" alt="ASHA" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             </div>
@@ -542,14 +543,15 @@ export const Screen19RemedyFlow = () => {
           </div>
         ) : (
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
               <div style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '12px',
+                width: '50px',
+                height: '50px',
+                borderRadius: '16px',
                 overflow: 'hidden',
                 background: '#EAF3FB',
-                flexShrink: 0
+                flexShrink: 0,
+                boxShadow: '0 4px 12px rgba(65, 111, 152, 0.12)'
               }}>
                 <img src="/assets/asha_didi_vector.jpg" alt="ASHA Didi" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>

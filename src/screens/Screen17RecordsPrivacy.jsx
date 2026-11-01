@@ -101,13 +101,13 @@ export const Screen17RecordsPrivacy = () => {
 
                 <div>
                   <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--deep-navy)', marginBottom: '2px' }}>
-                    {doc.title}
+                    {language === 'en' ? (doc.titleEn || doc.title) : doc.title}
                   </div>
                   <div style={{ fontSize: '12.5px', color: 'var(--text-secondary)' }}>
-                    {doc.date} • {doc.doctor}
+                    {language === 'en' ? (doc.dateEn || doc.date) : doc.date} • {language === 'en' ? (doc.doctorEn || doc.doctor) : doc.doctor}
                   </div>
                   <span className="m-badge m-badge-success" style={{ fontSize: '11px', marginTop: '4px' }}>
-                    {doc.status}
+                    {language === 'en' ? (doc.statusEn || doc.status) : doc.status}
                   </span>
                 </div>
               </div>
@@ -250,10 +250,10 @@ export const Screen17RecordsPrivacy = () => {
             boxShadow: 'var(--shadow-lg)'
           }}>
             <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--deep-navy)', marginBottom: '8px' }}>
-              {selectedDoc.title}
+              {language === 'en' ? (selectedDoc.titleEn || selectedDoc.title) : selectedDoc.title}
             </h3>
             <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '14px' }}>
-              {selectedDoc.date} • {selectedDoc.doctor}
+              {language === 'en' ? (selectedDoc.dateEn || selectedDoc.date) : selectedDoc.date} • {language === 'en' ? (selectedDoc.doctorEn || selectedDoc.doctor) : selectedDoc.doctor}
             </p>
 
             <div style={{ height: '220px', borderRadius: 'var(--radius-md)', overflow: 'hidden', marginBottom: '16px' }}>

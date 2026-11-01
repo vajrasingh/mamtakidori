@@ -9,7 +9,9 @@ import {
   CheckCircle2, 
   ChevronRight, 
   PhoneCall,
-  HeartHandshake
+  HeartHandshake,
+  Activity,
+  Stethoscope
 } from 'lucide-react';
 
 export const Screen06Home = () => {
@@ -81,12 +83,12 @@ export const Screen06Home = () => {
 
         {/* Minimal Uncropped Hero Illustration Frame (Enlarged & Borderless) */}
         <div style={{
-          width: '98px',
-          height: '98px',
-          borderRadius: '24px',
+          width: '116px',
+          height: '116px',
+          borderRadius: '26px',
           overflow: 'hidden',
           border: 'none',
-          boxShadow: '0 8px 24px rgba(65, 111, 152, 0.14)',
+          boxShadow: '0 8px 24px rgba(65, 111, 152, 0.16)',
           flexShrink: 0,
           background: 'radial-gradient(circle at center, #FFF4F0 0%, #FFFFFF 100%)',
           display: 'flex',
@@ -146,7 +148,7 @@ export const Screen06Home = () => {
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <button
             onClick={handleRemindMe}
             style={{
@@ -170,50 +172,112 @@ export const Screen06Home = () => {
         </div>
       </div>
 
-      {/* 3. Talk to Mamta AI Voice Companion Hero */}
+      {/* 3. Catchy Check Your Health Parameters & Vitals Scan Card (Replaces Mamta AI Card) */}
       <div 
-        onClick={() => navigateTo(7)}
+        onClick={() => navigateTo(12)}
         style={{
-          background: 'linear-gradient(135deg, var(--deep-navy) 0%, #1e4569 100%)',
-          borderRadius: '20px',
-          padding: '14px 18px',
+          background: 'linear-gradient(135deg, #173653 0%, #22517C 100%)',
+          borderRadius: '24px',
+          padding: '16px 18px',
           cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
           color: 'white',
-          boxShadow: '0 6px 20px rgba(23, 54, 83, 0.2)'
+          boxShadow: '0 8px 24px rgba(23, 54, 83, 0.22)',
+          position: 'relative',
+          overflow: 'hidden',
+          transition: 'transform 0.2s ease, box-shadow 0.2s ease'
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        {/* Subtle decorative glow */}
+        <div style={{
+          position: 'absolute',
+          top: '-25px',
+          right: '-25px',
+          width: '120px',
+          height: '120px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(217, 145, 165, 0.35) 0%, rgba(217, 145, 165, 0) 70%)',
+          pointerEvents: 'none'
+        }} />
+
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
           <div style={{
-            width: '44px',
-            height: '44px',
-            borderRadius: '50%',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            background: 'rgba(255, 255, 255, 0.16)',
+            backdropFilter: 'blur(8px)',
+            padding: '4px 10px',
+            borderRadius: '20px',
+            fontSize: '11px',
+            fontWeight: 800,
+            letterSpacing: '0.3px',
+            color: '#FFE2EA'
+          }}>
+            <Activity size={13} color="#FFE2EA" />
+            <span>{language === 'hi' ? 'स्वास्थ्य पैरामीटर स्कैन' : 'AI Health Parameter Scan'}</span>
+          </div>
+
+          <span style={{
             background: 'var(--warm-rose)',
-            boxShadow: '0 0 16px rgba(217, 145, 165, 0.6)',
+            color: 'white',
+            padding: '3px 9px',
+            borderRadius: '12px',
+            fontSize: '10.5px',
+            fontWeight: 800,
+            boxShadow: '0 2px 8px rgba(217, 145, 165, 0.4)'
+          }}>
+            {language === 'hi' ? 'जांच व स्कैन' : 'Scan & Check'}
+          </span>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+          <div>
+            <div style={{ fontSize: '16.5px', fontWeight: 800, lineHeight: 1.25, marginBottom: '4px' }}>
+              {language === 'hi' ? 'अपने स्वास्थ्य पैरामीटर जांचें' : 'Check Your Health Parameters'}
+            </div>
+            <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.85)', lineHeight: 1.35 }}>
+              {language === 'hi' ? 'बीपी, वजन, हीमोग्लोबिन व लक्षणों का तुरंत स्कैन कराएं' : 'Scan BP, vitals, weight, Hb & symptom safety'}
+            </div>
+          </div>
+
+          <div style={{
+            width: '46px',
+            height: '46px',
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, #D96E8A 0%, #C45573 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexShrink: 0
+            flexShrink: 0,
+            boxShadow: '0 4px 14px rgba(217, 110, 138, 0.4)'
           }}>
-            <Mic size={22} color="white" />
-          </div>
-
-          <div>
-            <div style={{ fontSize: '16px', fontWeight: 800 }}>
-              {language === 'hi' ? 'ममता से बोलकर पूछें' : 'Talk to Mamta AI'}
-            </div>
-            <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.8)' }}>
-              {language === 'hi' ? 'दबाएं और अपनी भाषा में बात करें' : 'Tap to speak your question'}
-            </div>
+            <Stethoscope size={22} color="white" />
           </div>
         </div>
 
-        <Sparkles size={20} color="var(--soft-blush)" />
+        {/* Catchy Pill Badges */}
+        <div style={{ display: 'flex', gap: '6px', marginTop: '12px', flexWrap: 'wrap' }}>
+          {[
+            { hi: '🩸 बीपी / हीमोग्लोबिन', en: '🩸 BP & Hb' },
+            { hi: '⚖️ वजन जांच', en: '⚖️ Weight' },
+            { hi: '🩺 लक्षण स्कैन', en: '🩺 Symptoms' },
+            { hi: '⚡ अभी जांचें →', en: '⚡ Check Now →' }
+          ].map((pill, idx) => (
+            <span key={idx} style={{
+              background: idx === 3 ? 'white' : 'rgba(255, 255, 255, 0.14)',
+              color: idx === 3 ? 'var(--deep-navy)' : 'rgba(255, 255, 255, 0.95)',
+              fontSize: '11px',
+              fontWeight: 800,
+              padding: '4px 9px',
+              borderRadius: '8px'
+            }}>
+              {language === 'hi' ? pill.hi : pill.en}
+            </span>
+          ))}
+        </div>
       </div>
 
-      {/* 4. Four Beautiful Visual Action Tiles (Minimalist Uncropped 2x2 Grid) */}
+      {/* 4. Four Beautiful Visual Action Tiles (Enlarged Illustrations in 2x2 Grid) */}
       <div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px', paddingLeft: '2px' }}>
           <span style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)' }}>
@@ -232,7 +296,7 @@ export const Screen06Home = () => {
             style={{
               background: 'white',
               borderRadius: '24px',
-              padding: '16px 12px 14px',
+              padding: '14px 12px 14px',
               border: 'none',
               boxShadow: '0 8px 24px rgba(65, 111, 152, 0.08)',
               cursor: 'pointer',
@@ -244,9 +308,9 @@ export const Screen06Home = () => {
             }}
           >
             <div style={{ 
-              width: '80px', 
-              height: '80px', 
-              borderRadius: '20px', 
+              width: '100%', 
+              height: '108px', 
+              borderRadius: '18px', 
               overflow: 'hidden', 
               background: 'radial-gradient(circle at center, #FFF4F0 0%, #FFFFFF 100%)',
               border: 'none',
@@ -279,7 +343,7 @@ export const Screen06Home = () => {
             style={{
               background: 'white',
               borderRadius: '24px',
-              padding: '16px 12px 14px',
+              padding: '14px 12px 14px',
               border: 'none',
               boxShadow: '0 8px 24px rgba(65, 111, 152, 0.08)',
               cursor: 'pointer',
@@ -291,9 +355,9 @@ export const Screen06Home = () => {
             }}
           >
             <div style={{ 
-              width: '80px', 
-              height: '80px', 
-              borderRadius: '20px', 
+              width: '100%', 
+              height: '108px', 
+              borderRadius: '18px', 
               overflow: 'hidden', 
               background: 'radial-gradient(circle at center, #F0F7FD 0%, #FFFFFF 100%)',
               border: 'none',
@@ -326,7 +390,7 @@ export const Screen06Home = () => {
             style={{
               background: 'white',
               borderRadius: '24px',
-              padding: '16px 12px 14px',
+              padding: '14px 12px 14px',
               border: 'none',
               boxShadow: '0 8px 24px rgba(65, 111, 152, 0.08)',
               cursor: 'pointer',
@@ -338,9 +402,9 @@ export const Screen06Home = () => {
             }}
           >
             <div style={{ 
-              width: '80px', 
-              height: '80px', 
-              borderRadius: '20px', 
+              width: '100%', 
+              height: '108px', 
+              borderRadius: '18px', 
               overflow: 'hidden', 
               background: 'radial-gradient(circle at center, #F0FAF3 0%, #FFFFFF 100%)',
               border: 'none',
@@ -373,7 +437,7 @@ export const Screen06Home = () => {
             style={{
               background: 'white',
               borderRadius: '24px',
-              padding: '16px 12px 14px',
+              padding: '14px 12px 14px',
               border: 'none',
               boxShadow: '0 8px 24px rgba(65, 111, 152, 0.08)',
               cursor: 'pointer',
@@ -385,9 +449,9 @@ export const Screen06Home = () => {
             }}
           >
             <div style={{ 
-              width: '80px', 
-              height: '80px', 
-              borderRadius: '20px', 
+              width: '100%', 
+              height: '108px', 
+              borderRadius: '18px', 
               overflow: 'hidden', 
               background: 'radial-gradient(circle at center, #FFF4EE 0%, #FFFFFF 100%)',
               border: 'none',

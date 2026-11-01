@@ -103,11 +103,12 @@ export const Screen16GetHelp = () => {
       <div className="m-card m-card-blue" style={{ padding: '18px', marginBottom: '14px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
           <div style={{
-            width: '52px',
-            height: '52px',
-            borderRadius: '16px',
+            width: '64px',
+            height: '64px',
+            borderRadius: '20px',
             overflow: 'hidden',
-            border: '2px solid var(--powder-blue)',
+            border: 'none',
+            boxShadow: '0 4px 14px rgba(65, 111, 152, 0.15)',
             background: '#FFF5F0',
             display: 'flex',
             alignItems: 'center',

@@ -64,19 +64,40 @@ export const AppProvider = ({ children }) => {
       id: 1,
       type: 'prescription',
       title: 'आयरन-फोलिक एसिड दवा पर्ची',
+      titleEn: 'Iron & Folic Acid Prescription',
       date: '15 अक्टूबर 2026',
+      dateEn: '15 October 2026',
       doctor: 'डॉ. प्रिया सिंह (PHC)',
+      doctorEn: 'Dr. Priya Singh (PHC)',
       status: 'सत्यापित (Verified)',
+      statusEn: 'Verified',
       imageUrl: '/assets/doctor_prenatal_clinic.jpg'
     },
     {
       id: 2,
       type: 'ultrasound',
       title: 'प्रथम तिमाही डेटिंग सोनोग्राफी',
+      titleEn: '1st Trimester Dating Ultrasound',
       date: '10 अक्टूबर 2026',
+      dateEn: '10 October 2026',
       doctor: 'जिला अस्पताल रेडियोलॉजी',
+      doctorEn: 'District Hospital Radiology',
       status: 'समीक्षित (Reviewed)',
-      imageUrl: '/assets/Hindi maternal health app wireframe storyboard (1).png'
+      statusEn: 'Reviewed',
+      imageUrl: '/assets/doctor_prenatal_clinic.jpg'
+    },
+    {
+      id: 3,
+      type: 'lab_report',
+      title: 'हीमोग्लोबिन व रक्त जांच (11.2 g/dL)',
+      titleEn: 'Hemoglobin Blood Test (11.2 g/dL)',
+      date: '20 अक्टूबर 2026',
+      dateEn: '20 October 2026',
+      doctor: 'रामपुर पीएचसी पैथोलॉजी लैब',
+      doctorEn: 'Rampur PHC Pathology Lab',
+      status: 'सामान्य (Normal)',
+      statusEn: 'Normal (Safe)',
+      imageUrl: '/assets/doctor_prenatal_clinic.jpg'
     }
   ]);
 

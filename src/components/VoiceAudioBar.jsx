@@ -13,9 +13,9 @@ export const VoiceAudioBar = () => {
     <div 
       style={{
         position: 'absolute',
-        bottom: hasBottomNav ? '85px' : '20px',
+        bottom: hasBottomNav ? '92px' : '20px',
         left: '16px',
-        right: '16px',
+        right: (hasBottomNav && currentScreen !== 7) ? '82px' : '16px',
         background: 'linear-gradient(135deg, rgba(23, 54, 83, 0.96) 0%, rgba(65, 111, 152, 0.96) 100%)',
         backdropFilter: 'blur(12px)',
         borderRadius: 'var(--radius-md)',

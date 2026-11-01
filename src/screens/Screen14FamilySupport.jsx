@@ -72,7 +72,7 @@ export const Screen14FamilySupport = () => {
       {/* Hero Illustration of Mother-in-Law & Pregnant Woman Bonding (Uncropped & Enlarged) */}
       <div style={{
         width: '100%',
-        height: '230px',
+        height: '275px',
         borderRadius: '24px',
         overflow: 'hidden',
         boxShadow: '0 8px 24px rgba(65, 111, 152, 0.1)',

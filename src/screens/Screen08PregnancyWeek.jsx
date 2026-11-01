@@ -87,7 +87,7 @@ export const Screen08PregnancyWeek = () => {
         {/* Baby & Mother Illustration (Fills card, ambient backdrop, uncropped subject) */}
         <div style={{
           width: '100%',
-          height: '240px',
+          height: '280px',
           borderRadius: '22px',
           overflow: 'hidden',
           marginBottom: '16px',
@@ -124,8 +124,8 @@ export const Screen08PregnancyWeek = () => {
             style={{ 
               position: 'relative',
               zIndex: 2,
-              maxHeight: '94%', 
-              maxWidth: '92%', 
+              maxHeight: '96%', 
+              maxWidth: '96%', 
               objectFit: 'contain',
               borderRadius: '18px',
               filter: 'drop-shadow(0 10px 24px rgba(23, 54, 83, 0.22))'

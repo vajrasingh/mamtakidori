@@ -587,24 +587,6 @@ export const Screen20LoginOTP = () => {
           </button>
         </div>
       )}
-
-      {/* Bottom Switch to New Registration */}
-      <div style={{ textAlign: 'center', marginTop: '16px' }}>
-        <button
-          onClick={() => navigateTo(5)}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: 'var(--primary-blue)',
-            fontSize: '14px',
-            fontWeight: 800,
-            cursor: 'pointer'
-          }}
-        >
-          {t.screen20.newUserLink}
-        </button>
-      </div>
-
     </div>
   );
 };

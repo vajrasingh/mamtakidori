@@ -3,6 +3,7 @@ import { useApp } from './context/AppContext';
 import { TopHeader } from './components/TopHeader';
 import { BottomNav } from './components/BottomNav';
 import { VoiceAudioBar } from './components/VoiceAudioBar';
+import { MamtaFloatingButton } from './components/MamtaFloatingButton';
 import { QuickScreenJumper } from './components/QuickScreenJumper';
 
 // All 18 Screens
@@ -88,6 +89,9 @@ export function AppContent() {
 
         {/* Spoken Voice Floating Player Bar */}
         <VoiceAudioBar />
+
+        {/* Talk to Mamta Floating Action Button (FAB) on right side above bottom nav */}
+        <MamtaFloatingButton />
 
         {/* Bottom Persistent 4-Destination Navigation */}
         <BottomNav />

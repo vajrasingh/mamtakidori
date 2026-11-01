@@ -1,9 +1,9 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { Home, CalendarCheck, MessageSquareHeart, Users } from 'lucide-react';
+import { Home, CalendarCheck, FileText, Users } from 'lucide-react';
 
 export const BottomNav = () => {
-  const { currentScreen, navigateTo, t, role } = useApp();
+  const { currentScreen, navigateTo, t, role, language } = useApp();
 
   // Hide bottom nav on splash, language, onboarding, registration, and login OTP
   if ([1, 2, 3, 4, 5, 20].includes(currentScreen)) {
@@ -11,9 +11,9 @@ export const BottomNav = () => {
   }
 
   const isHomeActive = currentScreen === 6;
-  const isCareActive = [8, 9, 15, 11].includes(currentScreen);
-  const isAiActive = [7, 10].includes(currentScreen);
-  const isSupportActive = [14, 16, 17, 18].includes(currentScreen);
+  const isCareActive = [8, 9, 15].includes(currentScreen);
+  const isRecordsActive = [17, 11].includes(currentScreen);
+  const isSupportActive = [14, 16, 18].includes(currentScreen);
 
   return (
     <nav className="bottom-nav-bar" aria-label="Main Navigation">
@@ -39,27 +39,15 @@ export const BottomNav = () => {
         <span>{t.nav.myCare}</span>
       </button>
 
-      {/* 3. Talk to Mamta (Prominent AI Companion Center Action) */}
+      {/* 3. Health Record (in place of Mamta) */}
       <button 
-        className={`nav-tab-item ai-center-tab ${isAiActive ? 'is-active' : ''}`}
-        onClick={() => navigateTo(7)}
-        aria-label="Talk to Mamta AI"
+        className={`nav-tab-item ${isRecordsActive ? 'is-active' : ''}`}
+        onClick={() => navigateTo(17)}
       >
-        <div className="ai-center-button">
-          <img 
-            src="/assets/mamta_ai_avatar.jpg" 
-            alt="Mamta AI"
-            style={{
-              width: '100%',
-              height: '100%',
-              borderRadius: '50%',
-              objectFit: 'cover'
-            }}
-          />
+        <div className="nav-icon-container">
+          <FileText size={22} strokeWidth={isRecordsActive ? 2.5 : 2} />
         </div>
-        <span style={{ fontWeight: 700, marginTop: '2px', color: 'var(--deep-navy)' }}>
-          {t.nav.talkToMamta}
-        </span>
+        <span>{language === 'en' ? 'Health Record' : 'हेल्थ रिकॉर्ड'}</span>
       </button>
 
       {/* 4. My Support */}
