@@ -236,48 +236,60 @@ export const Screen19RemedyFlow = () => {
         <div style={{ width: '38px' }} />
       </div>
 
-      {/* 2. Uncropped Visual Illustration Hero Card */}
+      {/* 2. Attractive Borderless Hero Illustration Card */}
       <div style={{
         background: 'white',
-        borderRadius: '24px',
+        borderRadius: '26px',
         overflow: 'hidden',
-        boxShadow: '0 6px 20px rgba(65, 111, 152, 0.08)',
-        border: currentRemedy.isSafe ? '1.5px solid rgba(72, 187, 120, 0.3)' : '1.5px solid rgba(229, 62, 62, 0.3)'
+        boxShadow: '0 8px 30px rgba(65, 111, 152, 0.1)',
+        border: 'none'
       }}>
-        {/* Generous Illustration Frame with Natural Aspect Ratio & Contain (No Cropping!) */}
+        {/* Generous Large Illustration Stage (Bigger, uncropped, attractive) */}
         <div style={{
           width: '100%',
-          height: '190px',
-          background: 'linear-gradient(180deg, #FFFFFF 0%, #FBF8F6 100%)',
+          height: '240px',
+          background: currentRemedy.id === 'ajwain' 
+            ? 'radial-gradient(circle at center, #F0FAF5 0%, #FFFFFF 100%)'
+            : currentRemedy.id === 'papaya'
+            ? 'radial-gradient(circle at center, #FFF4F0 0%, #FFFFFF 100%)'
+            : currentRemedy.id === 'kesar'
+            ? 'radial-gradient(circle at center, #FFFDF0 0%, #FFFFFF 100%)'
+            : 'radial-gradient(circle at center, #FFF5F4 0%, #FFFFFF 100%)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '12px',
+          padding: '8px',
           position: 'relative'
         }}>
           <img 
             src={currentRemedy.illustration} 
             alt={currentRemedy.nameHi} 
             style={{ 
-              maxWidth: '100%', 
-              maxHeight: '100%', 
+              width: '100%', 
+              height: '100%', 
               objectFit: 'contain',
-              borderRadius: '16px'
+              borderRadius: '20px',
+              filter: 'drop-shadow(0 12px 24px rgba(23, 54, 83, 0.14))',
+              transition: 'transform 0.3s ease'
             }} 
           />
 
           {/* Minimal Floating Status Badge */}
           <div style={{
             position: 'absolute',
-            top: '12px',
-            left: '12px',
-            background: currentRemedy.isSafe ? 'var(--color-success)' : 'var(--color-error)',
+            top: '14px',
+            left: '14px',
+            background: currentRemedy.isSafe ? 'rgba(46, 133, 64, 0.95)' : 'rgba(214, 57, 57, 0.95)',
             color: 'white',
-            padding: '4px 12px',
-            borderRadius: '14px',
-            fontSize: '11.5px',
+            padding: '6px 14px',
+            borderRadius: '20px',
+            fontSize: '12px',
             fontWeight: 800,
-            boxShadow: '0 3px 10px rgba(0,0,0,0.12)'
+            boxShadow: '0 4px 14px rgba(0,0,0,0.18)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5px'
           }}>
             {language === 'en' ? currentRemedy.badgeEn : currentRemedy.badgeHi}
           </div>
@@ -330,7 +342,7 @@ export const Screen19RemedyFlow = () => {
       </div>
 
       {/* 3. Smooth Remedy Selector Pills (Uncropped, Simple & Modern) */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '6px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
         {remedies.map(r => {
           const isSelected = selectedId === r.id;
           return (
@@ -339,7 +351,8 @@ export const Screen19RemedyFlow = () => {
               onClick={() => handleSelectRemedy(r.id)}
               style={{
                 background: isSelected ? 'var(--powder-blue)' : 'white',
-                border: isSelected ? '2px solid var(--primary-blue)' : '1px solid var(--border-light)',
+                border: 'none',
+                boxShadow: isSelected ? '0 4px 14px rgba(65, 111, 152, 0.2)' : '0 2px 8px rgba(0,0,0,0.04)',
                 borderRadius: '16px',
                 padding: '10px 4px',
                 cursor: 'pointer',
@@ -374,11 +387,12 @@ export const Screen19RemedyFlow = () => {
           onClick={isCameraActive ? stopCamera : startCamera}
           style={{
             flex: 1,
-            minHeight: '42px',
+            minHeight: '44px',
             borderRadius: '16px',
             background: isCameraActive ? 'var(--color-error)' : 'white',
             color: isCameraActive ? 'white' : 'var(--deep-navy)',
-            border: '1.5px solid var(--border-light)',
+            border: 'none',
+            boxShadow: '0 4px 12px rgba(65, 111, 152, 0.08)',
             fontSize: '12.5px',
             fontWeight: 700,
             cursor: 'pointer',
@@ -396,11 +410,12 @@ export const Screen19RemedyFlow = () => {
           onClick={toggleMic}
           style={{
             flex: 1,
-            minHeight: '42px',
+            minHeight: '44px',
             borderRadius: '16px',
             background: isListeningMic ? 'rgba(185, 76, 85, 0.15)' : 'white',
             color: isListeningMic ? 'var(--color-error)' : 'var(--deep-navy)',
-            border: isListeningMic ? '1.5px solid var(--color-error)' : '1.5px solid var(--border-light)',
+            border: 'none',
+            boxShadow: '0 4px 12px rgba(65, 111, 152, 0.08)',
             fontSize: '12.5px',
             fontWeight: 700,
             cursor: 'pointer',
@@ -423,7 +438,8 @@ export const Screen19RemedyFlow = () => {
           overflow: 'hidden',
           aspectRatio: '4/3',
           background: '#000',
-          border: '2px solid var(--primary-blue)'
+          border: 'none',
+          boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
         }}>
           <video ref={videoRef} autoPlay playsInline muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           <button
@@ -449,9 +465,10 @@ export const Screen19RemedyFlow = () => {
       {/* 5. Minimal Illustrated ASHA Verification Card */}
       <div style={{
         background: 'white',
-        borderRadius: '18px',
+        borderRadius: '20px',
         padding: '14px',
-        border: '1.5px solid rgba(72, 187, 120, 0.3)'
+        border: 'none',
+        boxShadow: '0 6px 20px rgba(65, 111, 152, 0.08)'
       }}>
         {!isAshaVerified ? (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>

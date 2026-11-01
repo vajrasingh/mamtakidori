@@ -69,40 +69,45 @@ export const Screen08PregnancyWeek = () => {
       </div>
 
       {/* Main Weekly Visual Card */}
-      <div className="m-card m-card-blue" style={{ padding: '20px', marginBottom: '16px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+      <div className="m-card m-card-blue" style={{ padding: '20px', marginBottom: '16px', border: 'none', boxShadow: '0 8px 30px rgba(65, 111, 152, 0.08)', borderRadius: '24px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ fontSize: '24px' }}>🍋</span>
-            <div style={{ fontSize: '16px', fontWeight: 800, color: 'var(--deep-navy)' }}>
+            <div style={{ fontSize: '17px', fontWeight: 800, color: 'var(--deep-navy)' }}>
               {t.screen08.babySize}
             </div>
           </div>
 
-          <button onClick={handleListenGuide} className="btn-listen" style={{ padding: '6px 12px', fontSize: '13px' }}>
+          <button onClick={handleListenGuide} className="btn-listen" style={{ padding: '6px 14px', fontSize: '13px', borderRadius: '16px' }}>
             <Volume2 size={15} />
             <span>{t.app.listen}</span>
           </button>
         </div>
 
-        {/* Baby & Mother Illustration (Uncropped) */}
+        {/* Baby & Mother Illustration (Uncropped & Enlarged) */}
         <div style={{
           width: '100%',
-          height: '180px',
-          borderRadius: '20px',
+          height: '230px',
+          borderRadius: '22px',
           overflow: 'hidden',
           marginBottom: '16px',
-          boxShadow: '0 4px 14px rgba(65, 111, 152, 0.08)',
-          border: '2px solid white',
-          background: '#FFF8F6',
+          boxShadow: '0 8px 24px rgba(65, 111, 152, 0.1)',
+          border: 'none',
+          background: 'radial-gradient(circle at center, #FFF5F2 0%, #FFFFFF 100%)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '6px'
+          padding: '8px'
         }}>
           <img 
             src="/assets/doctor_prenatal_clinic.jpg" 
             alt="Fetal Growth" 
-            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+            style={{ 
+              width: '100%', 
+              height: '100%', 
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 10px 20px rgba(23, 54, 83, 0.14))'
+            }}
           />
         </div>
 

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { translations } from '../data/translations';
 import { speechService } from '../services/speechService';
+import { SCREEN_NARRATIONS } from '../data/screenNarrations';
 
 export const AVAILABLE_LANGUAGES = [
   { code: 'hi', name: 'हिन्दी', region: 'उत्तर भारत', script: 'Hindi', preview: 'नमस्ते! मैं ममता हूँ।' },
@@ -173,6 +174,24 @@ export const AppProvider = ({ children }) => {
       speechService.stopListening();
     };
   }, []);
+
+  // Automatic Screen Content Narration: speaks the page content when moving to a new page
+  useEffect(() => {
+    // Avoid speaking on splash screen (screen 1)
+    if (currentScreen === 1) return;
+
+    const narration = SCREEN_NARRATIONS[currentScreen];
+    if (narration) {
+      const textToSpeak = narration[language] || narration.hi || narration.en;
+      if (textToSpeak) {
+        // Smooth 400ms delay to let the screen transition settle
+        const timer = setTimeout(() => {
+          speakText(textToSpeak);
+        }, 400);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [currentScreen, language]);
 
   return (
     <AppContext.Provider

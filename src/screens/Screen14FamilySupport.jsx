@@ -69,25 +69,30 @@ export const Screen14FamilySupport = () => {
         </p>
       </div>
 
-      {/* Hero Illustration of Mother-in-Law & Pregnant Woman Bonding (Uncropped) */}
+      {/* Hero Illustration of Mother-in-Law & Pregnant Woman Bonding (Uncropped & Enlarged) */}
       <div style={{
         width: '100%',
-        height: '185px',
-        borderRadius: '20px',
+        height: '230px',
+        borderRadius: '24px',
         overflow: 'hidden',
-        boxShadow: '0 4px 14px rgba(65, 111, 152, 0.08)',
+        boxShadow: '0 8px 24px rgba(65, 111, 152, 0.1)',
         marginBottom: '16px',
-        border: '2px solid white',
-        background: '#FFF8F6',
+        border: 'none',
+        background: 'radial-gradient(circle at center, #FFF4EE 0%, #FFFFFF 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '6px'
+        padding: '8px'
       }}>
         <img 
           src="/assets/family_support_mil.jpg" 
           alt="Mother-in-law and daughter-in-law" 
-          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+          style={{ 
+            width: '100%', 
+            height: '100%', 
+            objectFit: 'contain',
+            filter: 'drop-shadow(0 10px 20px rgba(23, 54, 83, 0.14))'
+          }}
         />
       </div>
 

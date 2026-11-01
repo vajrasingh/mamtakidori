@@ -2,10 +2,8 @@ import React from 'react';
 import { useApp } from '../context/AppContext';
 import { 
   ArrowLeft, 
-  Globe, 
   PhoneCall, 
-  UserCheck, 
-  Sparkles
+  Volume2
 } from 'lucide-react';
 
 export const TopHeader = () => {
@@ -14,33 +12,11 @@ export const TopHeader = () => {
     goBack, 
     navigateTo, 
     language, 
-    toggleLanguage, 
-    role, 
-    setRole, 
     isSpeaking,
     t
   } = useApp();
 
-  const isMainTab = [1, 2, 3, 6, 7, 9, 14].includes(currentScreen);
-
-  const getRoleLabel = () => {
-    if (role === 'mil') return t.app.milRole;
-    if (role === 'asha') return t.app.ashaRole;
-    return t.app.motherRole;
-  };
-
-  const cycleRole = () => {
-    if (role === 'mother') {
-      setRole('mil');
-      navigateTo(14); // Jump to Mother-in-Law screen
-    } else if (role === 'mil') {
-      setRole('asha');
-      navigateTo(18); // Jump to ASHA mode screen
-    } else {
-      setRole('mother');
-      navigateTo(6); // Back to Home
-    }
-  };
+  const isMainTab = [1, 2, 3, 6, 7, 9, 14, 20].includes(currentScreen);
 
   return (
     <header className="top-app-bar">
@@ -114,62 +90,16 @@ export const TopHeader = () => {
         </div>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-        {/* Role Switcher Pill */}
-        <button
-          onClick={cycleRole}
-          className="m-badge m-badge-blue"
-          title="भूमिका बदलें (Switch Role)"
-          style={{
-            cursor: 'pointer',
-            padding: '4px 8px',
-            fontSize: '11px',
-            border: '1px solid rgba(65, 111, 152, 0.25)',
-            background: role === 'asha' ? 'var(--color-success-bg)' : role === 'mil' ? 'var(--soft-blush)' : 'var(--powder-blue)'
-          }}
-        >
-          <UserCheck size={12} />
-          <span>{getRoleLabel()}</span>
-        </button>
-
-        {/* Regional Language Switcher */}
-        <button
-          onClick={toggleLanguage}
-          className="m-badge"
-          style={{
-            cursor: 'pointer',
-            background: 'var(--surface-white)',
-            border: '1px solid rgba(65, 111, 152, 0.25)',
-            padding: '4px 8px',
-            fontSize: '11.5px',
-            fontWeight: 800,
-            color: 'var(--primary-blue)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '3px'
-          }}
-          title="क्षेत्रीय भाषा व बोली चुनें (Select Regional Dialect)"
-        >
-          <Globe size={13} />
-          <span>
-            {language === 'bho' ? 'भोजपुरी' : 
-             language === 'mai' ? 'मैथिली' : 
-             language === 'raj' ? 'राजस्थानी' : 
-             language === 'bn' ? 'বাংলা' : 
-             language === 'mr' ? 'मराठी' : 
-             language === 'en' ? 'Eng' : 'हिन्दी'}
-          </span>
-        </button>
-
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
         {/* Urgent Help (SOS) */}
         <button
           onClick={() => navigateTo(16)}
           className="btn-sos"
-          style={{ padding: '5px 10px', fontSize: '12px' }}
+          style={{ padding: '6px 12px', fontSize: '12px', borderRadius: '18px', display: 'flex', alignItems: 'center', gap: '4px' }}
           title={t.app.urgentHelp}
         >
-          <PhoneCall size={12} />
-          <span>108</span>
+          <PhoneCall size={13} />
+          <span>108 आपातकालीन</span>
         </button>
       </div>
     </header>

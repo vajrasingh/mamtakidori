@@ -34,10 +34,10 @@ export const Screen06Home = () => {
         onClick={() => navigateTo(8)}
         style={{
           background: 'linear-gradient(135deg, #FFFFFF 0%, #F5F9FD 100%)',
-          borderRadius: '24px',
-          padding: '16px 18px',
-          boxShadow: '0 6px 20px rgba(65, 111, 152, 0.08)',
-          border: '1.5px solid var(--powder-blue)',
+          borderRadius: '26px',
+          padding: '18px 20px',
+          boxShadow: '0 8px 30px rgba(65, 111, 152, 0.09)',
+          border: 'none',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
@@ -50,9 +50,9 @@ export const Screen06Home = () => {
             <span style={{
               background: 'var(--soft-blush)',
               color: 'var(--warm-rose-dark)',
-              padding: '2px 8px',
-              borderRadius: '10px',
-              fontSize: '11px',
+              padding: '3px 10px',
+              borderRadius: '12px',
+              fontSize: '11.5px',
               fontWeight: 800
             }}>
               🌸 {language === 'hi' ? 'नमस्ते रानी जी' : 'Hello Rani'}
@@ -79,25 +79,30 @@ export const Screen06Home = () => {
           </div>
         </div>
 
-        {/* Minimal Uncropped Hero Illustration Frame */}
+        {/* Minimal Uncropped Hero Illustration Frame (Enlarged & Borderless) */}
         <div style={{
-          width: '86px',
-          height: '86px',
-          borderRadius: '20px',
+          width: '98px',
+          height: '98px',
+          borderRadius: '24px',
           overflow: 'hidden',
-          border: '2px solid white',
-          boxShadow: '0 4px 14px rgba(65, 111, 152, 0.12)',
+          border: 'none',
+          boxShadow: '0 8px 24px rgba(65, 111, 152, 0.14)',
           flexShrink: 0,
-          background: '#FFF6F4',
+          background: 'radial-gradient(circle at center, #FFF4F0 0%, #FFFFFF 100%)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '4px'
+          padding: '6px'
         }}>
           <img 
             src="/assets/maternal_joy_hero.jpg" 
             alt="Maternal Joy" 
-            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+            style={{ 
+              width: '100%', 
+              height: '100%', 
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 6px 14px rgba(23, 54, 83, 0.14))'
+            }}
           />
         </div>
       </div>
@@ -219,17 +224,17 @@ export const Screen06Home = () => {
           </span>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px' }}>
           
           {/* Tile 1: Home Remedy AI Verification (Screen 19) */}
           <div 
             onClick={() => navigateTo(19)}
             style={{
               background: 'white',
-              borderRadius: '20px',
-              padding: '14px 12px',
-              border: '1.5px solid var(--powder-blue)',
-              boxShadow: '0 4px 14px rgba(65, 111, 152, 0.06)',
+              borderRadius: '24px',
+              padding: '16px 12px 14px',
+              border: 'none',
+              boxShadow: '0 8px 24px rgba(65, 111, 152, 0.08)',
               cursor: 'pointer',
               display: 'flex',
               flexDirection: 'column',
@@ -239,22 +244,28 @@ export const Screen06Home = () => {
             }}
           >
             <div style={{ 
-              width: '68px', 
-              height: '68px', 
-              borderRadius: '16px', 
+              width: '80px', 
+              height: '80px', 
+              borderRadius: '20px', 
               overflow: 'hidden', 
-              background: '#FFF8F6',
-              border: '1px solid rgba(217, 145, 165, 0.2)',
+              background: 'radial-gradient(circle at center, #FFF4F0 0%, #FFFFFF 100%)',
+              border: 'none',
+              boxShadow: '0 4px 14px rgba(217, 145, 165, 0.15)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '4px',
-              marginBottom: '8px'
+              padding: '6px',
+              marginBottom: '10px'
             }}>
               <img 
                 src="/assets/remedy_safe_tea.jpg" 
                 alt="Home Remedy" 
-                style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  objectFit: 'contain',
+                  filter: 'drop-shadow(0 6px 12px rgba(23, 54, 83, 0.12))'
+                }} 
               />
             </div>
             <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
@@ -267,10 +278,10 @@ export const Screen06Home = () => {
             onClick={() => navigateTo(9)}
             style={{
               background: 'white',
-              borderRadius: '20px',
-              padding: '14px 12px',
-              border: '1.5px solid var(--powder-blue)',
-              boxShadow: '0 4px 14px rgba(65, 111, 152, 0.06)',
+              borderRadius: '24px',
+              padding: '16px 12px 14px',
+              border: 'none',
+              boxShadow: '0 8px 24px rgba(65, 111, 152, 0.08)',
               cursor: 'pointer',
               display: 'flex',
               flexDirection: 'column',
@@ -280,22 +291,28 @@ export const Screen06Home = () => {
             }}
           >
             <div style={{ 
-              width: '68px', 
-              height: '68px', 
-              borderRadius: '16px', 
+              width: '80px', 
+              height: '80px', 
+              borderRadius: '20px', 
               overflow: 'hidden', 
-              background: '#F0F7FD',
-              border: '1px solid rgba(65, 111, 152, 0.15)',
+              background: 'radial-gradient(circle at center, #F0F7FD 0%, #FFFFFF 100%)',
+              border: 'none',
+              boxShadow: '0 4px 14px rgba(65, 111, 152, 0.15)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '4px',
-              marginBottom: '8px'
+              padding: '6px',
+              marginBottom: '10px'
             }}>
               <img 
                 src="/assets/doctor_prenatal_clinic.jpg" 
                 alt="Checkup" 
-                style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  objectFit: 'contain',
+                  filter: 'drop-shadow(0 6px 12px rgba(23, 54, 83, 0.12))'
+                }} 
               />
             </div>
             <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
@@ -308,10 +325,10 @@ export const Screen06Home = () => {
             onClick={() => navigateTo(8)}
             style={{
               background: 'white',
-              borderRadius: '20px',
-              padding: '14px 12px',
-              border: '1.5px solid var(--powder-blue)',
-              boxShadow: '0 4px 14px rgba(65, 111, 152, 0.06)',
+              borderRadius: '24px',
+              padding: '16px 12px 14px',
+              border: 'none',
+              boxShadow: '0 8px 24px rgba(65, 111, 152, 0.08)',
               cursor: 'pointer',
               display: 'flex',
               flexDirection: 'column',
@@ -321,22 +338,28 @@ export const Screen06Home = () => {
             }}
           >
             <div style={{ 
-              width: '68px', 
-              height: '68px', 
-              borderRadius: '16px', 
+              width: '80px', 
+              height: '80px', 
+              borderRadius: '20px', 
               overflow: 'hidden', 
-              background: '#F6FAF4',
-              border: '1px solid rgba(46, 133, 64, 0.15)',
+              background: 'radial-gradient(circle at center, #F0FAF3 0%, #FFFFFF 100%)',
+              border: 'none',
+              boxShadow: '0 4px 14px rgba(46, 133, 64, 0.15)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '4px',
-              marginBottom: '8px'
+              padding: '6px',
+              marginBottom: '10px'
             }}>
               <img 
                 src="/assets/nutrition_maternal_thali.jpg" 
                 alt="Nutrition" 
-                style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  objectFit: 'contain',
+                  filter: 'drop-shadow(0 6px 12px rgba(23, 54, 83, 0.12))'
+                }} 
               />
             </div>
             <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
@@ -349,10 +372,10 @@ export const Screen06Home = () => {
             onClick={() => navigateTo(16)}
             style={{
               background: 'white',
-              borderRadius: '20px',
-              padding: '14px 12px',
-              border: '1.5px solid var(--powder-blue)',
-              boxShadow: '0 4px 14px rgba(65, 111, 152, 0.06)',
+              borderRadius: '24px',
+              padding: '16px 12px 14px',
+              border: 'none',
+              boxShadow: '0 8px 24px rgba(65, 111, 152, 0.08)',
               cursor: 'pointer',
               display: 'flex',
               flexDirection: 'column',
@@ -362,22 +385,28 @@ export const Screen06Home = () => {
             }}
           >
             <div style={{ 
-              width: '68px', 
-              height: '68px', 
-              borderRadius: '16px', 
+              width: '80px', 
+              height: '80px', 
+              borderRadius: '20px', 
               overflow: 'hidden', 
-              background: '#FFF5F0',
-              border: '1px solid rgba(224, 112, 80, 0.15)',
+              background: 'radial-gradient(circle at center, #FFF4EE 0%, #FFFFFF 100%)',
+              border: 'none',
+              boxShadow: '0 4px 14px rgba(224, 112, 80, 0.15)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '4px',
-              marginBottom: '8px'
+              padding: '6px',
+              marginBottom: '10px'
             }}>
               <img 
                 src="/assets/asha_didi_vector.jpg" 
                 alt="ASHA Didi" 
-                style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  objectFit: 'contain',
+                  filter: 'drop-shadow(0 6px 12px rgba(23, 54, 83, 0.12))'
+                }} 
               />
             </div>
             <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
