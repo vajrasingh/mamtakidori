@@ -5,8 +5,7 @@ import {
   Globe, 
   PhoneCall, 
   UserCheck, 
-  Sparkles,
-  Layers
+  Sparkles
 } from 'lucide-react';
 
 export const TopHeader = () => {
@@ -18,7 +17,6 @@ export const TopHeader = () => {
     toggleLanguage, 
     role, 
     setRole, 
-    setIsJumperOpen,
     isSpeaking,
     t
   } = useApp();
@@ -172,26 +170,6 @@ export const TopHeader = () => {
         >
           <PhoneCall size={12} />
           <span>108</span>
-        </button>
-
-        {/* Screen Jumper for testing/presentation */}
-        <button
-          onClick={() => setIsJumperOpen(true)}
-          style={{
-            background: 'rgba(23, 54, 83, 0.06)',
-            border: 'none',
-            borderRadius: '50%',
-            width: '32px',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            color: 'var(--text-secondary)'
-          }}
-          title="All 18 Screens Directory"
-        >
-          <Layers size={16} />
         </button>
       </div>
     </header>
