@@ -29,14 +29,14 @@ export const Screen21Profile = () => {
   const [selectedWeek, setSelectedWeek] = useState(12);
   const [isCalendarExpanded, setIsCalendarExpanded] = useState(false);
 
-  // Gestational Milestones for interactive graph
+  // Gestational Milestones for interactive graph (Anatomical fetal development, no fruits)
   const milestones = [
-    { week: 4, sizeHi: 'खसखस दाना', sizeEn: 'Poppy Seed', fruit: '🌱', length: '0.1 cm', weight: '< 1 g', trimester: 1, descHi: 'गर्भ में नन्हा भ्रूण रोपित हुआ', descEn: 'Implantation in uterus' },
-    { week: 8, sizeHi: 'रास्पबेरी', sizeEn: 'Raspberry', fruit: '🍇', length: '1.6 cm', weight: '1 g', trimester: 1, descHi: 'नन्हे दिल की धड़कन शुरू', descEn: 'Heartbeat detectable' },
-    { week: 12, sizeHi: 'नींबू (वर्तमान)', sizeEn: 'Lime (Current)', fruit: '🍋', length: '5.4 cm', weight: '14 g', trimester: 1, descHi: 'हाथ-पैर व अंग पूर्ण विकसित', descEn: 'Tiny fingers & vital organs formed', isCurrent: true },
-    { week: 20, sizeHi: 'केला (अल्ट्रासाउंड)', sizeEn: 'Banana (Scan)', fruit: '🍌', length: '25 cm', weight: '300 g', trimester: 2, descHi: 'एनामली स्कैन व हलचल', descEn: 'Anomaly scan & movement' },
-    { week: 28, sizeHi: 'बैंगन (तिमाही 3)', sizeEn: 'Eggplant (T3)', fruit: '🍆', length: '37 cm', weight: '1000 g', trimester: 3, descHi: 'पलकें झपकना व तीव्र वृद्धि', descEn: 'Eyes open & rapid brain growth' },
-    { week: 40, sizeHi: 'तरबूज (प्रसव)', sizeEn: 'Watermelon (Full Term)', fruit: '🍉', length: '51 cm', weight: '3200 g', trimester: 3, descHi: 'शिशु का स्वागत व स्वस्थ प्रसव', descEn: 'Full term delivery milestone' }
+    { week: 4, stageHi: 'प्रारंभिक ब्लास्टोसिस्ट', stageEn: 'Early Blastocyst', length: '0.1 cm (1 mm)', weight: '< 0.1 g', trimester: 1, descHi: 'गर्भाशय में नन्हे भ्रूण का रोपण', descEn: 'Uterine wall implantation & neural tube' },
+    { week: 8, stageHi: 'विकसित भ्रूण', stageEn: 'Developing Embryo', length: '1.6 cm', weight: '1.1 g', trimester: 1, descHi: 'नन्हे दिल की धड़कन (~150 bpm) व हाथ-पैर कलिकाएं', descEn: 'Heartbeat active & limb buds forming' },
+    { week: 12, stageHi: 'प्रारंभिक शिशु (वर्तमान)', stageEn: 'Formed Fetus (Current)', length: '5.4 cm', weight: '14 g', trimester: 1, descHi: 'अंग, नन्हीं उंगलियां व चेहरे के लक्षण पूर्ण निर्मित', descEn: 'Tiny fingers & vital organs fully formed', isCurrent: true },
+    { week: 20, stageHi: 'सक्रिय शिशु (हलचल)', stageEn: 'Active Fetus (Kicks)', length: '25.6 cm', weight: '300 g', trimester: 2, descHi: 'शिशु की पहली हलचल महसूस होना व एनामली स्कैन', descEn: 'Quickening / kicks felt & anomaly ultrasound' },
+    { week: 28, stageHi: 'तीसरी तिमाही शिशु', stageEn: 'Viable Third Trimester', length: '37.6 cm', weight: '1,000 g (1.0 kg)', trimester: 3, descHi: 'पलकें खुलना, सांस का अभ्यास व तीव्र मस्तिष्क वृद्धि', descEn: 'Eyes opening & rapid lung/brain growth' },
+    { week: 40, stageHi: 'पूर्ण विकसित शिशु (प्रसव)', stageEn: 'Full Term Baby (Delivery)', length: '51.2 cm', weight: '3,200 g (3.2 kg)', trimester: 3, descHi: 'स्वस्थ जन्म हेतु पूरी तरह तैयार', descEn: 'Fully developed & ready for birth' }
   ];
 
   const currentMilestone = milestones.find(m => m.week === selectedWeek) || milestones[2];
@@ -49,8 +49,8 @@ export const Screen21Profile = () => {
     }
     setIsPlayingBio(true);
     const speech = language === 'hi' 
-      ? `नमस्ते रानी जी। आपकी आयु 24 वर्ष है। आप 12वें सप्ताह के गर्भ में हैं और शिशु अभी नींबू के आकार का है। प्रसव की अनुमानित तारीख 17 मई 2027 है। आपका पिछला चेकअप 12 अक्टूबर को हुआ था जिसमें टीडी-1 टीका लगा। अगला चेकअप 5 नवंबर को प्राथमिक स्वास्थ्य केंद्र में है। परिवार में पति रमेश कुमार और सास कांति देवी हैं। आपका ब्लड ग्रुप बी पॉजिटिव और हीमोग्लोबिन 10.2 ग्राम है।`
-      : `Hello Rani Devi. You are 24 years old and in week 12 of pregnancy. Your baby is the size of a lime. Due date is 17 May 2027. Your last checkup was on 12 October with Td vaccine completed. Next checkup is on 5 November at Rampur PHC. Family includes husband Ramesh Kumar and mother-in-law Kanti Devi. Blood group is B positive with hemoglobin at 10.2 grams.`;
+      ? `नमस्ते रानी जी। आपकी आयु 24 वर्ष है। आप 12वें सप्ताह के गर्भ में हैं और शिशु का आकार लगभग 5.4 सेंटीमीटर है। प्रसव की अनुमानित तारीख 17 मई 2027 है। आपका पिछला चेकअप 12 अक्टूबर को हुआ था जिसमें टीडी-1 टीका लगा। अगला चेकअप 5 नवंबर को प्राथमिक स्वास्थ्य केंद्र में है। परिवार में पति रमेश कुमार और सास कांति देवी हैं। आपका ब्लड ग्रुप बी पॉजिटिव और हीमोग्लोबिन 10.2 ग्राम है।`
+      : `Hello Rani Devi. You are 24 years old and in week 12 of pregnancy. Your baby is approximately 5.4 centimeters in length with formed organs. Due date is 17 May 2027. Your last checkup was on 12 October with Td vaccine completed. Next checkup is on 5 November at Rampur PHC. Family includes husband Ramesh Kumar and mother-in-law Kanti Devi. Blood group is B positive with hemoglobin at 10.2 grams.`;
     speakText(speech);
   };
 
@@ -253,7 +253,7 @@ export const Screen21Profile = () => {
             zIndex: 1
           }} />
 
-          {/* Interactive Milestone Nodes */}
+          {/* Interactive Milestone Nodes (Clean fetal milestones, no fruits) */}
           <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', zIndex: 2 }}>
             {milestones.map((m) => {
               const isSelected = selectedWeek === m.week;
@@ -277,18 +277,20 @@ export const Screen21Profile = () => {
                     height: isSelected ? '34px' : '26px',
                     borderRadius: '50%',
                     background: isSelected ? 'var(--primary-blue)' : m.isCurrent ? 'var(--warm-rose)' : 'white',
-                    color: isSelected ? 'white' : 'var(--deep-navy)',
+                    color: isSelected ? 'white' : m.isCurrent ? 'white' : 'var(--deep-navy)',
                     boxShadow: isSelected ? '0 0 14px rgba(65, 111, 152, 0.45)' : '0 2px 6px rgba(0,0,0,0.1)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: isSelected ? '16px' : '13px',
-                    transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)'
+                    fontSize: isSelected ? '12px' : '10.5px',
+                    fontWeight: 800,
+                    transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                    border: isSelected ? '2px solid white' : '1px solid #CBD5E1'
                   }}>
-                    {m.fruit}
+                    {m.week}
                   </div>
                   <span style={{
-                    fontSize: '10.5px',
+                    fontSize: '10px',
                     fontWeight: isSelected ? 800 : 600,
                     color: isSelected ? 'var(--primary-blue)' : 'var(--text-secondary)'
                   }}>
@@ -300,7 +302,7 @@ export const Screen21Profile = () => {
           </div>
         </div>
 
-        {/* Selected Milestone Micro-Detail Card */}
+        {/* Selected Milestone Micro-Detail Card (Anatomical fetal size, no fruits) */}
         <div style={{
           background: selectedWeek === 12 ? 'var(--powder-blue-light)' : '#F8FAFC',
           borderRadius: '16px',
@@ -312,18 +314,28 @@ export const Screen21Profile = () => {
         }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ fontSize: '18px' }}>{currentMilestone.fruit}</span>
+              <Baby size={16} color="var(--primary-blue)" />
               <span style={{ fontSize: '13.5px', fontWeight: 800, color: 'var(--deep-navy)' }}>
-                {language === 'hi' ? currentMilestone.sizeHi : currentMilestone.sizeEn}
+                {language === 'hi' ? currentMilestone.stageHi : currentMilestone.stageEn}
+              </span>
+              <span style={{
+                fontSize: '10.5px',
+                background: selectedWeek === 12 ? 'var(--primary-blue)' : '#E2E8F0',
+                color: selectedWeek === 12 ? 'white' : 'var(--deep-navy)',
+                padding: '1px 6px',
+                borderRadius: '6px',
+                fontWeight: 800
+              }}>
+                {language === 'hi' ? `सप्ताह ${currentMilestone.week}` : `Week ${currentMilestone.week}`}
               </span>
             </div>
-            <div style={{ fontSize: '11.5px', color: 'var(--text-primary)', marginTop: '2px' }}>
+            <div style={{ fontSize: '11.5px', color: 'var(--text-primary)', marginTop: '3px' }}>
               {language === 'hi' ? currentMilestone.descHi : currentMilestone.descEn}
             </div>
           </div>
 
           <div style={{ textAlign: 'right', flexShrink: 0 }}>
-            <div style={{ fontSize: '12px', fontWeight: 800, color: 'var(--deep-navy)' }}>
+            <div style={{ fontSize: '12.5px', fontWeight: 800, color: 'var(--deep-navy)' }}>
               {currentMilestone.length}
             </div>
             <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
@@ -345,16 +357,13 @@ export const Screen21Profile = () => {
         </div>
       </div>
 
-      {/* 3. Interactive Calendar-Based Checkup Schedule (Expandable) */}
+      {/* 3. Interactive Calendar-Based Checkup Schedule (Expandable via button only) */}
       <div style={{
         background: 'white',
         borderRadius: '24px',
         padding: '18px',
-        boxShadow: '0 6px 22px rgba(65, 111, 152, 0.08)',
-        cursor: 'pointer'
-      }}
-      onClick={() => setIsCalendarExpanded(!isCalendarExpanded)}
-      >
+        boxShadow: '0 6px 22px rgba(65, 111, 152, 0.08)'
+      }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{
@@ -375,25 +384,34 @@ export const Screen21Profile = () => {
                 {language === 'hi' ? 'चेकअप व अस्पताल कैलेंडर' : 'Checkup Schedule & Calendar'}
               </div>
               <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)' }}>
-                {isCalendarExpanded 
-                  ? (language === 'hi' ? 'संक्षिप्त करने के लिए टैप करें' : 'Tap to collapse')
-                  : (language === 'hi' ? 'विस्तार से देखने के लिए टैप करें' : 'Tap to expand checkups & dates')}
+                {language === 'hi' ? 'आगामी व पूर्ण टीकाकरण और क्लिनिक तारीखें' : 'Upcoming & completed vaccinations and clinic dates'}
               </div>
             </div>
           </div>
 
-          <div style={{
-            background: 'var(--powder-blue-light)',
-            color: 'var(--primary-blue)',
-            borderRadius: '50%',
-            width: '32px',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            {isCalendarExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-          </div>
+          {/* Only this button is clickable to expand/collapse */}
+          <button
+            id="btn-expand-calendar-schedule"
+            onClick={() => setIsCalendarExpanded(!isCalendarExpanded)}
+            style={{
+              background: isCalendarExpanded ? 'var(--primary-blue)' : 'var(--powder-blue-light)',
+              color: isCalendarExpanded ? 'white' : 'var(--primary-blue)',
+              border: 'none',
+              borderRadius: '20px',
+              padding: '6px 12px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '5px',
+              fontSize: '11.5px',
+              fontWeight: 800,
+              cursor: 'pointer',
+              boxShadow: '0 2px 6px rgba(0,0,0,0.06)',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            <span>{isCalendarExpanded ? (language === 'hi' ? 'संक्षिप्त करें' : 'Collapse') : (language === 'hi' ? 'विस्तार करें' : 'Expand')}</span>
+            {isCalendarExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          </button>
         </div>
 
         {/* Compact Mini-Calendar Strip (Always Visible) */}
@@ -676,7 +694,7 @@ export const Screen21Profile = () => {
             </button>
           </div>
 
-          {/* Member 3: Children / Parity (Real Photo Avatar) */}
+          {/* Member 3: Children (Real Photo Avatar, No Parity Jargon) */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -696,16 +714,16 @@ export const Screen21Profile = () => {
             }}>
               <img 
                 src="/assets/mother_holding_newborn.jpg" 
-                alt="First Pregnancy" 
+                alt="Children" 
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
               />
             </div>
             <div>
               <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)' }}>
-                {language === 'hi' ? 'पूर्व संतान स्थिति' : 'Children & Parity'}
+                {language === 'hi' ? 'बच्चे' : 'Children'}
               </div>
               <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)' }}>
-                {language === 'hi' ? 'पहला गर्भ (प्रथम प्रसव / कोई पूर्व बच्चा नहीं)' : 'First Pregnancy (Primigravida / 1st child)'}
+                {language === 'hi' ? 'कोई पूर्व बच्चा नहीं • पहली गर्भावस्था' : 'No previous children • First pregnancy'}
               </div>
             </div>
           </div>

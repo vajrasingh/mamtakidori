@@ -252,6 +252,43 @@ export const Screen22HealthScan = () => {
             </p>
           </div>
 
+          {/* Visual Scan Guide Illustration (Added above instructions) */}
+          <div style={{
+            borderRadius: '22px',
+            overflow: 'hidden',
+            boxShadow: '0 8px 24px rgba(65, 111, 152, 0.12)',
+            background: 'white',
+            border: '2px solid white'
+          }}>
+            <img 
+              src="/assets/ai_pallor_scan_guide.jpg" 
+              alt="AI Pallor and Vitals Facial Scan Guide"
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block',
+                maxHeight: '190px',
+                objectFit: 'cover'
+              }}
+            />
+            <div style={{
+              padding: '10px 14px',
+              background: '#F8FAFC',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              fontSize: '11.5px',
+              color: 'var(--deep-navy)',
+              fontWeight: 700
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--color-success)' }} />
+                <span>{language === 'hi' ? 'स्मार्टफोन कैमरा आधारित बायो-ऑप्टिकल स्कैनिंग' : 'Smartphone camera bio-optical scanning'}</span>
+              </div>
+              <span style={{ color: 'var(--primary-blue)', fontWeight: 800 }}>rPPG AI</span>
+            </div>
+          </div>
+
           {/* Essential Rules / Guidelines Card */}
           <div style={{
             background: 'white',

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { Home, FileText, User, Users } from 'lucide-react';
+import { Home, FileText, User, HeartHandshake } from 'lucide-react';
 
 export const BottomNav = () => {
-  const { currentScreen, navigateTo, t, role, language } = useApp();
+  const { currentScreen, navigateTo, role, language } = useApp();
 
   // Hide bottom nav on splash, language, onboarding, registration, and login OTP
   if ([1, 2, 3, 4, 5, 20].includes(currentScreen)) {
@@ -13,7 +13,7 @@ export const BottomNav = () => {
   const isHomeActive = currentScreen === 6;
   const isProfileActive = currentScreen === 21;
   const isRecordsActive = [17, 9, 11].includes(currentScreen);
-  const isSupportActive = [14, 16, 18].includes(currentScreen);
+  const isSupportActive = currentScreen === 16 || currentScreen === 18;
 
   return (
     <nav className="bottom-nav-bar" aria-label="Main Navigation">
@@ -25,7 +25,7 @@ export const BottomNav = () => {
         <div className="nav-icon-container">
           <Home size={22} strokeWidth={isHomeActive ? 2.5 : 2} />
         </div>
-        <span>{t.nav.home}</span>
+        <span>{language === 'en' ? 'Home' : 'होम'}</span>
       </button>
 
       {/* 2. Profile (in place of My Care) */}
@@ -50,19 +50,18 @@ export const BottomNav = () => {
         <span>{language === 'en' ? 'Health Record' : 'हेल्थ रिकॉर्ड'}</span>
       </button>
 
-      {/* 4. My Support */}
+      {/* 4. Health Support & SOS (Screen 16) */}
       <button 
         className={`nav-tab-item ${isSupportActive ? 'is-active' : ''}`}
         onClick={() => {
           if (role === 'asha') navigateTo(18);
-          else if (role === 'mil') navigateTo(14);
-          else navigateTo(14);
+          else navigateTo(16);
         }}
       >
         <div className="nav-icon-container">
-          <Users size={22} strokeWidth={isSupportActive ? 2.5 : 2} />
+          <HeartHandshake size={22} strokeWidth={isSupportActive ? 2.5 : 2} />
         </div>
-        <span>{t.nav.mySupport}</span>
+        <span>{language === 'en' ? 'Health Support' : 'स्वास्थ्य सहायता'}</span>
       </button>
     </nav>
   );
