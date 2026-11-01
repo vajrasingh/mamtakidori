@@ -69,35 +69,26 @@ export const Screen14FamilySupport = () => {
         </p>
       </div>
 
-      {/* Hero Illustration of Mother-in-Law & Pregnant Woman Bonding */}
+      {/* Hero Illustration of Mother-in-Law & Pregnant Woman Bonding (Uncropped) */}
       <div style={{
         width: '100%',
-        height: '190px',
-        borderRadius: 'var(--radius-lg)',
+        height: '185px',
+        borderRadius: '20px',
         overflow: 'hidden',
-        boxShadow: 'var(--shadow-md)',
+        boxShadow: '0 4px 14px rgba(65, 111, 152, 0.08)',
         marginBottom: '16px',
-        border: '3px solid var(--soft-blush)',
-        position: 'relative'
+        border: '2px solid white',
+        background: '#FFF8F6',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '6px'
       }}>
         <img 
           src="/assets/family_support_mil.jpg" 
           alt="Mother-in-law and daughter-in-law" 
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
         />
-        <div style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          background: 'linear-gradient(transparent, rgba(23, 54, 83, 0.85))',
-          padding: '12px 16px',
-          color: 'white',
-          fontSize: '13px',
-          fontWeight: 600
-        }}>
-          {language === 'hi' ? 'आपसी स्नेह, विश्वास और सुरक्षित प्रसव' : 'Mutual affection, trust and safe delivery'}
-        </div>
       </div>
 
       {/* Listen Together Hero Button */}

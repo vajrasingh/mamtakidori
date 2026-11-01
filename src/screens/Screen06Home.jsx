@@ -79,21 +79,25 @@ export const Screen06Home = () => {
           </div>
         </div>
 
-        {/* Minimal Hero Illustration Frame */}
+        {/* Minimal Uncropped Hero Illustration Frame */}
         <div style={{
-          width: '84px',
-          height: '104px',
-          borderRadius: '18px',
+          width: '86px',
+          height: '86px',
+          borderRadius: '20px',
           overflow: 'hidden',
           border: '2px solid white',
-          boxShadow: '0 4px 12px rgba(65, 111, 152, 0.15)',
+          boxShadow: '0 4px 14px rgba(65, 111, 152, 0.12)',
           flexShrink: 0,
-          background: '#FFF8F6'
+          background: '#FFF6F4',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '4px'
         }}>
           <img 
             src="/assets/maternal_joy_hero.jpg" 
             alt="Maternal Joy" 
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
           />
         </div>
       </div>
@@ -204,10 +208,15 @@ export const Screen06Home = () => {
         <Sparkles size={20} color="var(--soft-blush)" />
       </div>
 
-      {/* 4. Four Large Illustrated Visual Action Tiles (Minimal 2x2 Grid) */}
+      {/* 4. Four Beautiful Visual Action Tiles (Minimalist Uncropped 2x2 Grid) */}
       <div>
-        <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', marginBottom: '10px', paddingLeft: '2px' }}>
-          {language === 'hi' ? 'मुख्य सुविधाएं' : 'Quick Actions'}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px', paddingLeft: '2px' }}>
+          <span style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)' }}>
+            {language === 'hi' ? 'मुख्य सुविधाएं' : 'Quick Actions'}
+          </span>
+          <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)' }}>
+            {language === 'hi' ? 'टैप करके देखें' : 'Tap to open'}
+          </span>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
@@ -218,25 +227,38 @@ export const Screen06Home = () => {
             style={{
               background: 'white',
               borderRadius: '20px',
-              padding: '12px',
+              padding: '14px 12px',
               border: '1.5px solid var(--powder-blue)',
-              boxShadow: '0 4px 12px rgba(65, 111, 152, 0.08)',
+              boxShadow: '0 4px 14px rgba(65, 111, 152, 0.06)',
               cursor: 'pointer',
               display: 'flex',
               flexDirection: 'column',
-              gap: '8px'
+              alignItems: 'center',
+              textAlign: 'center',
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease'
             }}
           >
-            <div style={{ width: '100%', height: '85px', borderRadius: '14px', overflow: 'hidden', background: '#f5f5f5' }}>
-              <img src="/assets/remedy_safe_tea.jpg" alt="Home Remedy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div style={{ 
+              width: '68px', 
+              height: '68px', 
+              borderRadius: '16px', 
+              overflow: 'hidden', 
+              background: '#FFF8F6',
+              border: '1px solid rgba(217, 145, 165, 0.2)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '4px',
+              marginBottom: '8px'
+            }}>
+              <img 
+                src="/assets/remedy_safe_tea.jpg" 
+                alt="Home Remedy" 
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+              />
             </div>
-            <div>
-              <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
-                🌿 {language === 'hi' ? 'घरेलू नुस्खा' : 'Remedy Check'}
-              </div>
-              <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '2px' }}>
-                {language === 'hi' ? 'सास-बहू एआई जांच' : 'Safe or Avoid?'}
-              </div>
+            <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
+              🌿 {language === 'hi' ? 'घरेलू नुस्खे' : 'Remedy Check'}
             </div>
           </div>
 
@@ -246,25 +268,38 @@ export const Screen06Home = () => {
             style={{
               background: 'white',
               borderRadius: '20px',
-              padding: '12px',
+              padding: '14px 12px',
               border: '1.5px solid var(--powder-blue)',
-              boxShadow: '0 4px 12px rgba(65, 111, 152, 0.08)',
+              boxShadow: '0 4px 14px rgba(65, 111, 152, 0.06)',
               cursor: 'pointer',
               display: 'flex',
               flexDirection: 'column',
-              gap: '8px'
+              alignItems: 'center',
+              textAlign: 'center',
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease'
             }}
           >
-            <div style={{ width: '100%', height: '85px', borderRadius: '14px', overflow: 'hidden', background: '#f5f5f5' }}>
-              <img src="/assets/doctor_prenatal_clinic.jpg" alt="Checkup" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div style={{ 
+              width: '68px', 
+              height: '68px', 
+              borderRadius: '16px', 
+              overflow: 'hidden', 
+              background: '#F0F7FD',
+              border: '1px solid rgba(65, 111, 152, 0.15)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '4px',
+              marginBottom: '8px'
+            }}>
+              <img 
+                src="/assets/doctor_prenatal_clinic.jpg" 
+                alt="Checkup" 
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+              />
             </div>
-            <div>
-              <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
-                🩺 {language === 'hi' ? 'जांच व सोनोग्राफी' : 'Checkups & ANC'}
-              </div>
-              <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '2px' }}>
-                {language === 'hi' ? 'तारीख व रिपोर्ट' : 'Hospital visits'}
-              </div>
+            <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
+              🩺 {language === 'hi' ? 'जांच व टीका' : 'Checkups & ANC'}
             </div>
           </div>
 
@@ -274,25 +309,38 @@ export const Screen06Home = () => {
             style={{
               background: 'white',
               borderRadius: '20px',
-              padding: '12px',
+              padding: '14px 12px',
               border: '1.5px solid var(--powder-blue)',
-              boxShadow: '0 4px 12px rgba(65, 111, 152, 0.08)',
+              boxShadow: '0 4px 14px rgba(65, 111, 152, 0.06)',
               cursor: 'pointer',
               display: 'flex',
               flexDirection: 'column',
-              gap: '8px'
+              alignItems: 'center',
+              textAlign: 'center',
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease'
             }}
           >
-            <div style={{ width: '100%', height: '85px', borderRadius: '14px', overflow: 'hidden', background: '#f5f5f5' }}>
-              <img src="/assets/nutrition_maternal_thali.jpg" alt="Nutrition" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div style={{ 
+              width: '68px', 
+              height: '68px', 
+              borderRadius: '16px', 
+              overflow: 'hidden', 
+              background: '#F6FAF4',
+              border: '1px solid rgba(46, 133, 64, 0.15)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '4px',
+              marginBottom: '8px'
+            }}>
+              <img 
+                src="/assets/nutrition_maternal_thali.jpg" 
+                alt="Nutrition" 
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+              />
             </div>
-            <div>
-              <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
-                🍲 {language === 'hi' ? 'पौष्टिक थाली' : 'Nutrition & Diet'}
-              </div>
-              <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '2px' }}>
-                {language === 'hi' ? 'हरी सब्जी व दाल' : 'Iron & vitamins'}
-              </div>
+            <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
+              🍲 {language === 'hi' ? 'पौष्टिक आहार' : 'Nutrition & Diet'}
             </div>
           </div>
 
@@ -302,25 +350,38 @@ export const Screen06Home = () => {
             style={{
               background: 'white',
               borderRadius: '20px',
-              padding: '12px',
+              padding: '14px 12px',
               border: '1.5px solid var(--powder-blue)',
-              boxShadow: '0 4px 12px rgba(65, 111, 152, 0.08)',
+              boxShadow: '0 4px 14px rgba(65, 111, 152, 0.06)',
               cursor: 'pointer',
               display: 'flex',
               flexDirection: 'column',
-              gap: '8px'
+              alignItems: 'center',
+              textAlign: 'center',
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease'
             }}
           >
-            <div style={{ width: '100%', height: '85px', borderRadius: '14px', overflow: 'hidden', background: '#f5f5f5' }}>
-              <img src="/assets/asha_didi_vector.jpg" alt="ASHA Didi" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div style={{ 
+              width: '68px', 
+              height: '68px', 
+              borderRadius: '16px', 
+              overflow: 'hidden', 
+              background: '#FFF5F0',
+              border: '1px solid rgba(224, 112, 80, 0.15)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '4px',
+              marginBottom: '8px'
+            }}>
+              <img 
+                src="/assets/asha_didi_vector.jpg" 
+                alt="ASHA Didi" 
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+              />
             </div>
-            <div>
-              <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
-                👩‍⚕️ {language === 'hi' ? 'आशा दीदी व मदद' : 'ASHA & Helpline'}
-              </div>
-              <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '2px' }}>
-                {language === 'hi' ? 'सुनीता देवी • 108' : 'Call 108 Emergency'}
-              </div>
+            <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--deep-navy)', lineHeight: 1.2 }}>
+              👩‍⚕️ {language === 'hi' ? 'आशा दीदी' : 'ASHA Didi'}
             </div>
           </div>
 

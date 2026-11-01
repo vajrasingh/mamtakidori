@@ -103,14 +103,19 @@ export const Screen16GetHelp = () => {
       <div className="m-card m-card-blue" style={{ padding: '18px', marginBottom: '14px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
           <div style={{
-            width: '48px',
-            height: '48px',
-            borderRadius: '50%',
+            width: '52px',
+            height: '52px',
+            borderRadius: '16px',
             overflow: 'hidden',
-            border: '2px solid var(--primary-blue)',
+            border: '2px solid var(--powder-blue)',
+            background: '#FFF5F0',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '2px',
             flexShrink: 0
           }}>
-            <img src="/assets/asha_worker_visit.jpg" alt="ASHA Worker" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src="/assets/asha_didi_vector.jpg" alt="ASHA Worker" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           </div>
 
           <div>

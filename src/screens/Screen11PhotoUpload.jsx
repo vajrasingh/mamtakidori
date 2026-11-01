@@ -279,7 +279,7 @@ export const Screen11PhotoUpload = () => {
           <img 
             src={previewImage} 
             alt="Uploaded Health Record" 
-            style={{ width: '100%', maxHeight: '220px', objectFit: 'cover' }}
+            style={{ width: '100%', maxHeight: '220px', objectFit: 'contain', background: '#F8FAFC' }}
           />
 
           <div style={{ padding: '12px 16px', background: 'white', display: 'flex', alignItems: 'center', gap: '8px' }}>

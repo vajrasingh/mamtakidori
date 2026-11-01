@@ -84,59 +84,58 @@ export const Screen08PregnancyWeek = () => {
           </button>
         </div>
 
-        {/* Baby & Mother Illustration */}
+        {/* Baby & Mother Illustration (Uncropped) */}
         <div style={{
           width: '100%',
           height: '180px',
-          borderRadius: 'var(--radius-md)',
+          borderRadius: '20px',
           overflow: 'hidden',
           marginBottom: '16px',
-          boxShadow: 'var(--shadow-sm)',
-          border: '2px solid white'
+          boxShadow: '0 4px 14px rgba(65, 111, 152, 0.08)',
+          border: '2px solid white',
+          background: '#FFF8F6',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '6px'
         }}>
           <img 
             src="/assets/doctor_prenatal_clinic.jpg" 
             alt="Fetal Growth" 
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
           />
         </div>
 
-        {/* What Happens Bullet Points */}
+        {/* Minimal Bullet Highlights */}
         <div style={{ marginBottom: '14px' }}>
-          <h4 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--deep-navy)', marginBottom: '8px' }}>
+          <h4 style={{ fontSize: '15px', fontWeight: 800, color: 'var(--deep-navy)', marginBottom: '8px' }}>
             {t.screen08.whatHappensTitle}
           </h4>
-          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', padding: 0 }}>
-            <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '14px', color: 'var(--text-primary)', lineHeight: 1.4 }}>
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary-blue)', marginTop: '7px', flexShrink: 0 }} />
-              <span>{t.screen08.point1}</span>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '6px', padding: 0, margin: 0 }}>
+            <li style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13.5px', color: 'var(--text-primary)' }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary-blue)', flexShrink: 0 }} />
+              <span>{language === 'hi' ? 'शिशु के हाथ-पैर व अंग तेजी से विकसित हो रहे हैं।' : 'Baby limbs and organs are developing rapidly.'}</span>
             </li>
-            <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '14px', color: 'var(--text-primary)', lineHeight: 1.4 }}>
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary-blue)', marginTop: '7px', flexShrink: 0 }} />
-              <span>{t.screen08.point2}</span>
-            </li>
-            <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '14px', color: 'var(--text-primary)', lineHeight: 1.4 }}>
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary-blue)', marginTop: '7px', flexShrink: 0 }} />
-              <span>{t.screen08.point3}</span>
+            <li style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13.5px', color: 'var(--text-primary)' }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary-blue)', flexShrink: 0 }} />
+              <span>{language === 'hi' ? 'हार्टबीट मजबूत और नियमित हो चुकी है।' : 'Baby heartbeat is now strong and steady.'}</span>
             </li>
           </ul>
         </div>
 
-        {/* Care Guidance Box */}
+        {/* Minimal Care Guidance Box */}
         <div style={{
-          background: 'rgba(255, 255, 255, 0.85)',
-          borderRadius: 'var(--radius-sm)',
-          padding: '12px 14px',
-          borderLeft: '4px solid var(--color-warning)'
+          background: 'rgba(255, 255, 255, 0.95)',
+          borderRadius: '14px',
+          padding: '10px 14px',
+          borderLeft: '4px solid var(--color-warning)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-            <AlertCircle size={16} color="var(--color-warning)" />
-            <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--color-warning)' }}>
-              {language === 'hi' ? 'विशेष ध्यान रखें:' : 'Care Precautions:'}
-            </span>
-          </div>
-          <div style={{ fontSize: '13px', color: 'var(--text-primary)', lineHeight: 1.4 }}>
-            {t.screen08.careTip1} {t.screen08.careTip2}
+          <AlertCircle size={16} color="var(--color-warning)" style={{ flexShrink: 0 }} />
+          <div style={{ fontSize: '12.5px', color: 'var(--deep-navy)', fontWeight: 600 }}>
+            {language === 'hi' ? 'भरपूर पानी पिएं, लाल आयरन गोली लें और भारी वजन न उठाएं।' : 'Drink plenty of water, take your iron tablet, and avoid lifting heavy loads.'}
           </div>
         </div>
       </div>

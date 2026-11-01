@@ -41,34 +41,34 @@ export const Screen07TalkToMamta = () => {
     checkup: {
       queryHi: "मेरा अगला अस्पताल चेकअप कब है?",
       queryEn: "When is my next hospital check-up?",
-      spokenHi: "रानी जी, आपका पहला त्रैमासिक चेकअप 5 नवंबर को प्राथमिक स्वास्थ्य केंद्र में देय है। इसमें खून और पेशाब की जरूरी जांच होगी ताकि खून की कमी न हो। क्या मैं आपके लिए इसका रिमाइंडर सेट कर दूँ?",
-      spokenEn: "Rani, your first trimester check-up is scheduled for 5 November at the Primary Health Centre. This includes important blood and urine tests to prevent anemia. Shall I set a reminder for you?",
+      spokenHi: "रानी जी, आपका पहला चेकअप 5 नवंबर को प्राथमिक स्वास्थ्य केंद्र में है। क्या मैं रिमाइंडर सेट कर दूँ?",
+      spokenEn: "Rani, your checkup is on 5 November at the health centre. Shall I set a reminder for you?",
       actionType: 'checkup',
       date: '5 नवंबर 2026',
-      why: language === 'hi' ? 'हीमोग्लोबिन और बीपी की नियमित जांच' : 'Hemoglobin & BP routine monitoring'
+      why: language === 'hi' ? 'हीमोग्लोबिन और बीपी जांच' : 'Hemoglobin & BP check'
     },
     weakness: {
       queryHi: "मुझे बहुत कमजोरी और चक्कर आ रहे हैं",
       queryEn: "I am feeling very tired and weak",
-      spokenHi: "कमजोरी और चक्कर आना अक्सर शरीर में खून की कमी यानी एनीमिया का लक्षण हो सकता है। आप रोजाना दोपहर के भोजन के बाद 1 लाल आयरन की गोली जरूर लें और हरी पत्तेदार सब्जियां खाएं। अगर चक्कर बहुत तेज हों, तो तुरंत स्वास्थ्य केंद्र जाएं।",
-      spokenEn: "Weakness and dizziness can often be a sign of anemia (low iron). Please make sure to take your red Iron & Folic Acid tablet daily after lunch with water, and eat green leafy vegetables. If dizziness is severe, please visit the health centre.",
+      spokenHi: "कमजोरी खून की कमी से हो सकती है। रोज भोजन के बाद 1 लाल आयरन गोली और हरी सब्जियां लें।",
+      spokenEn: "Weakness is often low iron. Take 1 red iron tablet daily after lunch and eat green vegetables.",
       actionType: 'symptom',
       severity: 'moderate',
-      recommendation: language === 'hi' ? 'आयरन की गोली + हरी सब्जियां' : 'Iron tablet + Green vegetables'
+      recommendation: language === 'hi' ? 'आयरन गोली + हरी सब्जियां' : 'Iron tablet + Greens'
     },
     remedy: {
       queryHi: "क्या गर्भावस्था में केसर दूध सुरक्षित है?",
       queryEn: "Is saffron milk safe during pregnancy?",
-      spokenHi: "हाँ, सीमित मात्रा में 1-2 धागे केसर वाला गुनगुना दूध आमतौर पर सुरक्षित और आरामदायक होता है। यह माँ को अच्छी नींद देने में मदद करता है। ध्यान रहे कि किसी भी नुस्खे का अत्यधिक सेवन न करें और कच्चा पपीता खाने से बचें।",
-      spokenEn: "Yes, a warm glass of milk with 1 or 2 strands of saffron in moderation is generally safe and soothing. It helps mothers rest peacefully. Remember to avoid excessive quantities, and avoid unripe papaya. If unsure, consult your ASHA worker.",
+      spokenHi: "सीमित मात्रा में केसर दूध सुरक्षित है। कच्चा पपीता या अरंडी का तेल बिल्कुल न लें।",
+      spokenEn: "Saffron milk is safe in moderation. Strictly avoid raw papaya and castor oil.",
       actionType: 'remedy',
-      status: language === 'hi' ? 'सीमित मात्रा में सुरक्षित (Safe in Moderation)' : 'Safe in Moderation'
+      status: language === 'hi' ? 'सुरक्षित (Safe)' : 'Safe in Moderation'
     },
     scan: {
       queryHi: "सोनोग्राफी में क्या पता चलता है?",
       queryEn: "What does an ultrasound scan check?",
-      spokenHi: "सोनोग्राफी से शिशु के अंगों के विकास, दिल की धड़कन और गर्भनाल की स्थिति की सुरक्षित जांच होती है। यह माँ और बच्चे दोनों के लिए पूरी तरह सुरक्षित है और इसमें कोई दर्द नहीं होता।",
-      spokenEn: "An ultrasound safely checks your baby's physical development, heartbeat, and placenta location. It is completely safe, painless, and uses sound waves rather than radiation.",
+      spokenHi: "सोनोग्राफी से शिशु के अंगों व धड़कन की सुरक्षित जांच होती है। यह दर्द रहित और सुरक्षित है।",
+      spokenEn: "An ultrasound safely checks baby growth and heartbeat. It is painless and safe.",
       actionType: 'education'
     }
   };

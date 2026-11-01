@@ -73,19 +73,24 @@ export const Screen03Onboarding = () => {
       {/* Main Slide Card */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', margin: 'auto 0' }}>
         <div style={{
-          width: '260px',
-          height: '260px',
-          borderRadius: 'var(--radius-xl)',
+          width: '210px',
+          height: '210px',
+          borderRadius: '24px',
           overflow: 'hidden',
-          boxShadow: 'var(--shadow-md)',
-          marginBottom: '24px',
-          border: '3px solid var(--powder-blue)',
+          boxShadow: '0 8px 24px rgba(65, 111, 152, 0.1)',
+          marginBottom: '20px',
+          border: '2.5px solid var(--powder-blue)',
+          background: '#FFF8F6',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '6px',
           position: 'relative'
         }}>
           <img 
             src={currentSlide.img} 
             alt={currentSlide.title}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
           />
         </div>
 

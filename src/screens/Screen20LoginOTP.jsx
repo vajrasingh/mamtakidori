@@ -220,28 +220,33 @@ export const Screen20LoginOTP = () => {
         border: '1.5px solid var(--powder-blue)',
         marginBottom: '20px'
       }}>
-        {/* Warm Maternal Illustration */}
+        {/* Warm Maternal Illustration (Uncropped) */}
         <div style={{
-          width: '90px',
-          height: '110px',
-          borderRadius: '20px',
+          width: '88px',
+          height: '88px',
+          borderRadius: '22px',
           overflow: 'hidden',
           margin: '0 auto 12px',
           boxShadow: '0 4px 14px rgba(65, 111, 152, 0.12)',
-          border: '2px solid white'
+          border: '2px solid white',
+          background: '#FFF6F4',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '4px'
         }}>
           <img 
             src="/assets/maternal_joy_hero.jpg" 
             alt="Maternal Joy" 
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+            style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
           />
         </div>
 
-        <h2 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--deep-navy)', margin: '0 0 4px' }}>
-          {step === 'phone' ? t.screen20.title : 'ओटीपी की पुष्टि करें'}
+        <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--deep-navy)', margin: '0 0 4px' }}>
+          {step === 'phone' ? (language === 'hi' ? 'फोन नंबर से लॉगिन' : 'Mobile Login') : (language === 'hi' ? 'ओटीपी कोड दर्ज करें' : 'Verify OTP')}
         </h2>
-        <p style={{ fontSize: '13px', color: 'var(--text-secondary)', margin: '0 0 12px' }}>
-          {step === 'phone' ? t.screen20.subtitle : `+91 ${phoneNumber} पर भेजा गया कोड दर्ज करें`}
+        <p style={{ fontSize: '13px', color: 'var(--text-secondary)', margin: '0 0 10px' }}>
+          {step === 'phone' ? (language === 'hi' ? '4 अंकों का सुरक्षित कोड भेजा जाएगा' : 'A 4-digit code will be sent') : `+91 ${phoneNumber}`}
         </p>
 
         {/* Listen Voice Instructions */}
