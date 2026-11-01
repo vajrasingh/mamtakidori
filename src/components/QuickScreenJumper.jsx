@@ -28,6 +28,7 @@ export const QuickScreenJumper = () => {
     { num: 18, titleHi: "स्क्रीन 18: आशा कार्यकर्ता मोड (ASHA Worker Mode)", titleEn: "Screen 18: ASHA Worker Mode" },
     { num: 19, titleHi: "स्क्रीन 19: सास-बहू घरेलू नुस्खा एआई सत्यापन (Family Remedy AI & ASHA)", titleEn: "Screen 19: Family Remedy AI & ASHA Verification Flow" },
     { num: 20, titleHi: "स्क्रीन 20: सरल ओटीपी लॉगिन (Simple Mobile OTP Login)", titleEn: "Screen 20: Simple Mobile OTP Login" },
+    { num: 21, titleHi: "स्क्रीन 21: माँ का प्रोफ़ाइल (Maternal Health Profile)", titleEn: "Screen 21: Maternal Health Profile" },
   ];
 
   return (

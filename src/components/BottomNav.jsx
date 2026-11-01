@@ -1,6 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { Home, CalendarCheck, FileText, Users } from 'lucide-react';
+import { Home, FileText, User, Users } from 'lucide-react';
 
 export const BottomNav = () => {
   const { currentScreen, navigateTo, t, role, language } = useApp();
@@ -11,8 +11,8 @@ export const BottomNav = () => {
   }
 
   const isHomeActive = currentScreen === 6;
-  const isCareActive = [8, 9, 15].includes(currentScreen);
-  const isRecordsActive = [17, 11].includes(currentScreen);
+  const isProfileActive = currentScreen === 21;
+  const isRecordsActive = [17, 9, 11].includes(currentScreen);
   const isSupportActive = [14, 16, 18].includes(currentScreen);
 
   return (
@@ -28,18 +28,18 @@ export const BottomNav = () => {
         <span>{t.nav.home}</span>
       </button>
 
-      {/* 2. My Care */}
+      {/* 2. Profile (in place of My Care) */}
       <button 
-        className={`nav-tab-item ${isCareActive ? 'is-active' : ''}`}
-        onClick={() => navigateTo(9)}
+        className={`nav-tab-item ${isProfileActive ? 'is-active' : ''}`}
+        onClick={() => navigateTo(21)}
       >
         <div className="nav-icon-container">
-          <CalendarCheck size={22} strokeWidth={isCareActive ? 2.5 : 2} />
+          <User size={22} strokeWidth={isProfileActive ? 2.5 : 2} />
         </div>
-        <span>{t.nav.myCare}</span>
+        <span>{language === 'en' ? 'Profile' : 'प्रोफ़ाइल'}</span>
       </button>
 
-      {/* 3. Health Record (in place of Mamta) */}
+      {/* 3. Health Record (Includes Merged My Care & ANC Checkups) */}
       <button 
         className={`nav-tab-item ${isRecordsActive ? 'is-active' : ''}`}
         onClick={() => navigateTo(17)}
