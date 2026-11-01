@@ -15,6 +15,7 @@ export const Screen01Splash = () => {
 
   // Tap anywhere to immediately proceed to Language Screen
   const handleScreenClick = () => {
+    speechService.unlockAudio();
     navigateTo(2);
   };
 

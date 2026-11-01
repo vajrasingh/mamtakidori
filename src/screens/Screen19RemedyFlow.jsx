@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 
 export const Screen19RemedyFlow = () => {
-  const { navigateTo, language } = useApp();
+  const { navigateTo, language, speakText, stopAudio, isSpeaking } = useApp();
 
   // Clean, minimal remedy dataset with short, punchy guidance
   const remedies = [
@@ -96,8 +96,16 @@ export const Screen19RemedyFlow = () => {
     };
   }, []);
 
+  // Sync speaking state
+  useEffect(() => {
+    if (!isSpeaking) {
+      setIsPlayingAudio(false);
+      setIsPlayingAsha(false);
+    }
+  }, [isSpeaking]);
+
   const handleSelectRemedy = (id) => {
-    speechService.stopSpeaking();
+    stopAudio();
     setIsPlayingAudio(false);
     setIsPlayingAsha(false);
     setIsAshaVerified(false);
@@ -106,8 +114,8 @@ export const Screen19RemedyFlow = () => {
 
   // Play minimal audio
   const handleListenTogether = () => {
-    if (isPlayingAudio) {
-      speechService.stopSpeaking();
+    if (isPlayingAudio || isSpeaking) {
+      stopAudio();
       setIsPlayingAudio(false);
       return;
     }
@@ -115,28 +123,20 @@ export const Screen19RemedyFlow = () => {
     setIsPlayingAudio(true);
 
     const text = language === 'en' ? currentRemedy.adviceEn : currentRemedy.adviceHi;
-    speechService.speak(text, language, {
-      onStart: () => setIsPlayingAudio(true),
-      onEnd: () => setIsPlayingAudio(false),
-      onError: () => setIsPlayingAudio(false)
-    });
+    speakText(text);
   };
 
   // ASHA Voice
   const handleListenAsha = () => {
-    if (isPlayingAsha) {
-      speechService.stopSpeaking();
+    if (isPlayingAsha || isSpeaking) {
+      stopAudio();
       setIsPlayingAsha(false);
       return;
     }
     setIsPlayingAudio(false);
     setIsPlayingAsha(true);
 
-    speechService.speak(currentRemedy.ashaNoteHi, language, {
-      onStart: () => setIsPlayingAsha(true),
-      onEnd: () => setIsPlayingAsha(false),
-      onError: () => setIsPlayingAsha(false)
-    });
+    speakText(currentRemedy.ashaNoteHi);
   };
 
   // Camera Viewfinder
@@ -175,10 +175,17 @@ export const Screen19RemedyFlow = () => {
       onResult: (transcript, isFinal) => {
         if (isFinal) {
           setIsListeningMic(false);
-          if (transcript.includes('पपीता')) handleSelectRemedy('papaya');
-          else if (transcript.includes('केसर')) handleSelectRemedy('kesar');
-          else if (transcript.includes('अरंडी') || transcript.includes('तेल')) handleSelectRemedy('castor');
-          else handleSelectRemedy('ajwain');
+          let targetId = 'ajwain';
+          if (transcript.includes('पपीता') || transcript.includes('papaya')) targetId = 'papaya';
+          else if (transcript.includes('केसर') || transcript.includes('दूध') || transcript.includes('milk')) targetId = 'kesar';
+          else if (transcript.includes('अरंडी') || transcript.includes('तेल') || transcript.includes('castor')) targetId = 'castor';
+          
+          handleSelectRemedy(targetId);
+          const chosen = remedies.find(r => r.id === targetId) || remedies[0];
+          const verdict = language === 'en' ? chosen.adviceEn : chosen.adviceHi;
+          setTimeout(() => {
+            speakText(verdict);
+          }, 400);
         }
       },
       onEnd: () => setIsListeningMic(false),
@@ -188,15 +195,12 @@ export const Screen19RemedyFlow = () => {
 
   // Ask ASHA
   const dispatchToAsha = () => {
-    speechService.stopSpeaking();
+    stopAudio();
     setIsDispatching(true);
     setTimeout(() => {
       setIsDispatching(false);
       setIsAshaVerified(true);
-      speechService.speak(currentRemedy.ashaNoteHi, language, {
-        onStart: () => setIsPlayingAsha(true),
-        onEnd: () => setIsPlayingAsha(false)
-      });
+      speakText(currentRemedy.ashaNoteHi);
     }, 900);
   };
 

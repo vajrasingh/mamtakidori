@@ -3,15 +3,17 @@ import { useApp } from '../context/AppContext';
 import { Volume2, Square, RotateCcw } from 'lucide-react';
 
 export const VoiceAudioBar = () => {
-  const { isSpeaking, currentSpokenText, stopAudio, replayAudio, t } = useApp();
+  const { isSpeaking, currentSpokenText, stopAudio, replayAudio, t, currentScreen } = useApp();
 
   if (!isSpeaking && !currentSpokenText) return null;
+
+  const hasBottomNav = ![1, 2, 3, 4, 5, 20].includes(currentScreen);
 
   return (
     <div 
       style={{
         position: 'absolute',
-        bottom: '90px',
+        bottom: hasBottomNav ? '85px' : '20px',
         left: '16px',
         right: '16px',
         background: 'linear-gradient(135deg, rgba(23, 54, 83, 0.96) 0%, rgba(65, 111, 152, 0.96) 100%)',
